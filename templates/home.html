@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Omar Wagih | Home</title>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static',    filename='css/HomepageStyle.css') }}">
+		<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+		<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	</head>
+	<body>
+		<header>
+			<div class="container">
+				<h1 class="title">Omar Wagih</h1>
+				<nav>
+					<ul>
+						<li><a class="active" href="{{ url_for('home') }}">Home</a></li>
+						<li><a href="{{ url_for('project') }}">Project</a></li>
+						<li><a href="{{ url_for('contact') }}">Contact</a></li>
+					</ul>
+				</nav>
+			</div>
+		</header>
+			<div class="w3-col w3-light-grey w3-display-bottommiddle w3-container" style="height:539px; width:80%">
+				<div class="w3-center">
+					<div class="w3-row">
+						<div class="w3-third w3-display-left w3-container">
+							<img src="/static/css/OmarPic.jpg" height="450.4" width="299.7">
+						</div>
+						<div class="w3-twothird w3-display-right w3-container">
+							<h4>Hi! My name is Omar Wagih and I am currently a third-year student at McGill University.</h4> 
+							<p>I am pursuing a Bachelor of Arts degree with the following concentrations:<br>Honors in Economics, Honors in Finance, and a Major in Computer Science.</p>
+							<p><i>Please enjoy my website!</i></p>
+						</div>
+					</div>
+				</div>
+			</div>
+	</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<style>
+		.email {
+			padding: 0px;
+			padding-top: 14.9%;
+			padding-bottom: 14.9%;
+			text-align: center;
+			width: 100%;
+			margin: 0 auto;
+			vertical-align: middle;
+		}
+	</style>
+	
+	<head>
+		<title>Omar Wagih | Contact</title>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static',    filename='css/ContactStyle.css') }}">
+		<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+		<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	</head>
+	<body>
+
+		<header>
+			<div class="container">
+				<h1 class="title">Omar Wagih</h1>
+				<nav>
+					<ul>
+						<li><a href="{{ url_for('home') }}">Home</a></li>
+						<li><a href="{{ url_for('project') }}">Project</a></li>
+						<li><a class="active" href="{{ url_for('contact') }}">Contact</a></li>
+					</ul>
+				</nav>
+			</div>
+		</header>
+
+		<div class="email">
+			<p>Click <a href="mailto:omar.wagih@mail.mcgill.ca?Subject=Hello!" target="_top">here</a> to send me an email.</p>
+		</div>
+
+		<footer class="w3-container w3-teal w3-center w3-margin-top">
+			<p>Find me on social media.</p>
+			<a href="https://www.facebook.com/omarw99" target="_blank"><i class="fa fa-facebook-official w3-hover-opacity"></i></a>
+			<a href="https://www.instagram.com/omarwagih99/" target="_blank"><i class="fa fa-instagram w3-hover-opacity"></i></a>
+			<a href="https://www.linkedin.com/in/omar-wagih/" target="_blank"><i class="fa fa-linkedin w3-hover-opacity"></i></a>
+			<p></p>
+		</footer>
+
+	</body>
+</html>

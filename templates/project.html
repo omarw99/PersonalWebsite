@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Omar Wagih | Projects</title>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static',    filename='css/ProjectStyle.css') }}">
+		<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+		<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+		<style>
+			body {font-family: Arial, Helvetica, sans-serif;}
+			* {box-sizing: border-box;}
+			
+			input[type=number], select, numberarea {
+			  width: 100%;
+			  padding: 12px;
+			  border: 1px solid #ccc;
+			  border-radius: 4px;
+			  box-sizing: border-box;
+			  margin-top: 6px;
+			  margin-bottom: 16px;
+			  resize: vertical;
+			}
+
+			.disclaimer {
+				color: black;
+			}
+
+			input[type=text], select, numberarea {
+			  width: 100%;
+			  padding: 12px;
+			  border: 1px solid #ccc;
+			  border-radius: 4px;
+			  box-sizing: border-box;
+			  margin-top: 6px;
+			  margin-bottom: 16px;
+			  resize: vertical;
+			}
+			
+			input[type=submit] {
+			  background-color: rgb(129, 129, 129);
+			  color: white;
+			  padding: 12px 20px;
+			  border: none;
+			  border-radius: 4px;
+			  cursor: pointer;
+			}
+			
+			input[type=submit]:hover {
+			  background-color: rgb(95, 95, 95);
+			}
+
+			input[type=reset] {
+			  background-color: rgb(129, 129, 129);
+			  color: white;
+			  padding: 12px 20px;
+			  border: none;
+			  border-radius: 4px;
+			  cursor: pointer;
+			}
+			
+			input[type=reset]:hover {
+			  background-color: rgb(95, 95, 95);
+			}
+			
+			.container1 {
+			  border-radius: 5px;
+			  background-color: #f2f2f2;
+			  padding: 10px;
+			}
+
+			#sector{
+ 				height: 35px;   
+			}
+		</style>
+
+	</head>
+	<body>
+
+		<header>
+			<div class="container">
+				<h1 class="title">Omar Wagih</h1>
+				<nav>
+					<ul>
+						<li><a href="{{ url_for('home') }}">Home</a></li>
+						<li><a class="active" href="{{ url_for('project') }}">Project</a></li>
+						<li><a href="{{ url_for('contact') }}">Contact</a></li>
+					</ul>
+				</nav>
+			</div>
+		</header>
+
+		<div class="algorithm">
+			<h1 class="projectTitle">Stock Return Predictor</h1>
+			<h4 class="projectTitle">--A Supervised Regression Machine Learning Project--</h4>
+			<h5 class="projectTitle">Please fill in the fields below using a company of your choice's latest financial statements</h5>
+			<p class="text">The Machine Learning algorithm will predict that stock's price percentage change in the upcoming year!
+				<br>Please note that if any of these fields are missing or incorrectly filled, the algorithm loses a great amount of accuracy.
+				<br>Preferably use audited annual financial statements, rather than quarterly.
+			</p>
+
+			<div class="container1">
+				<form action="{{ url_for('project_result') }}" method="GET">
+					<h4>Basic Information:</h4>
+					<label for="stockName">Company Name</label>
+						<input type="text" id="stockName" name="stockName" placeholder="Tesla.." required minlength="2" maxlength="30">
+
+					<label for="ticker">Stock Ticker</label>
+						<input type="text" id="ticker" name="ticker" placeholder="TSLA.." required minlength="1" maxlength="8">
+
+					<h4>Income Statement Accounts:</h4>
+    				<label for="prevRevenue">Last Year's Revenue/Sales</label>
+						<input type="number" id="prevRevenue" name="prevRevenue" placeholder="$2,000,000.." required>
+						
+    				<label for="currRevenue">Current Revenue/Sales</label>
+						<input type="number" id="currRevenue" name="currRevenue" placeholder="$3,000,000.." required>
+						
+					<label for="cogs">Cost of Goods Sold</label>
+						<input type="number" id="cogs" name="cogs" placeholder="$1,800,000.." required>
+						
+					<label for="ebitda">EBITDA</label>
+						<input type="number" id="ebitda" name="ebitda" placeholder="$1,200,000.." required>
+
+					<label for="ebit">EBIT</label>
+						<input type="number" id="ebit" name="ebit" placeholder="$1,000,000.." required>
+
+					<label for="interestExpense">Interest Expense</label>
+						<input type="number" id="interestExpense" name="interestExpense" placeholder="$200,000.." required>
+
+					<label for="netIncome">Net Income</label>
+						<input type="number" id="netIncome" name="netIncome" placeholder="$800,000.." required>
+
+
+					<h4>Balance Sheet Accounts:</h4>
+					<h5>Assets</h5>
+					<label for="cash">Cash & Cash Equivalents</label>
+						<input type="number" id="cash" name="cash" placeholder="$500,000.." required>
+							
+					<label for="accountsReceivable">Accounts Receivable</label>
+						<input type="number" id="accountsReceivable" name="accountsReceivable" placeholder="$300,000.." required>
+							
+					<label for="inventory">Inventory</label>
+						<input type="number" id="inventory" name="inventory" placeholder="$250,000.." required>
+
+					<label for="currAssets">Current Assets</label>
+						<input type="number" id="currAssets" name="currAssets" placeholder="$1,600,000.." required>
+	
+					<label for="totalAssets">Total Assets</label>
+						<input type="number" id="totalAssets" name="totalAssets" placeholder="$4,000,000.." required>
+					
+					<h5>Liabilities</h5>
+					<label for="accountsPayable">Accounts Payable</label>
+						<input type="number" id="accountsPayable" name="accountsPayable" placeholder="$450,000.." required>
+	
+					<label for="currLiabilities">Current Liabilities</label>
+						<input type="number" id="currLiabilities" name="currLiabilities" placeholder="$900,000.." required>
+					
+					<label for="totalLiabilities">Total Liabilities</label>
+						<input type="number" id="totalLiabilities" name="totalLiabilities" placeholder="$1,900,000.." required>
+
+					<h5>Shareholders' Equity</h5>
+					<label for="preferredDividends">Preferred Dividends</label>
+						<input type="number" id="preferredDividends" name="preferredDividends" placeholder="$600,000.." required>
+		
+					<label for="totalEquity">Total Shareholders' Equity</label>
+						<input type="number" id="totalEquity" name="totalEquity" placeholder="$2,100,000.." required>
+					<p>*Please make sure that Total Assets = Total Liabilities + Total Shareholders' Equity at this point*</p>
+					<br>
+
+					<h4>Statement of Cash Flows Accounts:</h4>
+					<label for="capex">Capital Expenditures</label>
+						<input type="number" id="capex" name="capex" placeholder="$850,000.." required>
+					
+					
+					<h4>Other Market Information:</h4>
+					<label for="outstandingShares">Total Number of Outstanding Shares</label>
+						<input type="number" id="outstandingShares" name="outstandingShares" placeholder="2,000,000.." required>
+	
+					<label for="dividendPerShare">Dividend per Share</label>
+						<input type="number" id="dividendPerShare" name="dividendPerShare" placeholder="$1.." required>
+					
+					<label for="currPrice">Current Market Price of One Share</label>
+						<input type="number" id="currPrice" name="currPrice" placeholder="$25.." required>
+					
+					<label for="sector">Sector</label>
+    					<select id="sector" name="sector" required>
+							<option value="chooseSector">Select a Sector..</option>
+      						<option value="basicMaterials">Basic Materials</option>
+      						<option value="communicationServices">Communication Services</option>
+							<option value="consumerCyclical">Consumer Cyclical</option>
+							<option value="consumerDefensive">Consumer Defensive</option>
+							<option value="energy">Energy</option>
+							<option value="financialServices">Financial Services</option>
+							<option value="healthcare">Healthcare</option>
+							<option value="industrials">Industrials</option>
+							<option value="realEstate">Real Estate</option>
+							<option value="technology">Technology</option>
+							<option value="utilities">Utilities</option>
+						</select>
+					<input type="submit" value="Submit">
+					<input type="reset" value="Reset">
+  				</form>
+			</div>
+
+			<footer class="w3-container w3-teal w3-center w3-margin-top">
+				<h4 class="disclaimer"><strong>Disclaimer:</strong></h4>
+				<p>This tool is <strong><u>NOT</u></strong> 100% accurate.
+				<br>No algorithm can predict stock performance with absolutely no error.
+				<br>Nevertheless, if you choose to use this tool for trading purposes, please do so at your own discretion.</p>
+			</footer>
+		</div>
+		
+	</body>
+</html>
