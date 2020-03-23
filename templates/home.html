@@ -3,7 +3,7 @@
 	<head>
 		<title>Omar Wagih | Home</title>
 		<meta charset="UTF-8">
-		<link rel="stylesheet" type="text/css" href="{{ url_for('static',    filename='css/HomepageStyle.css') }}">
+		<link rel="stylesheet" type="text/css" href="css/ContactStyle.css">
 		<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 		<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -11,33 +11,309 @@
 		<link rel="icon" type="image/png" sizes="32x32" href="static/favicon/favicon-32x32.png">
 		<link rel="icon" type="image/png" sizes="16x16" href="static/favicon/favicon-16x16.png">
 		<link rel="manifest" href="static/favicon/site.webmanifest">
+
+		<link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
 	</head>
+
+	<style>
+		.montserrat {
+			font-family: 'Montserrat', sans-serif;
+		}
+
+		.body {
+    		display:table;
+			width:100%;
+		}
+
+		header {
+			display:table-row;
+		}
+
+		header + section {
+    		height:100%;  
+		}
+	</style>
+
 	<body>
-		<header>
-			<div class="container">
-				<h1 class="title">Omar Wagih</h1>
-				<nav>
-					<ul>
-						<li><a class="active" href="{{ url_for('home') }}">Home</a></li>
-						<li><a href="{{ url_for('project') }}">Project</a></li>
-						<li><a href="{{ url_for('contact') }}">Contact</a></li>
-					</ul>
-				</nav>
-			</div>
-		</header>
-			<div class="w3-col w3-light-grey w3-display-bottommiddle w3-container" style="height:539px; width:80%">
-				<div class="w3-center">
-					<div class="w3-row">
-						<div class="w3-third w3-display-left w3-container">
-							<img src="/static/css/OmarPic.jpg" height="450.4" width="299.7">
+		<section class=body>
+			<header>
+				<div class="w3-cell-row w3-padding-small w3-dark-grey w3-display-top w3-margin-bottom">
+					<div class="w3-container w3-cell" style="color: rgb(0, 223, 200);">
+						<h1 class="w3-montserrat"><strong>Omar Wagih</strong></h1>
+					</div>
+					<div class="w3-container w3-cell w3-cell-middle">
+						<a href="{{ url_for('contact') }}" class="w3-bar-item w3-right w3-button w3-hide-small w3-mobile" style="font-family: 'Montserrat', sans-serif;">Contact</a>
+						<div class="w3-dropdown-hover w3-bar-item w3-right w3-hide-small w3-mobile">
+							<button class="w3-button">
+								<a style="font-family: 'Montserrat', sans-serif;">Projects</a>
+								<i class="arrow down" style="border: solid white; border-width: 0 1px 1px 0; display: inline-block; padding: 2px; transform: rotate(45deg); -webkit-transform: rotate(45deg);"></i>
+							</button>
+							<div class="w3-dropdown-content w3-bar-block w3-card-4">
+								<a href="{{ url_for('stockPredictor') }}" class="w3-bar-item w3-button style="font-family: 'Montserrat', sans-serif;"">Stock Predictor</a>
+							</div>
 						</div>
-						<div class="w3-twothird w3-display-right w3-container">
-							<h4>Hi! My name is Omar Wagih and I am currently a third-year student at McGill University.</h4> 
-							<p>I am pursuing a Bachelor of Arts degree with the following concentrations:<br>Honors in Economics, Honors in Finance, and a Major in Computer Science.</p>
-							<p><i>Please enjoy my website!</i></p>
+						<a href="{{ url_for('home') }}" class="w3-bar-item w3-right w3-button w3-hide-small w3-mobile w3-hover-dark-grey w3-hover-text-aqua w3-text-aqua" style="font-family: 'Montserrat', sans-serif;">Home</a>
+						<a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium" onclick="myFunction2()">&#9776;</a>
+					</div>
+				</div>
+				<div id="demo" class="w3-bar-block w3-hide w3-hide-large w3-hide-medium">
+					<a href="{{ url_for('home') }}" class="w3-bar-item w3-button">Home</a>
+					<button onclick="myFunction1('Demo1')" class="w3-bar-item w3-button">Projects</button>
+						<div id="Demo1" class="w3-container w3-hide">
+							<a href="{{ url_for('stockPredictor') }}" class="w3-bar-item w3-button">Stock Predictor</a>
+						</div>
+					<a href="{{ url_for('contact') }}" class="w3-bar-item w3-button">Contact</a>
+				</div>
+			</header>
+			
+			<script>
+				function myFunction1(id) {
+					var x = document.getElementById(id);
+					if (x.className.indexOf("w3-show") == -1) {
+						x.className += " w3-show";
+					} else { 
+						x.className = x.className.replace(" w3-show", "");
+					}
+				}
+
+				function myFunction2() {
+					var x = document.getElementById("demo");
+					if (x.className.indexOf("w3-show") == -1) {
+						x.className += " w3-show";
+					} else { 
+						x.className = x.className.replace(" w3-show", "");
+					}
+				}
+			</script>	
+
+			<span>
+				<div class="w3-container w3-cell-row w3-section w3-card-4 w3-light-grey" style="margin: auto; width:95%; padding: 1em 0px;">
+					<div class="w3-display-container w3-cell">
+						<div class="w3-center w3-padding">
+							<img src="static/images/OmarPicCasual.jpg" height="470.95" width="407.3">
+						</div>
+					</div>
+					<div class="w3-display-container w3-cell">
+						<div class="w3-center w3-padding-small" style="top: 50%; -ms-transform: translateY(-50%); transform: translateY(-50%);">
+							<br>
+							<h4>Hi! My name is Omar Wagih and I am a third-year student at McGill University.</h4>
+							<br>
+							<h6>I am pursuing a Bachelor of Arts degree with the following concentrations:<br>Honors in Economics, Honors in Finance, and a Major in Computer Science.</h6>
+							<br>
+							<p>I am currently seeking internship opportunities as a<br>Software Developer and/or Project Manager.</p>
 						</div>
 					</div>
 				</div>
+			</span>
+		</section>
+
+		<!-- START OF CV -->
+		<div class="w3-padding-small w3-panel w3-center w3-dark-grey">
+			<h3 class="w3-montserrat">Resume</h3>
+		</div> 
+		<!-- Page Container -->
+		<div class="w3-content w3-margin-top" style="max-width:1400px;">
+			<!-- The Grid -->
+			<div class="w3-row-padding">
+				<!-- Left Column -->
+				<div class="w3-third">
+					<div class="w3-white w3-text-grey w3-card-4">
+						<div class="w3-display-container">
+							<img src="static/images/OmarPicFormal.jpg" style="width:100%" alt="Avatar">
+						</div>
+						<div class="w3-container">
+							<p><i class="fa fa-briefcase fa-fw w3-margin-right w3-large w3-text-teal"></i>Undergraduate Student</p>
+							<p><i class="fa fa-home fa-fw w3-margin-right w3-large w3-text-teal"></i>Montréal, Canada</p>
+							<p><i class="fa fa-envelope fa-fw w3-margin-right w3-large w3-text-teal"></i>omar.wagih@mail.mcgill.ca</p>
+							<p><i class="fa fa-phone fa-fw w3-margin-right w3-large w3-text-teal"></i>+1 (514) 992-0811</p>
+							<i class="fa fa-github fa-fw w3-margin-right w3-large w3-text-teal"></i><a href="https://github.com/omarw99" target="_blank">github.com/omarw99</a>
+							<hr>
+
+							<p class="w3-large"><b><i class="fa fa-asterisk fa-fw w3-margin-right w3-text-teal"></i>Technical Skills</b></p>
+							<h6><strong>Tools</strong></h6>
+							<p style="padding-bottom: 1em;">Eclipse, MS Visual Studio, Github</p>
+							
+							<h6><strong>Languages</strong></h6>
+							<p style="padding-bottom: 1em;">Java, Python, C, Bash Scripting, HTML, CSS, JavaScript, MIPS Assembly</p>
+
+							<h6><strong>Machine Learning Technologies</strong></h6>
+							<p style="padding-bottom: 1em;">Data Preprocessing, Ordinary Least Squares, Natural Language Processing, Computer Vision, Principal Component Analysis, Gradient Descent, Convolutional Neural Networks, Scikit-learn, NLTK, Keras, Tensorflow</p>
+
+							<h6><strong>Cloud-Based Technologies</strong></h6>
+							<p style="padding-bottom: 1em;">Firebase, Heroku</p>
+
+
+							<p class="w3-large"><b><i class="fa fa-asterisk fa-fw w3-margin-right w3-text-teal"></i>Soft Skills</b></p>
+							<p>Organization</p>
+							<p>Leadership</p>
+							<p>Communication</p>
+							<p>Teamwork</p>
+							<p>Problem Solving</p>
+							<p style="padding-bottom: 1em;">Perseverance</p>
+							
+
+							<p class="w3-large w3-text-theme"><b><i class="fa fa-globe fa-fw w3-margin-right w3-text-teal"></i>Languages</b></p>
+							<p>English</p>
+							<div class="w3-light-grey w3-round-xlarge">
+								<div class="w3-round-xlarge w3-teal" style="height:24px;width:100%"></div>
+							</div>
+
+							<p>Arabic</p>
+							<div class="w3-light-grey w3-round-xlarge">
+								<div class="w3-round-xlarge w3-teal" style="height:24px;width:100%"></div>
+							</div>
+
+							<p>Spanish</p>
+							<div class="w3-light-grey w3-round-xlarge">
+								<div class="w3-round-xlarge w3-teal" style="height:24px;width:50%"></div>
+							</div>
+
+							<p>French</p>
+							<div class="w3-light-grey w3-round-xlarge">
+								<div class="w3-round-xlarge w3-teal" style="height:24px;width:25%"></div>
+							</div>
+							<br>
+
+							<p class="w3-large w3-text-theme"><b><i class="fa fa-file fa-fw w3-margin-right w3-text-teal"></i>Certifications</b></p>
+							<p style="padding-bottom: 1em;">Unlocking Investment and Finance in Emerging Markets and Developing Economies</p>
+							
+
+							<p class="w3-large w3-text-theme"><b><i class="fa fa-futbol-o fa-fw w3-margin-right w3-text-teal"></i>Interests</b></p>
+							<p>Football (Soccer)</p>
+							<p>Basketball</p>
+							<p>Travelling</p>
+							<p>The Stock Market & Trading</p>
+							<p>Machine Learning</p>
+							<p style="padding-bottom: 1em;">Design</p>
+						</div>
+					</div><br>
+				<!-- End Left Column -->
+				</div>
+
+				<!-- Right Column -->
+				<!-- <span class="w3-tag w3-teal w3-round">Current</span> -->
+				<div class="w3-twothird">
+					<div class="w3-container w3-card w3-white w3-margin-bottom">
+						<h2 class="w3-text-grey w3-padding-16"><i class="fa fa-suitcase fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Work Experience</h2>
+						<div class="w3-container">
+							<h5 class="w3-opacity"><b>Incoming Sales Summer Intern</b></h5>
+							<span class="w3-right w3-opacity">Toronto, Canada</span>
+							<h6 class="w3-opacity">Procter & Gamble (P&G)</h6>
+							<h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>May 2020E - August 2020E</h6>
+							<hr>
+						</div>
+
+						<div class="w3-container">
+							<h5 class="w3-opacity"><b>Rotational Summer Intern</b></h5>
+							<span class="w3-right w3-opacity">Cairo, Egypt</span>
+							<h6 class="w3-opacity">African Export-Import Bank (Afreximbank)</h6>
+							<h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>June 2019 - August 2019</h6>
+							<ul>
+								<li>Rotated around the following departments: Credit Assessment, Project Finance and Export Development, Trade Finance, Treasury, Syndications and Agency, Strategy and Innovation, Research and International Cooperation, Client Relations, and Guarantees and Specialized Finance</li>
+								<li>Drafted a Credit Application Memorandum for a $100 million-dollar facility using financial spreading software, financial analysis, and generated pro forma financial statements that was presented to and approved by the Credit Committee</li>
+								<li>Wrote and edited Pre-Assessment Memorandums for two different potential clients with facilities worth a combined €40.5 million euros which included term sheets, detailed financial analysis, and risk mitigation strategies</li>
+								<li>Produced a high-quality three-year strategy plan for the International Cooperation Unit including a revamped business plan and additional KPIs to measure the Unit's success, that was approved at the following Board of Directors’ meeting</li>
+								<li>Conducted value chain analysis on different creative economy industries in Africa to determine the Bank's best course of action through capacity building, and assisted in putting together a presentation of the findings for the President's review</li>
+								<li>Worked closely with the Strategy and Innovation Senior Specialist to provide the President with reports on infrastructure in Africa, Chinese market influence, and the African Continental Free Trade Agreement (AfCFTA)</li>
+								<li>Optimized existing Excel spreadsheets used by the Treasury department to evaluate and present the Bank's risk exposure to the Asset-Liability Committee (ALCO) on a weekly basis</li>
+								<li>Monitored the pricing and marketing of the Bank's specialized products such as letters of credit, forfaiting, factoring, and guarantees</li>
+							</ul>
+							<hr>
+						</div>
+						
+						<div class="w3-container">
+							<h5 class="w3-opacity"><b>Digital Transformation Summer Intern</b></h5>
+							<span class="w3-right w3-opacity">Cairo, Egypt</span>
+							<h6 class="w3-opacity">The First MicroFinance Foundation</h6>
+							<h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>August 2018</h6>
+							<ul>
+								<li>Oversaw the implementation of a new core banking system/software</li>
+								<li>Assisted in the creation of automated digital financial services to be offered to future clients</li>
+								<li>Prepared multiple client acquisition/potential partner presentations for negotiations with local NGOs</li>
+								<li>Arranged a detailed financial research report on parent organization for upper management to refer to during quarterly board meeting</li>
+								<li>Helped in the transitioning from NGO to company by reviewing and translating company bylaws from Arabic to English</li>
+							</ul>
+							<hr>
+						</div>
+					</div>
+			
+					<div class="w3-container w3-card w3-white w3-margin-bottom">
+						<h2 class="w3-text-grey w3-padding-16"><i class="fa fa-university fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Education</h2>
+						<div class="w3-container">
+							<h5 class="w3-opacity"><b>McGill University</b></h5>
+							<span class="w3-right w3-opacity">Montréal, Canada</span>
+							<h6 class="w3-opacity">Bachelor of Arts</h6>
+							<h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>2017 - 2021E</h6>
+							<ul>
+								<li>Joint Honours in Economics & Finance, Major in Computer Science</li>
+								<li>CGPA: 3.43/4.00</li>
+							</ul>
+							<hr>
+						</div>
+
+						<div class="w3-container">
+							<h5 class="w3-opacity"><b>Cairo American College (CAC)</b></h5>
+							<span class="w3-right w3-opacity">Cairo, Egypt</span>
+							<h6 class="w3-opacity">International Baccalaureate Diploma</h6>
+							<h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>2008 - 2017</h6>
+							<ul>
+								<li>International Baccalaureate Points: 38/45</li>
+								<li>CGPA: 3.84/4.30</li>
+							</ul>
+							<hr>
+						</div>
+					</div>
+
+					<div class="w3-container w3-card w3-white w3-margin-bottom">
+						<h2 class="w3-text-grey w3-padding-16"><i class="fa fa-certificate fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Extra Curriculars</h2>
+						<div class="w3-container">
+							<h5 class="w3-opacity"><b>McGill Launch Pad</b></h5>
+							<span class="w3-right w3-opacity">Montréal, Canada</span>
+							<h6 class="w3-opacity">Co-Founder and Vice President Finance</h6>
+							<h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>September 2019 - <span class="w3-tag w3-teal w3-round">Current</span></h6>
+							<ul>
+								<li>Co-founder of the first student-run software engineering team devoted to building software projects in a collaborative and professional environment at McGill University</li>
+							</ul>
+							<hr>
+						</div>
+
+						<div class="w3-container">
+							<h5 class="w3-opacity"><b>McGill Students Trading Society</b></h5>
+							<span class="w3-right w3-opacity">Montréal, Canada</span>
+							<h6 class="w3-opacity">Vice President Academic</h6>
+							<h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>January 2019 - <span class="w3-tag w3-teal w3-round">Current</span></h6>
+							<ul>
+								<li>Assists in organizing lectures and delivering presentations designed to educate student investors about securities trading and the stock market</li>
+								<li>Leads teams of students through the process of security valuation, risk analysis, and portfolio construction to promote financial literacy amongst students</li>
+								<li>Contributed to writing and editing an investing guide to educate club members on basic investment strategies and risk management</li>
+							</ul>
+							<hr>
+						</div>
+					</div>
+
+					<div class="w3-container w3-card w3-white w3-margin-bottom">
+						<h2 class="w3-text-grey w3-padding-16"><i class="fa fa-users fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Volunteer Experience</h2>
+						<div class="w3-container">
+							<h5 class="w3-opacity"><b>The C.O.D.E Initiative</b></h5>
+							<span class="w3-right w3-opacity">Vancouver, Canada</span>
+							<h6 class="w3-opacity">Teacher Volunteer</h6>
+							<h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>May 2019 - June 2019</h6>
+							<hr>
+						</div>
+
+						<div class="w3-container">
+							<h5 class="w3-opacity"><b>Youth Soccer League</b></h5>
+							<span class="w3-right w3-opacity">Cairo, Egypt</span>
+							<h6 class="w3-opacity">Soccer Coach</h6>
+							<h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>August 2015 - December 2015</h6>
+							<hr>
+						</div>
+					</div>
+				<!-- End Right Column -->
+				</div>
+			<!-- End Grid -->
 			</div>
+		<!-- End Page Container -->
+		</div>
 	</body>
 </html>
