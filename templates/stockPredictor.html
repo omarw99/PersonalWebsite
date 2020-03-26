@@ -3,7 +3,6 @@
 	<head>
 		<title>Omar Wagih | Contact</title>
 		<meta charset="UTF-8">
-		<link rel="stylesheet" type="text/css" href="css/ContactStyle.css">
 		<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 		<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -132,6 +131,62 @@
 		  			x.className = x.className.replace(" w3-show", "");
 				}
 		  	}
+
+			function validateForm() {
+  				var currRevenue = parseFloat(document.forms["submitFinancials"]["currRevenue"].value);
+				var totalAssets = parseFloat(document.forms["submitFinancials"]["totalAssets"].value);
+				var outstandingShares = parseFloat(document.forms["submitFinancials"]["outstandingShares"].value);
+				var currPrice = parseFloat(document.forms["submitFinancials"]["currPrice"].value);
+  				if (currRevenue == 0) {
+    				alert("Current Revenue/Sales cannot be 0");
+					document.getElementById("currRevenue").focus();
+    				return false;
+  				}
+				if (totalAssets == 0) {
+					alert("Total Assets cannot be 0");
+					document.getElementById("totalAssets").focus();
+					return false;
+				}
+				if (outstandingShares == 0) {
+					alert("Total Number of Outstanding Shares cannot be 0");
+					document.getElementById("outstandingShares").focus();
+					return false;
+				}
+				if (currPrice == 0) {
+					alert("Current Market Price of One Share cannot be 0");
+					document.getElementById("currPrice").focus();
+					return false;
+				}
+
+				var totalLiabilities = parseFloat(document.forms["submitFinancials"]["totalLiabilities"].value);
+				var totalEquity = parseFloat(document.forms["submitFinancials"]["totalEquity"].value);
+				if (totalAssets != totalEquity + totalLiabilities) {
+					alert("Total Assets do not equal Total Equity + Total Liabilities. Please make sure this condition is met.");
+					document.getElementById("totalAssets").focus();
+					return false;
+				}
+
+				var prevRevenue = parseFloat(document.forms["submitFinancials"]["prevRevenue"].value);
+				var interestExpense = parseFloat(document.forms["submitFinancials"]["interestExpense"].value);
+				var accountsReceivable = parseFloat(document.forms["submitFinancials"]["accountsReceivable"].value);
+				var inventory = parseFloat(document.forms["submitFinancials"]["inventory"].value);
+				var accountsPayable = parseFloat(document.forms["submitFinancials"]["accountsPayable"].value);
+				var currLiabilities = parseFloat(document.forms["submitFinancials"]["currLiabilities"].value);
+				var netIncome = parseFloat(document.forms["submitFinancials"]["netIncome"].value);
+				var capex = parseFloat(document.forms["submitFinancials"]["capex"].value);
+				var preferredDividends = parseFloat(document.forms["submitFinancials"]["preferredDividends"].value);
+				if (prevRevenue == 0 || interestExpense == 0 || accountsReceivable == 0 || inventory == 0 || accountsPayable == 0 || currLiabilities == 0 || totalEquity == 0) {
+					if (netIncome == capex && netIncome == preferredDividends) {
+						return confirm("You are attempting to submit the form with one or more important fields having a value of 0. These specific fields happen to be in the denominator of the financial ratios that get computed and analyzed. To avoid crashing due to division by 0, the algorithm will automatically set those affected ratios to 0. Also, Net Income is equal to Capital Expenditures and Preferred Dividends. It is highly likely that this is a typo. You can submit the form either way, but doing so will greatly affect the accuracy of the algorithm. Do you want to submit anyways?");
+					} else if (netIncome == capex) {
+						return confirm("You are attempting to submit the form with one or more important fields having a value of 0. These specific fields happen to be in the denominator of the financial ratios that get computed and analyzed. To avoid crashing due to division by 0, the algorithm will automatically set those affected ratios to 0. Also, Net Income is equal to Capital Expenditures. It is highly likely that this is a typo. You can submit the form either way, but doing so will greatly affect the accuracy of the algorithm. Do you want to submit anyways?");
+					} else if (netIncome == preferredDividends) {
+						return confirm("You are attempting to submit the form with one or more important fields having a value of 0. These specific fields happen to be in the denominator of the financial ratios that get computed and analyzed. To avoid crashing due to division by 0, the algorithm will automatically set those affected ratios to 0. Also, Net Income is equal to Preferred Dividends. It is highly likely that this is a typo. You can submit the form either way, but doing so will greatly affect the accuracy of the algorithm. Do you want to submit anyways?");
+					} else {
+						return confirm("You are attempting to submit the form with one or more important fields having a value of 0. These specific fields happen to be in the denominator of the financial ratios that get computed and analyzed. To avoid crashing due to division by 0, the algorithm will automatically set those affected ratios to 0. You can submit the form either way, but doing so will greatly affect the accuracy of the algorithm. Do you want to submit anyways?");
+					}
+				}
+			}
 		</script>
 
 	<div class="w3-container w3-center">
@@ -146,10 +201,10 @@
 
 			<div class="w3-container w3-center w3-margin">
 				<div class="container1">
-					<form action="{{ url_for('stockPredictorResult') }}" method="GET">
+					<form name="submitFinancials" action="{{ url_for('stockPredictorResult') }}" onsubmit="return validateForm()" method="GET">
 						<h4>Basic Information:</h4>
 						<label for="stockName">Company Name</label>
-							<input type="text" id="stockName" name="stockName" placeholder="Tesla.." required minlength="2" maxlength="30">
+							<input type="text" id="stockName" name="stockName" placeholder="Tesla.." required minlength="2" maxlength="30" autofocus>
 
 						<label for="ticker">Stock Ticker</label>
 							<input type="text" id="ticker" name="ticker" placeholder="TSLA.." required minlength="1" maxlength="8">
@@ -230,7 +285,7 @@
 						
 						<label for="sector">Sector</label>
 							<select id="sector" name="sector" required>
-								<option value="chooseSector">Select a Sector..</option>
+								<option hidden="" value="chooseSector">Select a Sector..</option>
 								<option value="basicMaterials">Basic Materials</option>
 								<option value="communicationServices">Communication Services</option>
 								<option value="consumerCyclical">Consumer Cyclical</option>
