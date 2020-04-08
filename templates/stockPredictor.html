@@ -278,18 +278,18 @@
 							<input type="number" id="outstandingShares" name="outstandingShares" placeholder="2,000,000.." required>
 
 						<label for="dividendPerShare">Dividend per Share</label>
-							<input type="number" id="dividendPerShare" name="dividendPerShare" placeholder="$1.." required>
+							<input type="number" id="dividendPerShare" name="dividendPerShare" placeholder="$1.." step="0.01" required>
 						
 						<label for="currPrice">Current Market Price of One Share</label>
-							<input type="number" id="currPrice" name="currPrice" placeholder="$25.." required>
+							<input type="number" id="currPrice" name="currPrice" placeholder="$25.." step="0.01" required>
 						
 						<label for="sector">Sector</label>
 							<select id="sector" name="sector" required>
 								<option hidden="" value="chooseSector">Select a Sector..</option>
 								<option value="basicMaterials">Basic Materials</option>
 								<option value="communicationServices">Communication Services</option>
-								<option value="consumerCyclical">Consumer Cyclical</option>
-								<option value="consumerDefensive">Consumer Defensive</option>
+								<option value="consumerCyclical">Consumer Cyclical/Consumer Durables</option>
+								<option value="consumerDefensive">Consumer Defensive/Consumer Non-Durables</option>
 								<option value="energy">Energy</option>
 								<option value="financialServices">Financial Services</option>
 								<option value="healthcare">Healthcare</option>
