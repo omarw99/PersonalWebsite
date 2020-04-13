@@ -9,7 +9,7 @@ app.secret_key = 'super secret key'
 def home():
     return render_template("home.html")
 
-@app.route("/stockPredictor")
+@app.route("/projects/stockPredictor")
 def stockPredictor():
 	return render_template("stockPredictor.html")
 
@@ -17,7 +17,7 @@ def stockPredictor():
 def contact():
 	return render_template("contact.html")
 
-@app.route('/stockPredictorResult', methods=["GET"])
+@app.route('/projects/stockPredictorResult', methods=["GET"])
 def stockPredictorResult():
     name = request.args.get("stockName")
     ticker = request.args.get("ticker")
@@ -55,6 +55,14 @@ def stockPredictorResult():
     result = run_model(listOfVars)
 
     return render_template("stockPredictor_result.html", name=name, result=result)
+
+@app.route('/projects/weatherGuide')
+def weatherGuide():
+    return render_template("weatherApp.html")
+
+@app.route("/projects/weatherGuideForm")
+def weatherGuideForm():
+	return render_template("weatherAppForm.html")
     
 if __name__ == "__main__":
     app.run(debug=True)

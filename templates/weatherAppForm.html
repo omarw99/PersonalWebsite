@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Omar Wagih | Projects</title>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+		<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link rel="apple-touch-icon" sizes="180x180" href="static/favicon/apple-touch-icon.png">
+		<link rel="icon" type="image/png" sizes="32x32" href="static/favicon/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="static/favicon/favicon-16x16.png">
+		<link rel="manifest" href="static/favicon/site.webmanifest">
+
+		<link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+	</head>
+
+	<style>
+		.montserrat {
+			font-family: 'Montserrat', sans-serif;
+		}
+
+		* {box-sizing: border-box;}
+		
+		input[type=number], select, numberarea {
+			width: 100%;
+			padding: 12px;
+			border: 1px solid #ccc;
+			border-radius: 4px;
+			box-sizing: border-box;
+			margin-top: 6px;
+			margin-bottom: 16px;
+			resize: vertical;
+		}
+
+		.disclaimer {
+			color: black;
+		}
+
+		input[type=text], select, numberarea {
+			width: 100%;
+			padding: 12px;
+			border: 1px solid #ccc;
+			border-radius: 4px;
+			box-sizing: border-box;
+			margin-top: 6px;
+			margin-bottom: 16px;
+			resize: vertical;
+		}
+		
+		input[type=submit] {
+			background-color: rgb(129, 129, 129);
+			color: white;
+			padding: 12px 20px;
+			border: none;
+			border-radius: 4px;
+			cursor: pointer;
+		}
+		
+		input[type=submit]:hover {
+			background-color: rgb(95, 95, 95);
+		}
+
+		input[type=reset] {
+			background-color: rgb(129, 129, 129);
+			color: white;
+			padding: 12px 20px;
+			border: none;
+			border-radius: 4px;
+			cursor: pointer;
+		}
+		
+		input[type=reset]:hover {
+			background-color: rgb(95, 95, 95);
+		}
+		
+		.container1 {
+			border-radius: 5px;
+			background-color: #f2f2f2;
+			padding: 10px;
+		}
+
+		#tempUnit{
+			height: 35px;   
+		}
+	</style>
+
+	<body>
+		<div class="w3-cell-row w3-padding-small w3-dark-grey w3-display-top ">
+			<div class="w3-container w3-cell" style="color: rgb(0, 223, 200);">
+				<h1 class="w3-montserrat"><strong>Omar Wagih</strong></h1>
+			</div>
+			<div class="w3-container w3-cell w3-cell-middle">
+				<a href="{{ url_for('contact') }}" class="w3-bar-item w3-right w3-button w3-hide-small w3-mobile" style="font-family: 'Montserrat', sans-serif;">Contact</a>
+				<div class="w3-dropdown-hover w3-bar-item w3-right w3-hide-small w3-mobile w3-hover-dark-grey w3-hover-text-aqua w3-text-aqua">
+					<button class="w3-button">
+						<a style="font-family: 'Montserrat', sans-serif;">Projects</a>
+						<i class="arrow down" style="border: solid rgb(0, 252, 252); border-width: 0 1px 1px 0; display: inline-block; padding: 2px; transform: rotate(45deg); -webkit-transform: rotate(45deg);"></i>
+					</button>
+					<div class="w3-dropdown-content w3-bar-block w3-card-4">
+						<a href="{{ url_for('stockPredictor') }}" class="w3-bar-item w3-button" style="font-family: 'Montserrat', sans-serif;"">Stock Predictor</a>
+						<a href="{{ url_for('weatherGuide') }}" class="w3-bar-item w3-button w3-hover-dark-grey w3-hover-text-aqua w3-text-aqua" style="font-family: 'Montserrat', sans-serif;"">Weather Guide</a>
+					</div>
+				</div>
+				<a href="{{ url_for('home') }}" class="w3-bar-item w3-right w3-button w3-hide-small w3-mobile" style="font-family: 'Montserrat', sans-serif;">Home</a>
+				<a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium" onclick="myFunction2()">&#9776;</a>
+			</div>
+		</div>
+		<div id="demo" class="w3-bar-block w3-hide w3-hide-large w3-hide-medium">
+			<a href="{{ url_for('home') }}" class="w3-bar-item w3-button">Home</a>
+			<button onclick="myFunction1('Demo1')" class="w3-bar-item w3-button w3-hover-dark-grey w3-hover-text-aqua w3-text-aqua">Projects</button>
+				<div id="Demo1" class="w3-container w3-hide">
+					<a href="{{ url_for('stockPredictor') }}" class="w3-bar-item w3-button">Stock Predictor</a>
+					<a href="{{ url_for('weatherGuide') }}" class="w3-bar-item w3-button w3-hover-dark-grey w3-hover-text-aqua w3-text-aqua">Weather Guide</a>
+				</div>
+			<a href="{{ url_for('contact') }}" class="w3-bar-item w3-button">Contact</a>
+		</div>
+		  
+		<script>
+			function myFunction1(id) {
+  				var x = document.getElementById(id);
+  				if (x.className.indexOf("w3-show") == -1) {
+					x.className += " w3-show";
+  				} else { 
+    				x.className = x.className.replace(" w3-show", "");
+  				}
+			}
+
+		  	function myFunction2() {
+				var x = document.getElementById("demo");
+				if (x.className.indexOf("w3-show") == -1) {
+					x.className += " w3-show";
+				} else { 
+		  			x.className = x.className.replace(" w3-show", "");
+				}
+		  	}
+		</script>
+
+	<div class="w3-container w3-center">
+		<div class="algorithm">
+			<h1 class="projectTitle">Weather Guide</h1>
+			<h5 class="projectTitle">Please fill in the fields below based on your clothing preferences in certain temperatures</h5>
+			<p>These questions are designed to quantify your cold tolerance.
+				<br>They allow the algorithm to recommend what kind of clothes you should wear for any given day.
+			</p>
+
+			<div class="w3-container w3-center w3-margin">
+				<div class="container1">
+					<form name="submitWeatherDetails" action="{{ url_for('weatherGuide') }}" onsubmit="return validateForm()">
+						<label for="tempUnit">Temperature Unit</label>
+							<select id="tempUnit" name="tempUnit" required autofocus>
+								<option hidden="" value="tempUnit">Select temperature unit..</option>
+								<option value="celsius">Celsius</option>
+								<option value="farenheit">Farenheit</option>
+							</select>
+						<h4>Accessories:</h4>
+						<label for="winterHatTemp">Starting from what temperature would you find it cold enough to wear a winter hat?</label>
+							<input type="number" id="winterHatTemp" name="winterHatTemp" placeholder="-10° C.." required>
+
+						<label for="mittensTemp">Starting from what temperature would you find it cold enough to wear gloves/mittens?</label>
+							<input type="number" id="mittensTemp" name="mittensTemp" placeholder="-10° C.." required>
+
+						<label for="scarfTemp">Starting from what temperature would you find it cold enough to wear a scarf?</label>
+							<input type="number" id="scarfTemp" name="scarfTemp" placeholder="-10° C.." required>
+
+						<h4>Clothing:</h4>
+						<label for="hoodieTemp">Starting from what temperature would you find it cold enough to wear a hoodie/zip-up?</label>
+							<input type="number" id="hoodieTemp" name="hoodieTemp" placeholder="15° C.." required>
+
+						<label for="jacketTemp">Starting from what temperature would you find it cold enough to wear a jacket/intermediate coat?</label>
+							<input type="number" id="jacketTemp" name="jacketTemp" placeholder="10° C.." required>
+
+						<label for="parkaTemp">Starting from what temperature would you find it cold enough to wear a parka/winter coat?</label>
+							<input type="number" id="parkaTemp" name="parkaTemp" placeholder="-5° C.." required>
+						
+						<label for="pantsTemp">Starting from what temperature would you find it cold enough to wear long pants?</label>
+							<input type="number" id="pantsTemp" name="pantsTemp" placeholder="10° C.." required>
+
+						<label for="thermalsTemp">Starting from what temperature would you find it cold enough to wear thermals underneath your pants?</label>
+							<input type="number" id="thermalsTemp" name="thermalsTemp" placeholder="-15° C.." required>
+
+						<h4>Shoes:</h4>
+						<label for="bootsTemp">Starting from what temperature would you find it cold enough to wear winter boots?</label>
+							<input type="number" id="bootsTemp" name="bootsTemp" placeholder="-10° C.." required>
+	
+						<input type="submit" value="Submit">
+						<input type="reset" value="Reset" style="margin-bottom: 0.5em;">
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		window.addEventListener('load', () => {
+			if (localStorage.getItem("state") !== null) {
+				load();
+			}
+		});
+
+		var tempUnit = document.getElementById("tempUnit");
+		var winterHatTemp = document.getElementById("winterHatTemp");
+		var mittensTemp = document.getElementById("mittensTemp");
+		var scarfTemp = document.getElementById("scarfTemp");
+		var hoodieTemp = document.getElementById("hoodieTemp");
+		var jacketTemp = document.getElementById("jacketTemp");
+		var parkaTemp = document.getElementById("parkaTemp");
+		var pantsTemp = document.getElementById("pantsTemp");
+		var thermalsTemp = document.getElementById("thermalsTemp");
+		var bootsTemp = document.getElementById("bootsTemp");
+	
+		function load() {
+			var retrievedState = JSON.parse(localStorage.getItem("state"));
+
+			tempUnit.value = retrievedState["tempUnit"];
+			winterHatTemp.value = retrievedState["winterHatTemp"];
+			mittensTemp.value = retrievedState["mittensTemp"];
+			scarfTemp.value = retrievedState["scarfTemp"];
+			hoodieTemp.value = retrievedState["hoodieTemp"];
+			jacketTemp.value = retrievedState["jacketTemp"];
+			parkaTemp.value = retrievedState["parkaTemp"];
+			pantsTemp.value = retrievedState["pantsTemp"];
+			thermalsTemp.value = retrievedState["thermalsTemp"];
+			bootsTemp.value = retrievedState["bootsTemp"];
+		}
+	
+		function changeToCelsius(farenheit) {
+			return Number(Math.round(parseFloat(((farenheit - 32) * (5/9)) + 'e' + 0)) + 'e-' + 0);
+		}
+
+		function store() {
+			if (localStorage.getItem("state") !== null) {
+				localStorage.removeItem("state");
+			}
+			var state = {};
+			state["tempUnit"] = tempUnit.value;
+			if (tempUnit.value === "farenheit") {
+				state["winterHatTemp"] = changeToCelsius(winterHatTemp.value);
+				state["mittensTemp"] = changeToCelsius(mittensTemp.value);
+				state["scarfTemp"] = changeToCelsius(scarfTemp.value);
+				state["hoodieTemp"] = changeToCelsius(hoodieTemp.value);
+				state["jacketTemp"] = changeToCelsius(jacketTemp.value);
+				state["parkaTemp"] = changeToCelsius(parkaTemp.value);
+				state["pantsTemp"] = changeToCelsius(pantsTemp.value);
+				state["thermalsTemp"] = changeToCelsius(thermalsTemp.value);
+				state["bootsTemp"] = changeToCelsius(bootsTemp.value);
+			} else {
+				state["winterHatTemp"] = winterHatTemp.value;
+				state["mittensTemp"] = mittensTemp.value;
+				state["scarfTemp"] = scarfTemp.value;
+				state["hoodieTemp"] = hoodieTemp.value;
+				state["jacketTemp"] = jacketTemp.value;
+				state["parkaTemp"] = parkaTemp.value;
+				state["pantsTemp"] = pantsTemp.value;
+				state["thermalsTemp"] = thermalsTemp.value;
+				state["bootsTemp"] = bootsTemp.value;
+			}
+			localStorage.setItem("state", JSON.stringify(state));
+			console.log("END OF STORE")
+		}
+
+		function validateForm() {
+			var hoodieTemp = parseFloat(document.forms["submitWeatherDetails"]["hoodieTemp"].value);
+			var jacketTemp = parseFloat(document.forms["submitWeatherDetails"]["jacketTemp"].value);
+			var parkaTemp = parseFloat(document.forms["submitWeatherDetails"]["parkaTemp"].value);
+
+			if (jacketTemp > hoodieTemp) {
+				alert("You can only wear a jacket/intermediate coat at a lower temperature than a hoodie/zip-up, since it keeps you more warm");
+				document.getElementById("hoodieTemp").focus();
+				return false;
+			}
+			if (parkaTemp > jacketTemp) {
+				alert("You can only wear a parka/winter coat at a lower temperature than a jacket/intermediate coat, since it keeps you more warm");
+				document.getElementById("jacketTemp").focus();
+				return false;
+			}
+
+			var pantsTemp = parseFloat(document.forms["submitWeatherDetails"]["pantsTemp"].value);
+			var thermalsTemp = parseFloat(document.forms["submitWeatherDetails"]["thermalsTemp"].value);
+
+			if (thermalsTemp > pantsTemp) {
+				alert("You can only wear thermals under your pants at a lower temperature than just wearing long pants, since they keep you more warm");
+				document.getElementById("pantsTemp").focus();
+				return false;
+			}
+
+			store();
+
+			return true;
+		}
+	</script>
+	</body>
+
+</html>

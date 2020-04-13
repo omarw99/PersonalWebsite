@@ -85,19 +85,20 @@
 	</style>
 
 	<body>
-		<div class="w3-cell-row w3-padding-small w3-dark-grey w3-display-top w3-margin-bottom">
+		<div class="w3-cell-row w3-padding-small w3-dark-grey w3-display-top ">
 			<div class="w3-container w3-cell" style="color: rgb(0, 223, 200);">
 				<h1 class="w3-montserrat"><strong>Omar Wagih</strong></h1>
 			</div>
 			<div class="w3-container w3-cell w3-cell-middle">
 				<a href="{{ url_for('contact') }}" class="w3-bar-item w3-right w3-button w3-hide-small w3-mobile" style="font-family: 'Montserrat', sans-serif;">Contact</a>
-				<div class="w3-dropdown-hover w3-bar-item w3-right w3-hide-small w3-mobile">
-					<button class="w3-button w3-hover-dark-grey w3-hover-text-aqua w3-text-aqua">
+				<div class="w3-dropdown-hover w3-bar-item w3-right w3-hide-small w3-mobile w3-hover-dark-grey w3-hover-text-aqua w3-text-aqua">
+					<button class="w3-button">
 						<a style="font-family: 'Montserrat', sans-serif;">Projects</a>
-						<i class="arrow down" style="border: solid white; border-width: 0 1px 1px 0; display: inline-block; padding: 2px; transform: rotate(45deg); -webkit-transform: rotate(45deg);"></i>
+						<i class="arrow down" style="border: solid rgb(0, 252, 252); border-width: 0 1px 1px 0; display: inline-block; padding: 2px; transform: rotate(45deg); -webkit-transform: rotate(45deg);"></i>
 					</button>
 					<div class="w3-dropdown-content w3-bar-block w3-card-4">
-						<a href="{{ url_for('stockPredictor') }}" class="w3-bar-item w3-button style="font-family: 'Montserrat', sans-serif;"">Stock Predictor</a>
+						<a href="{{ url_for('stockPredictor') }}" class="w3-bar-item w3-button w3-hover-dark-grey w3-hover-text-aqua w3-text-aqua" style="font-family: 'Montserrat', sans-serif;"">Stock Predictor</a>
+						<a href="{{ url_for('weatherGuide') }}" class="w3-bar-item w3-button" style="font-family: 'Montserrat', sans-serif;"">Weather Guide</a>
 					</div>
 				</div>
 				<a href="{{ url_for('home') }}" class="w3-bar-item w3-right w3-button w3-hide-small w3-mobile" style="font-family: 'Montserrat', sans-serif;">Home</a>
@@ -106,9 +107,10 @@
 		</div>
 		<div id="demo" class="w3-bar-block w3-hide w3-hide-large w3-hide-medium">
 			<a href="{{ url_for('home') }}" class="w3-bar-item w3-button">Home</a>
-			<button onclick="myFunction1('Demo1')" class="w3-bar-item w3-button">Projects</button>
+			<button onclick="myFunction1('Demo1')" class="w3-bar-item w3-button w3-hover-dark-grey w3-hover-text-aqua w3-text-aqua">Projects</button>
 				<div id="Demo1" class="w3-container w3-hide">
-					<a href="{{ url_for('stockPredictor') }}" class="w3-bar-item w3-button">Stock Predictor</a>
+					<a href="{{ url_for('stockPredictor') }}" class="w3-bar-item w3-button w3-hover-dark-grey w3-hover-text-aqua w3-text-aqua">Stock Predictor</a>
+					<a href="{{ url_for('weatherGuide') }}" class="w3-bar-item w3-button">Weather Guide</a>
 				</div>
 			<a href="{{ url_for('contact') }}" class="w3-bar-item w3-button">Contact</a>
 		</div>

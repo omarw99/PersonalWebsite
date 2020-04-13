@@ -1,0 +1,1620 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Omar Wagih | Projects</title>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+		<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link rel="apple-touch-icon" sizes="180x180" href="static/favicon/apple-touch-icon.png">
+		<link rel="icon" type="image/png" sizes="32x32" href="static/favicon/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="static/favicon/favicon-16x16.png">
+		<link rel="manifest" href="static/favicon/site.webmanifest">
+
+		<link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+	</head>
+
+	<style>
+		.montserrat {
+			font-family: 'Montserrat', sans-serif;
+		}
+
+		.body {
+    		display:table;
+			width:100%;
+		}
+
+		header {
+			display:table-row;
+		}
+
+		header + section {
+    		height:100%;  
+		}
+
+		.degree-section {
+			display: flex;
+			align-items: center;
+			cursor: pointer;
+		}
+
+		.degree-section span {
+			margin: 5px;
+			font-size: 30px;
+			padding: 0;
+		}
+
+		.temperature-degree {
+			font-size: 40px;
+			margin: 5px;
+		}
+
+		.extraInfoSection1, .extraInfoSection2, .extraInfoSection3 {
+			display: flex;
+			align-items: center;
+			cursor: pointer;
+		}
+
+		.extraInfoSection1 span, .extraInfoSection2 span, .extraInfoSection3 span {
+			margin: 5px;
+			font-size: 20px;
+			padding: 0;
+		}
+
+		.lowestTemp, .currentFeelsLike, .highestTemp {
+			font-size: 25px;
+			margin: 0px;
+		}
+
+		#particles-js{ 
+			position: absolute; 
+			width: 100%; 
+			height: 100%; 
+			background-color:#e9e9e9;
+			background-repeat: no-repeat; 
+			background-size: 20%; 
+			background-position: 50% 50%; 
+			padding: 15px;
+		}
+
+		@keyframes myanimation {
+  			0% {background-color: #eeeeee;}
+  			14.28%{background-color:#e9e9e9;}
+  			28.56%{background-color:#dddddd;}
+  			42.84%{background-color:#cfcfcf;}
+  			57.12% {background-color: #c0c0c0;}
+			71.4%{background-color:#cfcfcf;}
+			85.6%{background-color:#dddddd;}
+			100%{background-color:#e9e9e9;}
+		}
+	</style>
+
+	<body>
+		<section class="body">
+			<header>
+				<div class="w3-cell-row w3-padding-small w3-dark-grey w3-display-top ">
+					<div class="w3-container w3-cell" style="color: rgb(0, 223, 200);">
+						<h1 class="w3-montserrat"><strong>Omar Wagih</strong></h1>
+					</div>
+					<div class="w3-container w3-cell w3-cell-middle">
+						<a href="{{ url_for('contact') }}" class="w3-bar-item w3-right w3-button w3-hide-small w3-mobile" style="font-family: 'Montserrat', sans-serif;">Contact</a>
+						<div class="w3-dropdown-hover w3-bar-item w3-right w3-hide-small w3-mobile w3-hover-dark-grey w3-hover-text-aqua w3-text-aqua">
+							<button class="w3-button">
+								<a style="font-family: 'Montserrat', sans-serif;">Projects</a>
+								<i class="arrow down" style="border: solid rgb(0, 252, 252); border-width: 0 1px 1px 0; display: inline-block; padding: 2px; transform: rotate(45deg); -webkit-transform: rotate(45deg);"></i>
+							</button>
+							<div class="w3-dropdown-content w3-bar-block w3-card-4">
+								<a href="{{ url_for('stockPredictor') }}" class="w3-bar-item w3-button" style="font-family: 'Montserrat', sans-serif;"">Stock Predictor</a>
+								<a href="{{ url_for('weatherGuide') }}" class="w3-bar-item w3-button w3-hover-dark-grey w3-hover-text-aqua w3-text-aqua" style="font-family: 'Montserrat', sans-serif;"">Weather Guide</a>
+							</div>
+						</div>
+						<a href="{{ url_for('home') }}" class="w3-bar-item w3-right w3-button w3-hide-small w3-mobile" style="font-family: 'Montserrat', sans-serif;">Home</a>
+						<a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium" onclick="myFunction2()">&#9776;</a>
+					</div>
+				</div>
+				<div id="demo" class="w3-bar-block w3-hide w3-hide-large w3-hide-medium">
+					<a href="{{ url_for('home') }}" class="w3-bar-item w3-button">Home</a>
+					<button onclick="myFunction1('Demo1')" class="w3-bar-item w3-button w3-hover-dark-grey w3-hover-text-aqua w3-text-aqua">Projects</button>
+						<div id="Demo1" class="w3-container w3-hide">
+							<a href="{{ url_for('stockPredictor') }}" class="w3-bar-item w3-button">Stock Predictor</a>
+							<a href="{{ url_for('weatherGuide') }}" class="w3-bar-item w3-button w3-hover-dark-grey w3-hover-text-aqua w3-text-aqua">Weather Guide</a>
+						</div>
+					<a href="{{ url_for('contact') }}" class="w3-bar-item w3-button">Contact</a>
+				</div>
+			</header>
+			
+			<script>
+				function myFunction1(id) {
+					var x = document.getElementById(id);
+					if (x.className.indexOf("w3-show") == -1) {
+						x.className += " w3-show";
+					} else { 
+						x.className = x.className.replace(" w3-show", "");
+					}
+				}
+
+				function myFunction2() {
+					var x = document.getElementById("demo");
+					if (x.className.indexOf("w3-show") == -1) {
+						x.className += " w3-show";
+					} else { 
+						x.className = x.className.replace(" w3-show", "");
+					}
+				}
+			</script>
+
+			<span>
+				<div class="w3-display-container w3-mobile" style="height: 100vh;">
+					<div id="particles-js"></div>
+					<div class="w3-center" style="height: 100%; margin: 0 16px 0 16px;">
+						<div class="w3-display-container w3-row" style="height:20%; margin: 0 16px 0 16px;">
+							<div class="w3-display-left" style="width:50%">
+								<h1 class="location_timezone"> </h1>
+							</div>
+							<div class="w3-display-right" style="width:50%">
+								<div>
+									<canvas class="icon" height="100%"></canvas>
+								</div>
+							</div>
+						</div>
+
+						<div class="w3-display-container w3-row" style="height:2%; margin: 0 16px 0 16px;">
+							<div class="w3-display-middle" style="width:100%;">
+								<hr style="border-top: 1px solid rgb(194, 194, 194);">
+							</div>
+						</div>
+
+						<div class="w3-display-container w3-row" style="height:3%; margin: 0 16px 0 16px;">
+							<div class="w3-display-middle" style="width:100%;">
+								<h4 class="currDate"> </h4>
+							</div>
+						</div>
+
+						<div class="w3-display-container w3-row" style="height:2%; margin: 0 16px 0 16px;">
+							<div class="w3-display-middle" style="width:100%;">
+								<hr style="border-top: 1px solid rgb(194, 194, 194);">
+							</div>
+						</div>
+
+						<div class="w3-display-container w3-row" style="height:15%; margin: 0 16px 0 16px;">
+							<div class="w3-display-middle">
+								<div class="degree-section">
+									<h2 class="temperature-degree"> </h2>
+									<span> </span>
+								</div>
+								<i>
+									<div class="temperature-description" style="margin-bottom: 16px;"> </div>
+								</i>
+							</div>
+						</div>
+
+						<div class="w3-display-container w3-row" style="height:2%; margin: 0 16px 0 16px;">
+							<div class="w3-display-middle" style="width:100%;">
+								<hr style="border-top: 1px solid rgb(194, 194, 194); margin: 0;">
+							</div>
+						</div>
+
+						<div class="w3-display-container w3-row" style="height:5%; margin: 0 16px 0 16px;">
+							<div class="w3-display-left" style="width:33.3%;">
+								<p class="todayLowHeadline"> </p>
+							</div>
+							<div class="w3-display-middle" style="width:33.3%;">
+								<p class="currFeelsLikeHeadline"> </p>
+							</div>
+							<div class="w3-display-right" style="width:33.3%;">
+								<p class="todayHighHeadline"> </p>
+							</div>
+						</div>
+
+						<div class="w3-display-container w3-row" style="height:5%; margin: 0 16px 0 16px;">
+							<div class="w3-display-left" style="width:33.33%">
+								<div class="w3-display-container" style="height:4vh;">
+									<div class="w3-display-middle">
+										<div class="extraInfoSection1">
+											<h2 class="lowestTemp"> </h2>
+											<span style="font-size: 20px;"> </span>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="w3-display-middle" style="width:33.33%">
+								<div class="w3-display-container" style="height:4vh;">
+									<div class="w3-display-middle">
+										<div class="extraInfoSection2">
+											<h2 class="currentFeelsLike"> </h2>
+											<span style="font-size: 20px;"> </span>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="w3-display-right" style="width:33.33%">
+								<div class="w3-display-container" style="height:4vh;">
+									<div class="w3-display-middle">
+										<div class="extraInfoSection3">
+											<h2 class="highestTemp"> </h2>
+											<span style="font-size: 20px;"> </span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="w3-display-container w3-row" style="height:2%; margin: 0 16px 0 16px;">
+							<div class="w3-display-middle" style="width:100%;">
+								<hr style="border-top: 1px solid rgb(194, 194, 194);">
+							</div>
+						</div>
+
+						<div class="w3-display-container w3-row" style="height:2%; margin: 0 16px 0 16px;">
+						</div>
+
+						<div class="w3-display-container w3-row" style="height:5%; margin: 0 16px 0 16px;">
+							<div class="w3-display-middle" style="width:100%;">
+								<h4 class="recommendation"> </h4>
+							</div>
+						</div>
+
+						<div class="w3-display-container w3-row" style="height:3%; margin: 0 16px 0 16px;">
+							<div class="w3-display-middle" style="width:100%;">
+								<p class="recommendationDescription"> </p>
+							</div>
+						</div>
+
+						<div class="w3-display-container w3-row" style="height:2%; margin: 0 16px 0 16px;">
+						</div>
+
+						<div class="w3-display-container w3-row" style="height:8%; margin: 0 16px 0 16px;">
+							<div class="w3-display-left" style="width:33.3%; height: 100%; border-top: 1px solid rgb(194, 194, 194); border-left: 1px solid rgb(194, 194, 194); border-right: 1px solid rgb(194, 194, 194);">
+								<div class="w3-display-middle">
+									<p class="accessoriesDescription"> </p>
+								</div>
+							</div>
+							<div class="w3-display-middle" style="width:33.3%; height: 100%; border-top: 1px solid rgb(194, 194, 194); border-left: 1px solid rgb(194, 194, 194); border-right: 1px solid rgb(194, 194, 194);">
+								<div class="w3-display-middle">
+									<p class="clothingDescription"> </p>
+								</div>
+							</div>
+							<div class="w3-display-right" style="width:33.3%; height: 100%; border-top: 1px solid rgb(194, 194, 194); border-left: 1px solid rgb(194, 194, 194); border-right: 1px solid rgb(194, 194, 194);">
+								<div class="w3-display-middle">
+									<p class="shoesDescription"> </p>
+								</div>
+							</div>
+						</div>
+
+						<div class="w3-display-container w3-row" style="height:18%; margin: 0 16px 0 16px;">
+							<div class="w3-display-left" style="width:33.3%; height: 18vh; border-bottom: 1px solid rgb(194, 194, 194); border-left: 1px solid rgb(194, 194, 194); border-right: 1px solid rgb(194, 194, 194);">
+								<div class="w3-display-middle" style="width: 100%;">
+									<div id="accessoriesSection">
+										
+									</div>
+								</div>
+							</div>
+							<div class="w3-display-middle" style="width:33.3%; height: 18vh; border-bottom: 1px solid rgb(194, 194, 194); border-left: 1px solid rgb(194, 194, 194); border-right: 1px solid rgb(194, 194, 194);">
+								<div class="w3-display-middle" style="width: 100%;">
+									<div id="clothingSection">
+										
+									</div>
+								</div>
+							</div>
+							<div class="w3-display-right" style="width:33.3%; height: 18vh; border-bottom: 1px solid rgb(194, 194, 194); border-left: 1px solid rgb(194, 194, 194); border-right: 1px solid rgb(194, 194, 194);">
+								<div class="w3-display-middle" style="width: 100%;">
+									<div id="shoesSection">
+									
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="w3-display-container w3-row" style="height:2%; margin: 0 16px 0 16px;">
+						</div>
+
+						<div class="w3-display-container w3-row" style="height:4vh; margin: 0 16px;">
+							<div style="width:100%; height:100%;">
+								<div class="w3-display-middle">
+									<p style="margin:0; padding:0;"><a href="https://www.omarwagih.com/projects/weatherGuideForm" class="update"> </a></p>
+								</div>
+							</div>
+						</div>
+					</div> 
+				</div>
+			</span>
+		</section>
+
+		<!-- particles.js lib - https://github.com/VincentGarreau/particles.js --> 
+		<script src="http://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script> 
+		<!-- stats.js lib --> 
+		<script src="http://threejs.org/examples/js/libs/stats.min.js"></script>
+		<script>
+			particlesJS("particles-js", {
+				"particles":{
+					"number":{
+						"value":160,"density":{
+							"enable":true,"value_area":800
+						}
+					},"color":{
+						"value":"#ffffff"
+					},"shape":{
+						"type":"circle","stroke":{
+							"width":0,"color":"#000000"
+						},"polygon":{
+							"nb_sides":5
+						},"image":{
+							"src":"img/github.svg","width":100,"height":100
+						}
+					},"opacity":{
+						"value":1,"random":true,"anim":{
+							"enable":true,"speed":1,"opacity_min":0,"sync":false
+						}
+					},"size":{
+						"value":3,"random":true,"anim":{
+							"enable":false,"speed":4,"size_min":0.3,"sync":false
+						}
+					},"line_linked":{
+						"enable":false,"distance":150,"color":"#ffffff","opacity":0.4,"width":1
+					},"move":{
+						"enable":true,"speed":1,"direction":"none","random":true,"straight":false,"out_mode":"out","bounce":false,"attract":{
+							"enable":false,"rotateX":600,"rotateY":600
+						}
+					}
+				},"interactivity":{
+					"detect_on":"canvas","events":{
+						"onhover":{
+							"enable":false,"mode":"bubble"
+						},"onclick":{
+							"enable":false,"mode":"repulse"
+						},"resize":true
+					},"modes":{
+						"grab":{
+							"distance":400,"line_linked":{
+								"opacity":1
+							}
+						},"bubble":{
+							"distance":250,"size":0,"duration":2,"opacity":0,"speed":3
+						},"repulse":{
+							"distance":400,"duration":0.4
+						},"push":{
+							"particles_nb":4
+						},"remove":{
+							"particles_nb":2
+						}
+					}
+				},"retina_detect":true
+			});
+		</script>
+
+		<script>
+			window.addEventListener('load', () => {
+				if (localStorage.getItem("state") === null) {
+					window.location.replace("https://www.omarwagih.com/projects/weatherGuideForm");
+				} else {
+					let long;
+					let lat;
+
+					const temperatureDescription = document.querySelector(".temperature-description");
+					const temperatureDegree = document.querySelector(".temperature-degree");
+					const locationTimezone = document.querySelector(".location_timezone");
+
+					const degreeSection = document.querySelector(".degree-section");
+					const degreeSectionSpan = document.querySelector(".degree-section span");
+
+					const extraInfoSection1 = document.querySelector(".extraInfoSection1");
+					const extraInfoSection1Span = document.querySelector(".extraInfoSection1 span");
+
+					const extraInfoSection2 = document.querySelector(".extraInfoSection2");
+					const extraInfoSection2Span = document.querySelector(".extraInfoSection2 span");
+
+					const extraInfoSection3 = document.querySelector(".extraInfoSection3");
+					const extraInfoSection3Span = document.querySelector(".extraInfoSection3 span");
+
+					const lowTemp = document.querySelector(".lowestTemp");
+					const feelsLike = document.querySelector(".currentFeelsLike");
+					const highTemp = document.querySelector(".highestTemp");
+
+					const lowTempHeadline = document.querySelector(".todayLowHeadline");
+					const feelsLikeHeadline = document.querySelector(".currFeelsLikeHeadline");
+					const highTempHeadline = document.querySelector(".todayHighHeadline");
+
+					const accessoriesDescription = document.querySelector(".accessoriesDescription");
+					const clothingDescription = document.querySelector(".clothingDescription");
+					const shoesDescription = document.querySelector(".shoesDescription");
+
+					const recommendation= document.querySelector(".recommendation");
+					const recommendationDescription = document.querySelector(".recommendationDescription");
+					const update = document.querySelector(".update");
+					const currDate = document.querySelector(".currDate");
+
+					function error(err) {
+						degreeSectionSpan.textContent = "There has been an error in detecting your location. Please refresh the page and try again.";
+					}
+
+					if (navigator.geolocation) {
+						navigator.geolocation.getCurrentPosition(position => {
+							long = position.coords.longitude;
+							lat = position.coords.latitude;
+
+							const api = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${long}&units=metric&appid=364875e8ec0ca13f711c0b82306920ca`;
+
+							fetch(api)
+								.then(response => {
+									return response.json();
+								})
+								.then(data => {
+									const temp = data.current.temp;
+									const description = data.current.weather[0].description;
+									const timezone = data.timezone;
+									const iconID = data.current.weather[0].id;
+									const icon = data.current.weather[0].icon;
+									const dt = data.current.dt;
+
+									const min = data.daily[0].temp.min;
+									const feels_like = data.current.feels_like;
+									const max = data.daily[0].temp.max;
+
+									//Set DOM Elements from API
+									temperatureDegree.textContent = Number(Math.round(parseFloat(temp + 'e' + 1)) + 'e-' + 1) + "°";
+									lowTemp.textContent = Number(Math.round(parseFloat(min + 'e' + 1)) + 'e-' + 1) + "°";
+									feelsLike.textContent = Number(Math.round(parseFloat(feels_like + 'e' + 1)) + 'e-' + 1) + "°";
+									highTemp.textContent = Number(Math.round(parseFloat(max + 'e' + 1)) + 'e-' + 1) + "°";
+
+									degreeSectionSpan.textContent = "C";
+									extraInfoSection1Span.textContent = "C";
+									extraInfoSection2Span.textContent = "C";
+									extraInfoSection3Span.textContent = "C";
+
+									temperatureDescription.textContent = description;
+									locationTimezone.textContent = timezone;
+
+									lowTempHeadline.textContent = "Today's Low";
+									feelsLikeHeadline.textContent = "Current Feels Like";
+									highTempHeadline.textContent = "Today's High";
+
+									recommendation.textContent = "Recommended Clothing";
+									recommendationDescription.textContent = "-Based on your cold tolerance and the weather forecast for the next 12 hours-";
+									update.textContent = "Update Cold Tolerance Form";
+									currDate.textContent = getTime(dt);
+
+									const skyconIconName = mapIDToSkycon(iconID, icon);
+									setIcons(skyconIconName, document.querySelector(".icon"));
+
+									degreeSection.addEventListener('click', () => {
+										if (degreeSectionSpan.textContent === "C") {
+											degreeSectionSpan.textContent = "F";
+											extraInfoSection1Span.textContent = "F";
+											extraInfoSection2Span.textContent = "F";
+											extraInfoSection3Span.textContent = "F";
+
+											temperatureDegree.textContent = Number(Math.round(parseFloat((temp * (9/5) + 32) + 'e' + 1)) + 'e-' + 1) + "°";
+											lowTemp.textContent = Number(Math.round(parseFloat((min * (9/5) + 32) + 'e' + 1)) + 'e-' + 1) + "°";
+											feelsLike.textContent = Number(Math.round(parseFloat((feels_like * (9/5) + 32) + 'e' + 1)) + 'e-' + 1) + "°";
+											highTemp.textContent = Number(Math.round(parseFloat((max * (9/5) + 32) + 'e' + 1)) + 'e-' + 1) + "°";
+										} else {
+											degreeSectionSpan.textContent = "C";
+											extraInfoSection1Span.textContent = "C";
+											extraInfoSection2Span.textContent = "C";
+											extraInfoSection3Span.textContent = "C";
+
+											temperatureDegree.textContent = Number(Math.round(parseFloat(temp + 'e' + 1)) + 'e-' + 1) + "°";
+											lowTemp.textContent = Number(Math.round(parseFloat(min + 'e' + 1)) + 'e-' + 1) + "°";
+											feelsLike.textContent = Number(Math.round(parseFloat(feels_like + 'e' + 1)) + 'e-' + 1) + "°";
+											highTemp.textContent = Number(Math.round(parseFloat(max + 'e' + 1)) + 'e-' + 1) + "°";
+										}
+									});
+
+									extraInfoSection1.addEventListener('click', () => {
+										if (degreeSectionSpan.textContent === "C") {
+											degreeSectionSpan.textContent = "F";
+											extraInfoSection1Span.textContent = "F";
+											extraInfoSection2Span.textContent = "F";
+											extraInfoSection3Span.textContent = "F";
+
+											temperatureDegree.textContent = Number(Math.round(parseFloat((temp * (9/5) + 32) + 'e' + 1)) + 'e-' + 1) + "°";
+											lowTemp.textContent = Number(Math.round(parseFloat((min * (9/5) + 32) + 'e' + 1)) + 'e-' + 1) + "°";
+											feelsLike.textContent = Number(Math.round(parseFloat((feels_like * (9/5) + 32) + 'e' + 1)) + 'e-' + 1) + "°";
+											highTemp.textContent = Number(Math.round(parseFloat((max * (9/5) + 32) + 'e' + 1)) + 'e-' + 1) + "°";
+										} else {
+											degreeSectionSpan.textContent = "C";
+											extraInfoSection1Span.textContent = "C";
+											extraInfoSection2Span.textContent = "C";
+											extraInfoSection3Span.textContent = "C";
+
+											temperatureDegree.textContent = Number(Math.round(parseFloat(temp + 'e' + 1)) + 'e-' + 1) + "°";
+											lowTemp.textContent = Number(Math.round(parseFloat(min + 'e' + 1)) + 'e-' + 1) + "°";
+											feelsLike.textContent = Number(Math.round(parseFloat(feels_like + 'e' + 1)) + 'e-' + 1) + "°";
+											highTemp.textContent = Number(Math.round(parseFloat(max + 'e' + 1)) + 'e-' + 1) + "°";
+										}
+									});
+
+									extraInfoSection2.addEventListener('click', () => {
+										if (degreeSectionSpan.textContent === "C") {
+											degreeSectionSpan.textContent = "F";
+											extraInfoSection1Span.textContent = "F";
+											extraInfoSection2Span.textContent = "F";
+											extraInfoSection3Span.textContent = "F";
+
+											temperatureDegree.textContent = Number(Math.round(parseFloat((temp * (9/5) + 32) + 'e' + 1)) + 'e-' + 1) + "°";
+											lowTemp.textContent = Number(Math.round(parseFloat((min * (9/5) + 32) + 'e' + 1)) + 'e-' + 1) + "°";
+											feelsLike.textContent = Number(Math.round(parseFloat((feels_like * (9/5) + 32) + 'e' + 1)) + 'e-' + 1) + "°";
+											highTemp.textContent = Number(Math.round(parseFloat((max * (9/5) + 32) + 'e' + 1)) + 'e-' + 1) + "°";
+										} else {
+											degreeSectionSpan.textContent = "C";
+											extraInfoSection1Span.textContent = "C";
+											extraInfoSection2Span.textContent = "C";
+											extraInfoSection3Span.textContent = "C";
+
+											temperatureDegree.textContent = Number(Math.round(parseFloat(temp + 'e' + 1)) + 'e-' + 1) + "°";
+											lowTemp.textContent = Number(Math.round(parseFloat(min + 'e' + 1)) + 'e-' + 1) + "°";
+											feelsLike.textContent = Number(Math.round(parseFloat(feels_like + 'e' + 1)) + 'e-' + 1) + "°";
+											highTemp.textContent = Number(Math.round(parseFloat(max + 'e' + 1)) + 'e-' + 1) + "°";
+										}
+									});
+
+									extraInfoSection3.addEventListener('click', () => {
+										if (degreeSectionSpan.textContent === "C") {
+											degreeSectionSpan.textContent = "F";
+											extraInfoSection1Span.textContent = "F";
+											extraInfoSection2Span.textContent = "F";
+											extraInfoSection3Span.textContent = "F";
+
+											temperatureDegree.textContent = Number(Math.round(parseFloat((temp * (9/5) + 32) + 'e' + 1)) + 'e-' + 1) + "°";
+											lowTemp.textContent = Number(Math.round(parseFloat((min * (9/5) + 32) + 'e' + 1)) + 'e-' + 1) + "°";
+											feelsLike.textContent = Number(Math.round(parseFloat((feels_like * (9/5) + 32) + 'e' + 1)) + 'e-' + 1) + "°";
+											highTemp.textContent = Number(Math.round(parseFloat((max * (9/5) + 32) + 'e' + 1)) + 'e-' + 1) + "°";
+										} else {
+											degreeSectionSpan.textContent = "C";
+											extraInfoSection1Span.textContent = "C";
+											extraInfoSection2Span.textContent = "C";
+											extraInfoSection3Span.textContent = "C";
+
+											temperatureDegree.textContent = Number(Math.round(parseFloat(temp + 'e' + 1)) + 'e-' + 1) + "°";
+											lowTemp.textContent = Number(Math.round(parseFloat(min + 'e' + 1)) + 'e-' + 1) + "°";
+											feelsLike.textContent = Number(Math.round(parseFloat(feels_like + 'e' + 1)) + 'e-' + 1) + "°";
+											highTemp.textContent = Number(Math.round(parseFloat(max + 'e' + 1)) + 'e-' + 1) + "°";
+										}
+									});
+
+									let weatherForecastDescription = {};
+
+									//Current weather description
+									weatherForecastDescription[0] = mapIDToSkycon(iconID, icon);
+									//Min weather for today
+									let minForecast = getAverage(temp, feels_like)
+
+									//Populate the rest of the forecast objects
+									for (let i = 1; i < 13; i++) {
+										weatherForecastDescription[i] = mapIDToSkycon(data.hourly[i].weather[0].id, data.hourly[i].weather[0].icon);
+										if (getAverage(data.hourly[i].temp, data.hourly[i].feels_like) < minForecast) {
+											minForecast = getAverage(data.hourly[i].temp, data.hourly[i].feels_like);
+										}
+									}
+
+									// Retrieve localStorage object
+									let retrievedState = JSON.parse(localStorage.getItem("state"));
+									//Parse localStorage object values as numbers
+									const retrievedStateKeys = Object.keys(retrievedState);
+									retrievedStateKeys.splice(0, 1);
+									for (const key of retrievedStateKeys) {
+										retrievedState[key] = Number(retrievedState[key]);
+									}
+
+									let attireToday = analyzeForecast(retrievedState, weatherForecastDescription, minForecast);
+
+									setAccessories(attireToday);
+									setClothing(attireToday);
+									setShoes(attireToday);
+								});
+						}, error);
+					}
+
+					function analyzeForecast(retrievedState, weatherForecastDescription, minForecast) {
+						let recommendedAttire = {};
+						let rainToday = willItRainToday(weatherForecastDescription);
+						let snowToday = willItSnowToday(weatherForecastDescription);
+						let sunnyToday = willItBeSunnyToday(weatherForecastDescription);
+
+						//Accessories
+						let accessories = [];
+						//Check for sunglasses
+						if (sunnyToday) {
+							accessories.push("sunglasses");
+						}
+						//Check for winter hat or cap
+						if (minForecast < retrievedState["winterHatTemp"]) {
+							accessories.push("winterhat");
+						} else {
+							//If not wearing winter hat, then we can wear a cap
+							if (sunnyToday) {
+								accessories.push("cap");
+							}
+						}
+						//Check for mittens
+						if (minForecast < retrievedState["mittensTemp"]) {
+							accessories.push("mittens");
+						}
+						//Check for scarf
+						if (minForecast < retrievedState["scarfTemp"]) {
+							accessories.push("scarf");
+						}
+						//Check for umbrella
+						if (rainToday) {
+							accessories.push("umbrella");
+						}
+
+						//Clothing
+						let clothing = [];
+						//Check for parka
+						if (minForecast < retrievedState["parkaTemp"]) {
+							clothing.push("parka");
+						}
+						//Check for jacket
+						else if (minForecast < retrievedState["jacketTemp"]) {
+							clothing.push("jacket");
+						}
+						//Check for hoodie
+						else if (minForecast < retrievedState["hoodieTemp"]) {
+							clothing.push("hoodie");
+						}
+						//Else -> tshirt
+						else {
+							clothing.push("tshirt");
+						}
+						//Check for thermals
+						if (minForecast < retrievedState["thermalsTemp"]) {
+							clothing.push("thermals");
+							clothing.push("pants");
+						}
+						//Check for pants
+						else if (minForecast < retrievedState["pantsTemp"]) {
+							clothing.push("pants");
+						}
+						//Else -> shorts
+						else {
+							clothing.push("shorts");
+						}
+
+						//Shoes
+						let shoes = [];
+						//Check for winterboots
+						if (snowToday) {
+							shoes.push("boots");
+						}
+						//Check for rainboots
+						else if (rainToday) {
+							shoes.push("rainboots");
+						}
+						//Else -> shoes
+						else {
+							shoes.push("shoes");
+						}
+
+						recommendedAttire["accessories"] = accessories;
+						recommendedAttire["clothing"] = clothing;
+						recommendedAttire["shoes"] = shoes;
+						return recommendedAttire;
+					}
+
+					function willItBeSunnyToday(weatherForecastDescription) {
+						let weatherForecastDescriptionValues = Object.values(weatherForecastDescription);
+						for (const j of weatherForecastDescriptionValues) {
+							if (j === "CLEAR_DAY") {
+								return true;
+							}
+						}
+						return false;
+					}
+
+					function willItRainToday(weatherForecastDescription) {
+						let weatherForecastDescriptionValues = Object.values(weatherForecastDescription);
+						for (const j of weatherForecastDescriptionValues) {
+							if (j === "THUNDER_RAIN" || j === "SLEET" || j === "RAIN") {
+								return true;
+							}
+						}
+						return false;
+					}
+
+					function willItSnowToday(weatherForecastDescription) {
+						let weatherForecastDescriptionValues = Object.values(weatherForecastDescription);
+						for (const j of weatherForecastDescriptionValues) {
+							if (j === "RAIN_SNOW" || j === "HAIL" || j === "SNOW") {
+								return true;
+							}
+						}
+						return false;
+					}
+
+					function getAverage(number1, number2) {
+						return Number(parseFloat((number1 + number2) / 2).toFixed(2));
+					}
+
+					function mapIDToSkycon(ID, icon) {
+						if (ID >= 200 && ID <= 202 || ID >= 230 && ID <= 232) {
+							return "THUNDER_RAIN";
+						} else if (ID >= 210 && ID <= 221) {
+							return "THUNDER";
+						} else if (ID >= 300 && ID <= 321) {
+							return "SLEET";
+						} else if (ID == 511) {
+							return "RAIN_SNOW";
+						} else if (ID >= 500 && ID <= 531) {
+							return "RAIN";
+						} else if (ID == 611) {
+							return "HAIL";
+						} else if (ID >= 600 && ID <= 622) {
+							return "SNOW";
+						} else if (ID >= 701 && ID <= 762) {
+							return "FOG";
+						} else if (ID >= 771 && ID <= 781) {
+							return "WIND";
+						} else if (ID == 800 && icon === "01d") {
+							return "CLEAR_DAY";
+						} else if (ID == 800 && icon === "01n") {
+							return "CLEAR_NIGHT";
+						} else if ((ID == 801 && icon === "02d") || (ID == 802 && icon === "03d")) {
+							return "PARTLY_CLOUDY_DAY";
+						} else if ((ID == 801 && icon === "02n") || (ID == 802 && icon === "03n")) {
+							return "PARTLY_CLOUDY_NIGHT";
+						} else if (ID >= 803 && ID <= 804) {
+							return "CLOUDY";
+						} else {
+							return null;
+						}
+					}
+
+					function setIcons(icon, iconID_HTML) {
+						const skycons = new Skycons({"monochrome": false});
+						skycons.play();
+						return skycons.set(iconID_HTML, Skycons[icon]);
+					}
+
+					function createIMG(src, imageID, addToID) {
+						var x = document.createElement("IMG");
+						x.setAttribute("src", src);
+						x.setAttribute("alt", imageID);
+						x.setAttribute("id", imageID);
+						x.setAttribute("width", "23%;");
+						x.setAttribute("height", "23%;");
+						x.setAttribute("style", "margin:1em 10px;");
+						document.getElementById(addToID).appendChild(x);
+					}
+
+					function setAccessories(attireToday) {
+						let accessoriesToday = attireToday.accessories;
+						if (accessoriesToday.length == 0) {
+							var x = document.createElement("P");
+							x.innerText = "No need for any accessories today!";
+							document.getElementById("accessoriesSection").appendChild(x);
+							accessoriesDescription.textContent = "Accessories";
+						} else {
+							for (let a = 0; a < accessoriesToday.length; a++) {
+								let accessoriesImagePath = "../static/images/" + accessoriesToday[a] + ".png";
+								createIMG(accessoriesImagePath, accessoriesToday[a], "accessoriesSection");
+							}
+							accessoriesDescription.textContent = "Accessories";
+						}
+					}
+
+					function setClothing(attireToday) {
+						let clothingToday = attireToday.clothing;
+						for (let c = 0; c < clothingToday.length; c++) {
+							let clothingImagePath = "../static/images/" + clothingToday[c] + ".png";
+							createIMG(clothingImagePath, clothingToday[c], "clothingSection");
+						}
+						clothingDescription.textContent = "Clothing";
+					}
+
+					function setShoes(attireToday) {
+						let shoesToday = attireToday.shoes[0];
+						let shoesImagePath = "../static/images/" + shoesToday + ".png";
+						createIMG(shoesImagePath, shoesToday, "shoesSection");
+						shoesDescription.textContent = "Shoes";
+					}
+
+					function getTime(dt) {
+						let milliseconds = dt * 1000;
+						let dateObject = new Date(milliseconds);
+						let humanDateFormat = dateObject.toLocaleString("en-US", {weekday: "long", month: "long", day: "numeric", year: "numeric"});
+						return humanDateFormat;
+					}
+				}
+			});
+		</script>
+
+		<script>
+			(function(global) {
+				"use strict";
+
+				var requestInterval, cancelInterval;
+
+				(function() {
+					var raf = global.requestAnimationFrame       ||
+							global.webkitRequestAnimationFrame ||
+							global.mozRequestAnimationFrame    ||
+							global.oRequestAnimationFrame      ||
+							global.msRequestAnimationFrame     ,
+						caf = global.cancelAnimationFrame        ||
+							global.webkitCancelAnimationFrame  ||
+							global.mozCancelAnimationFrame     ||
+							global.oCancelAnimationFrame       ||
+							global.msCancelAnimationFrame      ;
+
+					if(raf && caf) {
+					requestInterval = function(fn, delay) {
+						var handle = {value: null};
+
+						function loop() {
+						handle.value = raf(loop);
+						fn();
+						}
+
+						loop();
+						return handle;
+					};
+
+					cancelInterval = function(handle) {
+						caf(handle.value);
+					};
+					}
+
+					else {
+					requestInterval = setInterval;
+					cancelInterval = clearInterval;
+					}
+				}());
+
+				var KEYFRAME = 500,
+					STROKE = 0.08,
+					TAU = 2.0 * Math.PI,
+					TWO_OVER_SQRT_2 = 2.0 / Math.sqrt(2);
+
+				function circle(ctx, x, y, r) {
+					ctx.beginPath();
+					ctx.arc(x, y, r, 0, TAU, false);
+					ctx.fill();
+				}
+
+				function line(ctx, ax, ay, bx, by) {
+					ctx.beginPath();
+					ctx.moveTo(ax, ay);
+					ctx.lineTo(bx, by);
+					ctx.stroke();
+				}
+
+				function puff(ctx, t, cx, cy, rx, ry, rmin, rmax) {
+					var c = Math.cos(t * TAU),
+						s = Math.sin(t * TAU);
+
+					rmax -= rmin;
+
+					circle(
+					ctx,
+					cx - s * rx,
+					cy + c * ry + rmax * 0.5,
+					rmin + (1 - c * 0.5) * rmax
+					);
+				}
+
+				function puffs(ctx, t, cx, cy, rx, ry, rmin, rmax) {
+					var i;
+
+					for(i = 5; i--; )
+					puff(ctx, t + i / 5, cx, cy, rx, ry, rmin, rmax);
+				}
+
+				function cloud(ctx, t, cx, cy, cw, s, color) {
+					t /= 30000;
+
+					var a = cw * 0.21,
+						b = cw * 0.12,
+						c = cw * 0.24,
+						d = cw * 0.28;
+
+					ctx.fillStyle = color;
+					puffs(ctx, t, cx, cy, a, b, c, d);
+
+					ctx.globalCompositeOperation = 'destination-out';
+					puffs(ctx, t, cx, cy, a, b, c - s, d - s);
+					ctx.globalCompositeOperation = 'source-over';
+				}
+
+				function sun(ctx, t, cx, cy, cw, s, color) {
+					t /= 120000;
+
+					var a = cw * 0.25 - s * 0.5,
+						b = cw * 0.32 + s * 0.5,
+						c = cw * 0.50 - s * 0.5,
+						i, p, cos, sin;
+
+					ctx.strokeStyle = color;
+					ctx.lineWidth = s;
+					ctx.lineCap = "round";
+					ctx.lineJoin = "round";
+
+					ctx.beginPath();
+					ctx.arc(cx, cy, a, 0, TAU, false);
+					ctx.stroke();
+
+					for(i = 8; i--; ) {
+					p = (t + i / 8) * TAU;
+					cos = Math.cos(p);
+					sin = Math.sin(p);
+					line(ctx, cx + cos * b, cy + sin * b, cx + cos * c, cy + sin * c);
+					}
+				}
+
+				function moon(ctx, t, cx, cy, cw, s, color) {
+					t /= 15000;
+
+					var a = cw * 0.29 - s * 0.5,
+						b = cw * 0.05,
+						c = Math.cos(t * TAU),
+						p = c * TAU / -16;
+
+					ctx.strokeStyle = color;
+					ctx.lineWidth = s;
+					ctx.lineCap = "round";
+					ctx.lineJoin = "round";
+
+					cx += c * b;
+
+					ctx.beginPath();
+					ctx.arc(cx, cy, a, p + TAU / 8, p + TAU * 7 / 8, false);
+					ctx.arc(cx + Math.cos(p) * a * TWO_OVER_SQRT_2, cy + Math.sin(p) * a * TWO_OVER_SQRT_2, a, p + TAU * 5 / 8, p + TAU * 3 / 8, true);
+					ctx.closePath();
+					ctx.stroke();
+				}
+
+				function rain(ctx, t, cx, cy, cw, s, color) {
+					t /= 1350;
+
+					var a = cw * 0.16,
+						b = TAU * 11 / 12,
+						c = TAU *  7 / 12,
+						i, p, x, y;
+
+					ctx.fillStyle = color;
+
+					for(i = 4; i--; ) {
+					p = (t + i / 4) % 1;
+					x = cx + ((i - 1.5) / 1.5) * (i === 1 || i === 2 ? -1 : 1) * a;
+					y = cy + p * p * cw;
+					ctx.beginPath();
+					ctx.moveTo(x, y - s * 1.5);
+					ctx.arc(x, y, s * 0.75, b, c, false);
+					ctx.fill();
+					}
+				}
+
+				function sleet(ctx, t, cx, cy, cw, s, color) {
+					t /= 750;
+
+					var a = cw * 0.1875,
+						b = TAU * 11 / 12,
+						c = TAU *  7 / 12,
+						i, p, x, y;
+
+					ctx.strokeStyle = color;
+					ctx.lineWidth = s * 0.5;
+					ctx.lineCap = "round";
+					ctx.lineJoin = "round";
+
+					for(i = 4; i--; ) {
+					p = (t + i / 4) % 1;
+					x = Math.floor(cx + ((i - 1.5) / 1.5) * (i === 1 || i === 2 ? -1 : 1) * a) + 0.5;
+					y = cy + p * cw;
+					line(ctx, x, y - s * 1.5, x, y + s * 1.5);
+					}
+				}
+
+				function snow(ctx, t, cx, cy, cw, s, color) {
+					t /= 3000;
+
+					var a  = cw * 0.16,
+						b  = s * 0.75,
+						u  = t * TAU * 0.7,
+						ux = Math.cos(u) * b,
+						uy = Math.sin(u) * b,
+						v  = u + TAU / 3,
+						vx = Math.cos(v) * b,
+						vy = Math.sin(v) * b,
+						w  = u + TAU * 2 / 3,
+						wx = Math.cos(w) * b,
+						wy = Math.sin(w) * b,
+						i, p, x, y;
+
+					ctx.strokeStyle = color;
+					ctx.lineWidth = s * 0.5;
+					ctx.lineCap = "round";
+					ctx.lineJoin = "round";
+
+					for(i = 4; i--; ) {
+					p = (t + i / 4) % 1;
+					x = cx + Math.sin((p + i / 4) * TAU) * a;
+					y = cy + p * cw;
+
+					line(ctx, x - ux, y - uy, x + ux, y + uy);
+					line(ctx, x - vx, y - vy, x + vx, y + vy);
+					line(ctx, x - wx, y - wy, x + wx, y + wy);
+					}
+				}
+
+				function fogbank(ctx, t, cx, cy, cw, s, color) {
+					t /= 30000;
+
+					var a = cw * 0.21,
+						b = cw * 0.06,
+						c = cw * 0.21,
+						d = cw * 0.28;
+
+					ctx.fillStyle = color;
+					puffs(ctx, t, cx, cy, a, b, c, d);
+
+					ctx.globalCompositeOperation = 'destination-out';
+					puffs(ctx, t, cx, cy, a, b, c - s, d - s);
+					ctx.globalCompositeOperation = 'source-over';
+				}
+
+				function foglines(ctx, t, cw, ch, s, k, color) {
+					t /= 5000;
+
+					var a = Math.cos((t       ) * TAU) * s * 0.02,
+						b = Math.cos((t + 0.25) * TAU) * s * 0.02,
+						c = Math.cos((t + 0.50) * TAU) * s * 0.02,
+						d = Math.cos((t + 0.75) * TAU) * s * 0.02,
+						n = ch * 0.936,
+						e = Math.floor(n - k * 0.5) + 0.5,
+						f = Math.floor(n - k * 2.5) + 0.5;
+
+					ctx.strokeStyle = color;
+					ctx.lineWidth = k;
+					ctx.lineCap = "round";
+					ctx.lineJoin = "round";
+
+					line(ctx, a + cw * 0.2 + k * 0.5, e, b + cw * 0.8 - k * 0.5, e);
+					line(ctx, c + cw * 0.2 + k * 0.5, f, d + cw * 0.8 - k * 0.5, f);
+				}
+
+				var WIND_PATHS = [
+						[
+						-0.7500, -0.1800, -0.7219, -0.1527, -0.6971, -0.1225,
+						-0.6739, -0.0910, -0.6516, -0.0588, -0.6298, -0.0262,
+						-0.6083,  0.0065, -0.5868,  0.0396, -0.5643,  0.0731,
+						-0.5372,  0.1041, -0.5033,  0.1259, -0.4662,  0.1406,
+						-0.4275,  0.1493, -0.3881,  0.1530, -0.3487,  0.1526,
+						-0.3095,  0.1488, -0.2708,  0.1421, -0.2319,  0.1342,
+						-0.1943,  0.1217, -0.1600,  0.1025, -0.1290,  0.0785,
+						-0.1012,  0.0509, -0.0764,  0.0206, -0.0547, -0.0120,
+						-0.0378, -0.0472, -0.0324, -0.0857, -0.0389, -0.1241,
+						-0.0546, -0.1599, -0.0814, -0.1876, -0.1193, -0.1964,
+						-0.1582, -0.1935, -0.1931, -0.1769, -0.2157, -0.1453,
+						-0.2290, -0.1085, -0.2327, -0.0697, -0.2240, -0.0317,
+						-0.2064,  0.0033, -0.1853,  0.0362, -0.1613,  0.0672,
+						-0.1350,  0.0961, -0.1051,  0.1213, -0.0706,  0.1397,
+						-0.0332,  0.1512,  0.0053,  0.1580,  0.0442,  0.1624,
+						0.0833,  0.1636,  0.1224,  0.1615,  0.1613,  0.1565,
+						0.1999,  0.1500,  0.2378,  0.1402,  0.2749,  0.1279,
+						0.3118,  0.1147,  0.3487,  0.1015,  0.3858,  0.0892,
+						0.4236,  0.0787,  0.4621,  0.0715,  0.5012,  0.0702,
+						0.5398,  0.0766,  0.5768,  0.0890,  0.6123,  0.1055,
+						0.6466,  0.1244,  0.6805,  0.1440,  0.7147,  0.1630,
+						0.7500,  0.1800
+						],
+						[
+						-0.7500,  0.0000, -0.7033,  0.0195, -0.6569,  0.0399,
+						-0.6104,  0.0600, -0.5634,  0.0789, -0.5155,  0.0954,
+						-0.4667,  0.1089, -0.4174,  0.1206, -0.3676,  0.1299,
+						-0.3174,  0.1365, -0.2669,  0.1398, -0.2162,  0.1391,
+						-0.1658,  0.1347, -0.1157,  0.1271, -0.0661,  0.1169,
+						-0.0170,  0.1046,  0.0316,  0.0903,  0.0791,  0.0728,
+						0.1259,  0.0534,  0.1723,  0.0331,  0.2188,  0.0129,
+						0.2656, -0.0064,  0.3122, -0.0263,  0.3586, -0.0466,
+						0.4052, -0.0665,  0.4525, -0.0847,  0.5007, -0.1002,
+						0.5497, -0.1130,  0.5991, -0.1240,  0.6491, -0.1325,
+						0.6994, -0.1380,  0.7500, -0.1400
+						]
+					],
+					WIND_OFFSETS = [
+						{start: 0.36, end: 0.11},
+						{start: 0.56, end: 0.16}
+					];
+
+				function leaf(ctx, t, x, y, cw, s, color) {
+					var a = cw / 8,
+						b = a / 3,
+						c = 2 * b,
+						d = (t % 1) * TAU,
+						e = Math.cos(d),
+						f = Math.sin(d);
+
+					ctx.fillStyle = color;
+					ctx.strokeStyle = color;
+					ctx.lineWidth = s;
+					ctx.lineCap = "round";
+					ctx.lineJoin = "round";
+
+					ctx.beginPath();
+					ctx.arc(x        , y        , a, d          , d + Math.PI, false);
+					ctx.arc(x - b * e, y - b * f, c, d + Math.PI, d          , false);
+					ctx.arc(x + c * e, y + c * f, b, d + Math.PI, d          , true );
+					ctx.globalCompositeOperation = 'destination-out';
+					ctx.fill();
+					ctx.globalCompositeOperation = 'source-over';
+					ctx.stroke();
+				}
+
+				function swoosh(ctx, t, cx, cy, cw, s, index, total, color, leafcolor) {
+					t /= 2500;
+
+					var path = WIND_PATHS[index],
+						a = (t + index - WIND_OFFSETS[index].start) % total,
+						c = (t + index - WIND_OFFSETS[index].end  ) % total,
+						e = (t + index                            ) % total,
+						b, d, f, i;
+
+					ctx.strokeStyle = color;
+					ctx.lineWidth = s;
+					ctx.lineCap = "round";
+					ctx.lineJoin = "round";
+
+					if(a < 1) {
+					ctx.beginPath();
+
+					a *= path.length / 2 - 1;
+					b  = Math.floor(a);
+					a -= b;
+					b *= 2;
+					b += 2;
+
+					ctx.moveTo(
+						cx + (path[b - 2] * (1 - a) + path[b    ] * a) * cw,
+						cy + (path[b - 1] * (1 - a) + path[b + 1] * a) * cw
+					);
+
+					if(c < 1) {
+						c *= path.length / 2 - 1;
+						d  = Math.floor(c);
+						c -= d;
+						d *= 2;
+						d += 2;
+
+						for(i = b; i !== d; i += 2)
+						ctx.lineTo(cx + path[i] * cw, cy + path[i + 1] * cw);
+
+						ctx.lineTo(
+						cx + (path[d - 2] * (1 - c) + path[d    ] * c) * cw,
+						cy + (path[d - 1] * (1 - c) + path[d + 1] * c) * cw
+						);
+					}
+
+					else
+						for(i = b; i !== path.length; i += 2)
+						ctx.lineTo(cx + path[i] * cw, cy + path[i + 1] * cw);
+
+					ctx.stroke();
+					}
+
+					else if(c < 1) {
+					ctx.beginPath();
+
+					c *= path.length / 2 - 1;
+					d  = Math.floor(c);
+					c -= d;
+					d *= 2;
+					d += 2;
+
+					ctx.moveTo(cx + path[0] * cw, cy + path[1] * cw);
+
+					for(i = 2; i !== d; i += 2)
+						ctx.lineTo(cx + path[i] * cw, cy + path[i + 1] * cw);
+
+					ctx.lineTo(
+						cx + (path[d - 2] * (1 - c) + path[d    ] * c) * cw,
+						cy + (path[d - 1] * (1 - c) + path[d + 1] * c) * cw
+					);
+
+					ctx.stroke();
+					}
+
+					if(e < 1) {
+					e *= path.length / 2 - 1;
+					f  = Math.floor(e);
+					e -= f;
+					f *= 2;
+					f += 2;
+
+					leaf(
+						ctx,
+						t,
+						cx + (path[f - 2] * (1 - e) + path[f    ] * e) * cw,
+						cy + (path[f - 1] * (1 - e) + path[f + 1] * e) * cw,
+						cw,
+						s,
+						leafcolor
+					);
+					}
+				}
+
+				function thunderbolts(ctx, t, cx, cy, cw, color) {
+					t /= 1000;
+
+					var alpha = 1 - t % 1,
+						a = cw / 25,
+						b = Math.floor(t % 4),
+						x = x = cx + ((b - 1.5) / 1.5) * (b === 1 || b === 2 ? -1 : 1) * cw * 0.16,
+						y = cy;
+
+					ctx.fillStyle = color;
+					ctx.globalAlpha = alpha;
+
+					ctx.beginPath();
+					ctx.moveTo(x - a, y - a * 5);
+					ctx.lineTo(x - a * 3, y);
+					ctx.lineTo(x, y);
+					ctx.lineTo(x - a * 2, y + a * 5);
+					ctx.lineTo(x + a * 3, y - a);
+					ctx.lineTo(x, y - a);
+					ctx.lineTo(x + a * 2, y - a * 5);
+					ctx.closePath();
+					ctx.fill();
+
+					ctx.globalAlpha = 1;
+				}
+
+				function hail(ctx, t, cx, cy, cw, s, color) {
+					t /= 900;
+
+					var a = cw * 0.16,
+						i, p, x, y;
+
+					ctx.fillStyle = color;
+
+					for(i = 8; i--; ) {
+					p = (t + i / 8) % 1;
+					x = cx + ((i - 3) / 3) * (i === 1 || i === 3 || i === 4 || i === 6 ? -1 : 1) * a;
+					y = cy + p * p * cw;
+					ctx.beginPath();
+					ctx.moveTo(x, y);
+					ctx.arc(x, y, s * 0.4, 0, 2 * Math.PI, false);
+					ctx.fill();
+					}
+				}
+
+				var Skycons = function(opts) {
+						opts = opts || {};
+						this.list        = [];
+						this.interval    = null;
+						this.monochrome = typeof(opts.monochrome) === "undefined" ? true :  opts.monochrome;
+						opts.colors = opts.colors || {};
+						this.colors = {
+							main        : opts.colors.main        || "#111",
+							moon        : opts.colors.moon        || "#353545",
+							fog         : opts.colors.fog         || "#CCC",
+							fogbank     : opts.colors.fogbank     || "#AAA",
+							light_cloud : opts.colors.light_cloud || "#888",
+							cloud       : opts.colors.cloud       || "#666",
+							dark_cloud  : opts.colors.dark_cloud  || "#444",
+							thunder     : opts.colors.thunder     || "#FF0",
+							snow        : opts.colors.snow        || "#C2EEFF",
+							hail        : opts.colors.hail        || "#CCF",
+							sleet       : opts.colors.sleet       || "#C2EEFF",
+							wind        : opts.colors.wind        || "#777",
+							leaf        : opts.colors.leaf        || "#2C5228",
+							rain        : opts.colors.rain        || "#7FDBFF",
+							sun         : opts.colors.sun         || "#FFDC00"
+						};
+
+						if(this.monochrome) {
+							this.color = opts.color || this.colors.main;
+						} else {
+							this.color = this.colors ;
+						}
+						this.resizeClear = !!(opts && opts.resizeClear);
+					};
+
+				Skycons.CLEAR_DAY = function(ctx, t, color) {
+					var w = ctx.canvas.width,
+						h = ctx.canvas.height,
+						s = Math.min(w, h);
+
+					sun(ctx, t, w * 0.5, h * 0.5, s, s * STROKE, color.sun || color);
+				};
+
+				Skycons.CLEAR_NIGHT = function(ctx, t, color) {
+					var w = ctx.canvas.width,
+						h = ctx.canvas.height,
+						s = Math.min(w, h);
+
+					moon(ctx, t, w * 0.5, h * 0.5, s, s * STROKE, color.moon || color);
+				};
+
+				Skycons.PARTLY_CLOUDY_DAY = function(ctx, t, color) {
+					var w = ctx.canvas.width,
+						h = ctx.canvas.height,
+						s = Math.min(w, h);
+
+					sun(ctx, t, w * 0.625, h * 0.375, s * 0.75, s * STROKE * 0.9, color.sun || color);
+					cloud(ctx, t, w * 0.375, h * 0.625, s * 0.75, s * STROKE * 0.9, color.light_cloud || color);
+				};
+
+				Skycons.PARTLY_CLOUDY_NIGHT = function(ctx, t, color) {
+					var w = ctx.canvas.width,
+						h = ctx.canvas.height,
+						s = Math.min(w, h);
+
+					moon(ctx, t, w * 0.667, h * 0.375, s * 0.75, s * STROKE * 0.9, color.moon || color);
+					cloud(ctx, t, w * 0.375, h * 0.625, s * 0.75, s * STROKE * 0.9, color.light_cloud || color);
+				};
+
+				Skycons.CLOUDY = function(ctx, t, color) {
+					var w = ctx.canvas.width,
+						h = ctx.canvas.height,
+						s = Math.min(w, h);
+
+					cloud(ctx, t, w * 0.5, h * 0.5, s, s * STROKE, color.light_cloud || color || color);
+				};
+
+				Skycons.RAIN = function(ctx, t, color) {
+					var w = ctx.canvas.width,
+						h = ctx.canvas.height,
+						s = Math.min(w, h);
+
+					rain(ctx, t, w * 0.5, h * 0.37, s * 0.9, s * STROKE, color.rain || color);
+					cloud(ctx, t, w * 0.5, h * 0.37, s * 0.9, s * STROKE, color.cloud || color);
+				};
+
+				Skycons.SHOWERS_DAY = function(ctx, t, color) {
+					var w = ctx.canvas.width,
+						h = ctx.canvas.height,
+						s = Math.min(w, h);
+
+
+					sun(ctx, t, w * 0.625, h * 0.325, s * 0.65, s * STROKE * 0.8, color.sun || color);
+					rain(ctx, t, w * 0.375, h * 0.5, s * 0.7, s * STROKE * 0.9, color.rain || color);
+					cloud(ctx, t, w * 0.375, h * 0.5, s * 0.7, s * STROKE * 0.9, color.cloud || color);
+				}
+
+				Skycons.SHOWERS_NIGHT = function(ctx, t, color) {
+					var w = ctx.canvas.width,
+						h = ctx.canvas.height,
+						s = Math.min(w, h);
+
+					moon(ctx, t, w * 0.667, h * 0.325, s * 0.75, s * STROKE * 0.8, color.moon || color);
+					rain(ctx, t, w * 0.375, h * 0.5, s * 0.7, s * STROKE * 0.9, color.rain || color);
+					cloud(ctx, t, w * 0.375, h * 0.5, s * 0.7, s * STROKE * 0.9, color.cloud || color);
+				}
+
+				Skycons.SLEET = function(ctx, t, color) {
+					var w = ctx.canvas.width,
+						h = ctx.canvas.height,
+						s = Math.min(w, h);
+
+					sleet(ctx, t, w * 0.5, h * 0.37, s * 0.9, s * STROKE, color.sleet || color);
+					cloud(ctx, t, w * 0.5, h * 0.37, s * 0.9, s * STROKE, color.cloud || color);
+				};
+
+				Skycons.RAIN_SNOW = function(ctx, t, color) {
+					var w = ctx.canvas.width,
+						h = ctx.canvas.height,
+						s = Math.min(w, h);
+
+					rain(ctx, t, w * 0.5, h * 0.37, s * 0.9, s * STROKE, color.rain || color);
+					snow(ctx, t, w * 0.5, h * 0.37, s * 0.9, s * STROKE, color.snow || color);
+					cloud(ctx, t, w * 0.5, h * 0.37, s * 0.9, s * STROKE, color.cloud || color);
+				};
+
+				Skycons.RAIN_SNOW_SHOWERS_DAY = function(ctx, t, color) {
+					var w = ctx.canvas.width,
+						h = ctx.canvas.height,
+						s = Math.min(w, h);
+
+					sun(ctx, t, w * 0.625, h * 0.325, s * 0.65, s * STROKE * 0.8, color.sun || color);
+					snow(ctx, t, w * 0.375, h * 0.5, s * 0.7, s * STROKE * 0.9, color.snow || color);
+					rain(ctx, t, w * 0.375, h * 0.5, s * 0.7, s * STROKE * 0.9, color.rain || color);
+					cloud(ctx, t, w * 0.375, h * 0.5, s * 0.7, s * STROKE * 0.9, color.cloud || color);
+				};
+
+				Skycons.RAIN_SNOW_SHOWERS_NIGHT = function(ctx, t, color) {
+					var w = ctx.canvas.width,
+						h = ctx.canvas.height,
+						s = Math.min(w, h);
+
+					moon(ctx, t, w * 0.667, h * 0.325, s * 0.75, s * STROKE * 0.8, color.moon || color);
+					snow(ctx, t, w * 0.375, h * 0.5, s * 0.7, s * STROKE * 0.9, color.snow || color);
+					rain(ctx, t, w * 0.375, h * 0.5, s * 0.7, s * STROKE * 0.9, color.rain || color);
+					cloud(ctx, t, w * 0.375, h * 0.5, s * 0.7, s * STROKE * 0.9, color.cloud || color);
+				};
+
+				Skycons.SNOW = function(ctx, t, color) {
+					var w = ctx.canvas.width,
+						h = ctx.canvas.height,
+						s = Math.min(w, h);
+
+					snow(ctx, t, w * 0.5, h * 0.37, s * 0.9, s * STROKE, color.snow || color);
+					cloud(ctx, t, w * 0.5, h * 0.37, s * 0.9, s * STROKE, color.cloud || color);
+				};
+
+				Skycons.SNOW_SHOWERS_DAY = function(ctx, t, color) {
+					var w = ctx.canvas.width,
+						h = ctx.canvas.height,
+						s = Math.min(w, h);
+
+					sun(ctx, t, w * 0.625, h * 0.325, s * 0.65, s * STROKE * 0.8, color.sun || color);
+					snow(ctx, t, w * 0.375, h * 0.5, s * 0.7, s * STROKE * 0.9, color.snow || color);
+					cloud(ctx, t, w * 0.375, h * 0.5, s * 0.7, s * STROKE * 0.9, color.cloud || color);
+				}
+
+				Skycons.SNOW_SHOWERS_NIGHT = function(ctx, t, color) {
+					var w = ctx.canvas.width,
+						h = ctx.canvas.height,
+						s = Math.min(w, h);
+
+					moon(ctx, t, w * 0.667, h * 0.325, s * 0.75, s * STROKE * 0.8, color.moon || color);
+					snow(ctx, t, w * 0.375, h * 0.5, s * 0.7, s * STROKE * 0.9, color.snow || color);
+					cloud(ctx, t, w * 0.375, h * 0.5, s * 0.7, s * STROKE * 0.9, color.cloud || color);
+				}
+
+				Skycons.WIND = function(ctx, t, color) {
+					var w = ctx.canvas.width,
+						h = ctx.canvas.height,
+						s = Math.min(w, h);
+
+					swoosh(ctx, t, w * 0.5, h * 0.5, s, s * STROKE, 0, 2, color.wind || color, color.leaf || color);
+					swoosh(ctx, t, w * 0.5, h * 0.5, s, s * STROKE, 1, 2, color.wind || color, color.leaf || color);
+				};
+
+				Skycons.FOG = function(ctx, t, color) {
+					var w = ctx.canvas.width,
+						h = ctx.canvas.height,
+						s = Math.min(w, h),
+						k = s * STROKE;
+
+					fogbank(ctx, t, w * 0.5, h * 0.32, s * 0.75, k * 0.9, color.light_cloud || color);
+					foglines(ctx, t, w, h, s, k, color.fog || color);
+				};
+
+				Skycons.THUNDER = function(ctx, t, color) {
+					var w = ctx.canvas.width,
+						h = ctx.canvas.height,
+						s = Math.min(w, h);
+
+					thunderbolts(ctx, t, w * 0.5, h * 0.825, s * 0.9, color.thunder || color)
+					cloud(ctx, t, w * 0.5, h * 0.37, s * 0.9, s * STROKE, color.dark_cloud || color);
+				};
+
+				Skycons.THUNDER_RAIN = function(ctx, t, color) {
+					var w = ctx.canvas.width,
+						h = ctx.canvas.height,
+						s = Math.min(w, h);
+
+					rain(ctx, t, w * 0.5, h * 0.5, s * 0.9, s * STROKE, color.rain || color);
+					thunderbolts(ctx, t, w * 0.5, h * 0.825, s * 0.9, color.thunder || color)
+					cloud(ctx, t, w * 0.5, h * 0.37, s * 0.9, s * STROKE, color.dark_cloud || color);
+				};
+
+				Skycons.THUNDER_SHOWERS_DAY = function(ctx, t, color) {
+					var w = ctx.canvas.width,
+						h = ctx.canvas.height,
+						s = Math.min(w, h);
+
+					thunderbolts(ctx, t, w * 0.375, h * 0.85, s * 0.7, color.thunder || color)
+					sun(ctx, t, w * 0.625, h * 0.325, s * 0.65, s * STROKE * 0.8, color.sun || color);
+					rain(ctx, t, w * 0.375, h * 0.5, s * 0.7, s * STROKE * 0.9, color.rain || color);
+					cloud(ctx, t, w * 0.375, h * 0.5, s * 0.7, s * STROKE * 0.9, color.dark_cloud || color);
+				};
+
+				Skycons.THUNDER_SHOWERS_NIGHT = function(ctx, t, color) {
+					var w = ctx.canvas.width,
+						h = ctx.canvas.height,
+						s = Math.min(w, h);
+
+					thunderbolts(ctx, t, w * 0.375, h * 0.85, s * 0.7, color.thunder || color)
+					moon(ctx, t, w * 0.667, h * 0.325, s * 0.75, s * STROKE * 0.8, color.moon || color);
+					rain(ctx, t, w * 0.375, h * 0.5, s * 0.7, s * STROKE * 0.9, color.rain || color);
+					cloud(ctx, t, w * 0.375, h * 0.5, s * 0.7, s * STROKE * 0.9, color.dark_cloud || color);
+				};
+
+				Skycons.HAIL = function(ctx, t, color) {
+					var w = ctx.canvas.width,
+						h = ctx.canvas.height,
+						s = Math.min(w, h);
+
+					hail(ctx, t, w * 0.5, h * 0.37, s * 0.9, s * STROKE, color.hail || color);
+					cloud(ctx, t, w * 0.5, h * 0.37, s * 0.9, s * STROKE, color.cloud || color);
+				};
+
+				Skycons.prototype = {
+					_determineDrawingFunction: function(draw) {
+					if(typeof draw === "string")
+						draw = Skycons[draw.toUpperCase().replace(/-/g, "_")] || null;
+
+					return draw;
+					},
+					add: function(el, draw) {
+					var obj;
+
+					if(typeof el === "string")
+						el = document.getElementById(el);
+
+					// Does nothing if canvas name doesn't exists
+					if(el === null || el === undefined)
+						return;
+
+					draw = this._determineDrawingFunction(draw);
+
+					// Does nothing if the draw function isn't actually a function
+					if(typeof draw !== "function")
+						return;
+
+					obj = {
+						element: el,
+						context: el.getContext("2d"),
+						drawing: draw
+					};
+
+					this.list.push(obj);
+					this.draw(obj, KEYFRAME);
+					},
+					set: function(el, draw) {
+					var i;
+
+					if(typeof el === "string")
+						el = document.getElementById(el);
+
+					for(i = this.list.length; i--; )
+						if(this.list[i].element === el) {
+						this.list[i].drawing = this._determineDrawingFunction(draw);
+						this.draw(this.list[i], KEYFRAME);
+						return;
+						}
+
+					this.add(el, draw);
+					},
+					remove: function(el) {
+					var i;
+
+					if(typeof el === "string")
+						el = document.getElementById(el);
+
+					for(i = this.list.length; i--; )
+						if(this.list[i].element === el) {
+						this.list.splice(i, 1);
+						return;
+						}
+					},
+					draw: function(obj, time) {
+					var canvas = obj.context.canvas;
+
+					if(this.resizeClear)
+						canvas.width = canvas.width;
+
+					else
+						obj.context.clearRect(0, 0, canvas.width, canvas.height);
+
+					obj.drawing(obj.context, time, this.color);
+					},
+					play: function() {
+					var self = this;
+
+					this.pause();
+					this.interval = requestInterval(function() {
+						var now = Date.now(),
+							i;
+
+						for(i = self.list.length; i--; )
+						self.draw(self.list[i], now);
+					}, 1000 / 60);
+					},
+					pause: function() {
+					var i;
+
+					if(this.interval) {
+						cancelInterval(this.interval);
+						this.interval = null;
+					}
+					}
+				};
+
+				global.Skycons = Skycons;
+			}(this));
+		</script>
+	</body>
+</html>

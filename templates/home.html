@@ -36,7 +36,7 @@
 	<body>
 		<section class=body>
 			<header>
-				<div class="w3-cell-row w3-padding-small w3-dark-grey w3-display-top w3-margin-bottom">
+				<div class="w3-cell-row w3-padding-small w3-dark-grey w3-display-top ">
 					<div class="w3-container w3-cell" style="color: rgb(0, 223, 200);">
 						<h1 class="w3-montserrat"><strong>Omar Wagih</strong></h1>
 					</div>
@@ -45,10 +45,11 @@
 						<div class="w3-dropdown-hover w3-bar-item w3-right w3-hide-small w3-mobile">
 							<button class="w3-button">
 								<a style="font-family: 'Montserrat', sans-serif;">Projects</a>
-								<i class="arrow down" style="border: solid white; border-width: 0 1px 1px 0; display: inline-block; padding: 2px; transform: rotate(45deg); -webkit-transform: rotate(45deg);"></i>
+								<i class="arrow down" style="border: solid rgb(255, 255, 255); border-width: 0 1px 1px 0; display: inline-block; padding: 2px; transform: rotate(45deg); -webkit-transform: rotate(45deg);"></i>
 							</button>
 							<div class="w3-dropdown-content w3-bar-block w3-card-4">
-								<a href="{{ url_for('stockPredictor') }}" class="w3-bar-item w3-button style="font-family: 'Montserrat', sans-serif;"">Stock Predictor</a>
+								<a href="{{ url_for('stockPredictor') }}" class="w3-bar-item w3-button" style="font-family: 'Montserrat', sans-serif;"">Stock Predictor</a>
+								<a href="{{ url_for('weatherGuide') }}" class="w3-bar-item w3-button" style="font-family: 'Montserrat', sans-serif;"">Weather Guide</a>
 							</div>
 						</div>
 						<a href="{{ url_for('home') }}" class="w3-bar-item w3-right w3-button w3-hide-small w3-mobile w3-hover-dark-grey w3-hover-text-aqua w3-text-aqua" style="font-family: 'Montserrat', sans-serif;">Home</a>
@@ -56,10 +57,11 @@
 					</div>
 				</div>
 				<div id="demo" class="w3-bar-block w3-hide w3-hide-large w3-hide-medium">
-					<a href="{{ url_for('home') }}" class="w3-bar-item w3-button">Home</a>
+					<a href="{{ url_for('home') }}" class="w3-bar-item w3-button w3-hover-dark-grey w3-hover-text-aqua w3-text-aqua">Home</a>
 					<button onclick="myFunction1('Demo1')" class="w3-bar-item w3-button">Projects</button>
 						<div id="Demo1" class="w3-container w3-hide">
 							<a href="{{ url_for('stockPredictor') }}" class="w3-bar-item w3-button">Stock Predictor</a>
+							<a href="{{ url_for('weatherGuide') }}" class="w3-bar-item w3-button">Weather Guide</a>
 						</div>
 					<a href="{{ url_for('contact') }}" class="w3-bar-item w3-button">Contact</a>
 				</div>
@@ -91,7 +93,7 @@
 						<div class="w3-col w3-padding-small" style="margin-right: 1em; width:450px">
 							<div class="w3-display-container" style="height:470.95px;">
 								<div class="w3-display-middle" style="height: 100%;">
-									<img src="static/images/OmarPicCasual.jpg" style="height:100%">
+									<img src="../static/images/OmarPicCasual.jpg" style="height:100%">
 								</div>
 							</div>
 						</div>
@@ -123,7 +125,7 @@
 				<div class="w3-third">
 					<div class="w3-white w3-text-grey w3-card-4">
 						<div class="w3-display-container">
-							<img src="static/images/OmarPicFormal.jpg" style="width:100%" alt="Avatar">
+							<img src="../static/images/OmarPicFormal.jpg" style="width:100%" alt="Avatar">
 						</div>
 						<div class="w3-container">
 							<p><i class="fa fa-briefcase fa-fw w3-margin-right w3-large w3-text-teal"></i>Undergraduate Student</p>
@@ -141,7 +143,7 @@
 							<p style="padding-bottom: 1em;">Java, Python, C, Bash Scripting, HTML, CSS, JavaScript, MIPS Assembly</p>
 
 							<h6><strong>Machine Learning Technologies</strong></h6>
-							<p style="padding-bottom: 1em;">Data Preprocessing, Ordinary Least Squares, Natural Language Processing, Computer Vision, Principal Component Analysis, Gradient Descent, Convolutional Neural Networks, Scikit-learn, NLTK, Keras, Tensorflow</p>
+							<p style="padding-bottom: 1em;">Data Preprocessing, Ordinary Least Squares, Natural Language Processing, Computer Vision, Principal Component Analysis, Gradient Descent, Convolutional Neural Networks, Numpy, Pandas, Scikit-learn, NLTK, Keras, Tensorflow</p>
 
 							<h6><strong>Cloud-Based Technologies</strong></h6>
 							<p style="padding-bottom: 1em;">Firebase, Heroku</p>
@@ -213,14 +215,11 @@
 							<h6 class="w3-opacity">African Export-Import Bank (Afreximbank)</h6>
 							<h6 class="w3-text-teal"><i class="fa fa-calendar fa-fw w3-margin-right"></i>June 2019 - August 2019</h6>
 							<ul>
-								<li>Rotated around the following departments: Credit Assessment, Project Finance and Export Development, Trade Finance, Treasury, Syndications and Agency, Strategy and Innovation, Research and International Cooperation, Client Relations, and Guarantees and Specialized Finance</li>
 								<li>Drafted a Credit Application Memorandum for a $100 million-dollar facility using financial spreading software, financial analysis, and generated pro forma financial statements that was presented to and approved by the Credit Committee</li>
 								<li>Wrote and edited Pre-Assessment Memorandums for two different potential clients with facilities worth a combined €40.5 million euros which included term sheets, detailed financial analysis, and risk mitigation strategies</li>
 								<li>Produced a high-quality three-year strategy plan for the International Cooperation Unit including a revamped business plan and additional KPIs to measure the Unit's success, that was approved at the following Board of Directors’ meeting</li>
 								<li>Conducted value chain analysis on different creative economy industries in Africa to determine the Bank's best course of action through capacity building, and assisted in putting together a presentation of the findings for the President's review</li>
 								<li>Worked closely with the Strategy and Innovation Senior Specialist to provide the President with reports on infrastructure in Africa, Chinese market influence, and the African Continental Free Trade Agreement (AfCFTA)</li>
-								<li>Optimized existing Excel spreadsheets used by the Treasury department to evaluate and present the Bank's risk exposure to the Asset-Liability Committee (ALCO) on a weekly basis</li>
-								<li>Monitored the pricing and marketing of the Bank's specialized products such as letters of credit, forfaiting, factoring, and guarantees</li>
 							</ul>
 							<hr>
 						</div>
@@ -235,7 +234,6 @@
 								<li>Assisted in the creation of automated digital financial services to be offered to future clients</li>
 								<li>Prepared multiple client acquisition/potential partner presentations for negotiations with local NGOs</li>
 								<li>Arranged a detailed financial research report on parent organization for upper management to refer to during quarterly board meeting</li>
-								<li>Helped in the transitioning from NGO to company by reviewing and translating company bylaws from Arabic to English</li>
 							</ul>
 							<hr>
 						</div>
@@ -289,7 +287,6 @@
 							<ul>
 								<li>Assists in organizing lectures and delivering presentations designed to educate student investors about securities trading and the stock market</li>
 								<li>Leads teams of students through the process of security valuation, risk analysis, and portfolio construction to promote financial literacy amongst students</li>
-								<li>Contributed to writing and editing an investing guide to educate club members on basic investment strategies and risk management</li>
 							</ul>
 							<hr>
 						</div>
