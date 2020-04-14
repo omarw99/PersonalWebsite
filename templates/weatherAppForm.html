@@ -145,7 +145,7 @@
 
 			<div class="w3-container w3-center w3-margin">
 				<div class="container1">
-					<form name="submitWeatherDetails" action="{{ url_for('weatherGuide') }}" onsubmit="return validateForm()">
+					<form name="submitWeatherDetails" action="{{ url_for('weatherGuide') }}" method="POST" onsubmit="return validateForm()">
 						<label for="tempUnit">Temperature Unit</label>
 							<select id="tempUnit" name="tempUnit" required autofocus>
 								<option hidden="" value="tempUnit">Select temperature unit..</option>

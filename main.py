@@ -56,7 +56,7 @@ def stockPredictorResult():
 
     return render_template("stockPredictor_result.html", name=name, result=result)
 
-@app.route('/projects/weatherGuide')
+@app.route('/projects/weatherGuide', methods=["POST"])
 def weatherGuide():
     return render_template("weatherApp.html")
 
