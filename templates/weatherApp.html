@@ -451,7 +451,7 @@
 										.then(data => {
 											const temp = data.current.temp;
 											const description = data.current.weather[0].description;
-											//const timezone = data.timezone;
+											const timezone = data.timezone;
 											const iconID = data.current.weather[0].id;
 											const icon = data.current.weather[0].icon;
 											const dt = data.current.dt;
@@ -472,8 +472,11 @@
 											extraInfoSection3Span.textContent = "C";
 
 											temperatureDescription.textContent = description;
-											//locationTimezone.textContent = timezone;
-											locationTimezone.textContent = locationCity + ", " + locationCountry;
+											if (locationCity == null || locationCountry == null) {
+												locationTimezone.textContent = timezone;
+											} else {
+												locationTimezone.textContent = capitalizeFLetter(locationCity) + ", " + capitalizeFLetter(locationCountry);
+											}
 
 											lowTempHeadline.textContent = "Today's Low";
 											feelsLikeHeadline.textContent = "Current Feels Like";
@@ -735,6 +738,11 @@
 						}
 						return false;
 					}
+
+					function capitalizeFLetter(word) {
+						var string = word.toLowerCase();
+						return (string[0].toUpperCase() + string.slice(1)); 
+					} 
 
 					function getAverage(number1, number2) {
 						return Number(parseFloat((number1 + number2) / 2).toFixed(2));
