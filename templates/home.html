@@ -70,7 +70,8 @@
 			}
 
 			.introCaption span.border {
-				background-color: #111;
+				/* background-color: #111; */
+				background-color: rgba(0, 0, 0, 0.7);
 				color: #fff;
 				padding: 18px;
 				font-size: 20px;
@@ -130,14 +131,32 @@
 			@media only screen and (max-width: 1024px) and (min-width: 600px) {
 				.parallax1 {
 					background-image: url("../static/images/familymedium.jpg");
+					background-attachment: scroll;
 				}
+
+				.parallax2 {
+					background-attachment: scroll;
+				}
+
+				/* .introCaption span.border {
+					background-color: rgba(0, 0, 0, 0.7);
+				} */
 			}
 
 			/* Small screens */
 			@media only screen and (max-width: 600px) {
 				.parallax1 {
 					background-image: url("../static/images/familysmall.jpg");
+					background-attachment: scroll;
 				}
+
+				.parallax2 {
+					background-attachment: scroll;
+				}
+
+				/* .introCaption span.border {
+					background-color: rgba(0, 0, 0, 0.7);
+				} */
 			}
 		</style>
 	</head>
