@@ -1,122 +1,225 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Omar Wagih | Projects</title>
-		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<title>Stock Return Predictor | Omar Wagih</title>
+
 		<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-		<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+		<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@500&family=Nanum+Gothic&display=swap" rel="stylesheet">
+
 		<link rel="apple-touch-icon" sizes="180x180" href="static/favicon/apple-touch-icon.png">
 		<link rel="icon" type="image/png" sizes="32x32" href="static/favicon/favicon-32x32.png">
 		<link rel="icon" type="image/png" sizes="16x16" href="static/favicon/favicon-16x16.png">
 		<link rel="manifest" href="static/favicon/site.webmanifest">
 
-		<link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+		<style>
+			body, html {
+				height: 100%;
+				font-family: 'Josefin Sans', sans-serif;
+			}
+			
+			#navigationBar {
+				position: fixed;
+				width: 100%;
+				z-index: 1;
+			}
+
+			#navigationBar a#active {
+				background-color: rgb(23, 84, 153);
+				color: white;
+			}
+
+			#navigationBar a#active:hover {
+				background-color: rgb(23, 84, 153) !important;
+				color: white !important;
+			}
+
+			#navigationBar button#active {
+				background-color: rgb(23, 84, 153);
+			}
+
+			#navigationBar button#active:hover {
+				background-color: rgb(23, 84, 153) !important;
+				color: white !important;
+			}
+
+			#navigationBarSmall a#activeSmall {
+				background-color: rgb(23, 84, 153);
+				color:white;
+			}
+
+			#navigationBarSmall a#activeSmall:hover {
+				color:white !important;
+				background-color: rgb(23, 84, 153) !important;
+			}
+
+			#navigationBarSmall button#activeSmall {
+				background-color: rgb(23, 84, 153);
+				color:white;
+			}
+
+			#navigationBarSmall button#activeSmall:hover {
+				color:white !important;
+				background-color: rgb(23, 84, 153) !important;
+			}
+
+			/* The Modal (background) */
+			.modal {
+				display: none; /* Hidden by default */
+				position: fixed; /* Stay in place */
+				z-index: 1; /* Sit on top */
+				left: 0;
+				top: 0;
+				width: 100%; /* Full width */
+				height: 100%; /* Full height */
+				overflow: auto; /* Enable scroll if needed */
+				background-color: rgb(0,0,0); /* Fallback color */
+				background-color: rgba(0,0,0,0.5); /* Black w/ opacity */
+			}
+
+			/* Modal Content */
+			.modal-content {
+				background-color: #f1f1f1;
+				margin: auto;
+				padding: 20px;
+				border: 1px solid #888;
+				width: 90%;
+				text-align: center; 
+				font-family: 'Nanum Gothic', sans-serif;
+			}
+				
+			/* The Close Button */
+			.close {
+				color: #aaaaaa;
+				float: right;
+				font-size: 28px;
+				font-weight: bold;
+			}
+
+			.close:hover,
+			.close:focus {
+				color: #000;
+				text-decoration: none;
+				cursor: pointer;
+			}
+
+			input[type=number], select, numberarea {
+				width: 100%;
+				padding: 12px;
+				border: 1px solid #ccc;
+				border-radius: 4px;
+				box-sizing: border-box;
+				margin-top: 6px;
+				margin-bottom: 16px;
+				resize: vertical;
+			}
+
+			input[type=text], select, numberarea {
+				width: 100%;
+				padding: 12px;
+				border: 1px solid #ccc;
+				border-radius: 4px;
+				box-sizing: border-box;
+				margin-top: 6px;
+				margin-bottom: 16px;
+				resize: vertical;
+			}
+			
+			input[type=submit] {
+				background-color: rgb(129, 129, 129);
+				color: white;
+				padding: 12px 20px;
+				border: none;
+				border-radius: 4px;
+				cursor: pointer;
+			}
+			
+			input[type=submit]:hover {
+				background-color: rgb(95, 95, 95);
+			}
+
+			input[type=reset] {
+				background-color: rgb(129, 129, 129);
+				color: white;
+				padding: 12px 20px;
+				border: none;
+				border-radius: 4px;
+				cursor: pointer;
+			}
+			
+			input[type=reset]:hover {
+				background-color: rgb(95, 95, 95);
+			}
+			
+			.container1 {
+				border-radius: 5px;
+				background-color: #f1f1f1;
+				padding: 10px;
+			}
+
+			#sector{
+				height: 3em;   
+			}
+
+			#myBtn {
+				color: rgb(23, 84, 153);
+				transition-duration: 0.1s;
+			}
+
+			#myBtn:hover {
+				color: rgba(23, 84, 153, 0.7);
+				cursor: pointer;
+			}
+		</style>
 	</head>
-
-	<style>
-		.montserrat {
-			font-family: 'Montserrat', sans-serif;
-		}
-
-		* {box-sizing: border-box;}
-		
-		input[type=number], select, numberarea {
-			width: 100%;
-			padding: 12px;
-			border: 1px solid #ccc;
-			border-radius: 4px;
-			box-sizing: border-box;
-			margin-top: 6px;
-			margin-bottom: 16px;
-			resize: vertical;
-		}
-
-		.disclaimer {
-			color: black;
-		}
-
-		input[type=text], select, numberarea {
-			width: 100%;
-			padding: 12px;
-			border: 1px solid #ccc;
-			border-radius: 4px;
-			box-sizing: border-box;
-			margin-top: 6px;
-			margin-bottom: 16px;
-			resize: vertical;
-		}
-		
-		input[type=submit] {
-			background-color: rgb(129, 129, 129);
-			color: white;
-			padding: 12px 20px;
-			border: none;
-			border-radius: 4px;
-			cursor: pointer;
-		}
-		
-		input[type=submit]:hover {
-			background-color: rgb(95, 95, 95);
-		}
-
-		input[type=reset] {
-			background-color: rgb(129, 129, 129);
-			color: white;
-			padding: 12px 20px;
-			border: none;
-			border-radius: 4px;
-			cursor: pointer;
-		}
-		
-		input[type=reset]:hover {
-			background-color: rgb(95, 95, 95);
-		}
-		
-		.container1 {
-			border-radius: 5px;
-			background-color: #f2f2f2;
-			padding: 10px;
-		}
-
-		#sector{
-			height: 35px;   
-		}
-	</style>
-
 	<body>
-		<div class="w3-cell-row w3-padding-small w3-dark-grey w3-display-top ">
-			<div class="w3-container w3-cell" style="color: rgb(0, 223, 200);">
-				<h1 class="w3-montserrat"><strong>Omar Wagih</strong></h1>
-			</div>
-			<div class="w3-container w3-cell w3-cell-middle">
-				<a href="{{ url_for('contact') }}" class="w3-bar-item w3-right w3-button w3-hide-small w3-mobile" style="font-family: 'Montserrat', sans-serif;">Contact</a>
-				<div class="w3-dropdown-hover w3-bar-item w3-right w3-hide-small w3-mobile w3-hover-dark-grey w3-hover-text-aqua w3-text-aqua">
-					<button class="w3-button">
-						<a style="font-family: 'Montserrat', sans-serif;">Projects</a>
-						<i class="arrow down" style="border: solid rgb(0, 252, 252); border-width: 0 1px 1px 0; display: inline-block; padding: 2px; transform: rotate(45deg); -webkit-transform: rotate(45deg);"></i>
-					</button>
-					<div class="w3-dropdown-content w3-bar-block w3-card-4">
-						<a href="{{ url_for('stockPredictor') }}" class="w3-bar-item w3-button w3-hover-dark-grey w3-hover-text-aqua w3-text-aqua" style="font-family: 'Montserrat', sans-serif;"">Stock Predictor</a>
-						<a href="{{ url_for('weatherGuide') }}" class="w3-bar-item w3-button" style="font-family: 'Montserrat', sans-serif;"">Weather Guide</a>
-					</div>
+		<!-- Regular navbar -->
+		<div id="navigationBar">
+			<div class="w3-cell-row w3-padding-small" style="background-color: #333; height: 10%;">
+				<div class="w3-container w3-cell w3-text-white">
+					<h1 style="font-family: 'Josefin Sans', sans-serif; font-weight: bold; font-size: 22px;">Omar Wagih</h1>
 				</div>
-				<a href="{{ url_for('home') }}" class="w3-bar-item w3-right w3-button w3-hide-small w3-mobile" style="font-family: 'Montserrat', sans-serif;">Home</a>
-				<a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium" onclick="myFunction2()">&#9776;</a>
+				<div class="w3-container w3-cell w3-cell-middle">
+					<a href="{{ url_for('contact') }}" class="w3-bar-item w3-right w3-button w3-hide-small w3-mobile w3-text-white">Contact</a>
+					<div class="w3-dropdown-hover w3-bar-item w3-right w3-hide-small w3-mobile">
+						<button id="active" class="w3-button w3-text-white">Projects <i class="fa fa-caret-down"></i></button>
+						<div class="w3-dropdown-content w3-bar-block w3-card-4">
+							<a href="{{ url_for('stockPredictor') }}" id="active" class="w3-bar-item w3-button">Stock Return Predictor</a>
+							<a href="{{ url_for('weatherGuide') }}" class="w3-bar-item w3-button">Weather Guide</a>
+						</div>
+					</div>
+					<a href="{{ url_for('home') }}" class="w3-bar-item w3-right w3-button w3-hide-small w3-mobile w3-text-white">Home</a>
+					<button class="w3-bar-item w3-right w3-button w3-xlarge w3-hide-medium w3-hide-large w3-text-white" onclick="openRightMenu()">&#9776;</button>
+				</div>
 			</div>
 		</div>
-		<div id="demo" class="w3-bar-block w3-hide w3-hide-large w3-hide-medium">
-			<a href="{{ url_for('home') }}" class="w3-bar-item w3-button">Home</a>
-			<button onclick="myFunction1('Demo1')" class="w3-bar-item w3-button w3-hover-dark-grey w3-hover-text-aqua w3-text-aqua">Projects</button>
-				<div id="Demo1" class="w3-container w3-hide">
-					<a href="{{ url_for('stockPredictor') }}" class="w3-bar-item w3-button w3-hover-dark-grey w3-hover-text-aqua w3-text-aqua">Stock Predictor</a>
+		<!-- Small navbar -->
+		<div id="navigationBarSmall">
+			<div class="w3-sidebar w3-bar-block w3-card w3-animate-right" style="display:none; right:0;" id="rightMenu">
+				<button onclick="closeRightMenu()" class="w3-bar-item w3-button w3-large">&times;</button>
+				<a href="{{ url_for('home') }}" class="w3-bar-item w3-button">Home</a>
+				<button onclick="showProjects('navigationBarSmallDropdown')" id="activeSmall" class="w3-bar-item w3-button">Projects <i class="fa fa-caret-down"></i></button>
+				<div id="navigationBarSmallDropdown" class="w3-container w3-hide">
+					<a href="{{ url_for('stockPredictor') }}" id="activeSmall" class="w3-bar-item w3-button">Stock Return Predictor</a>
 					<a href="{{ url_for('weatherGuide') }}" class="w3-bar-item w3-button">Weather Guide</a>
 				</div>
-			<a href="{{ url_for('contact') }}" class="w3-bar-item w3-button">Contact</a>
+				<a href="{{ url_for('contact') }}" class="w3-bar-item w3-button">Contact</a>
+			</div>
 		</div>
-		  
+		<!-- Navbar script -->
 		<script>
-			function myFunction1(id) {
+			function openRightMenu() {
+				document.getElementById("rightMenu").style.display = "block";
+			}
+
+			function closeRightMenu() {
+				document.getElementById("rightMenu").style.display = "none";
+			}
+
+			function showProjects(id) {
   				var x = document.getElementById(id);
   				if (x.className.indexOf("w3-show") == -1) {
 					x.className += " w3-show";
@@ -124,16 +227,119 @@
     				x.className = x.className.replace(" w3-show", "");
   				}
 			}
+		</script>
 
-		  	function myFunction2() {
-				var x = document.getElementById("demo");
-				if (x.className.indexOf("w3-show") == -1) {
-					x.className += " w3-show";
-				} else { 
-		  			x.className = x.className.replace(" w3-show", "");
-				}
-		  	}
+		<div class="w3-container w3-center" style="padding-top: 75px; font-family: 'Nanum Gothic', sans-serif;">
+			<div class="algorithm">
+				<h2 style="font-weight: bold;">Stock Return Predictor <i id="myBtn" class="fa fa-info-circle"></i></h2>
+				<div class="w3-container w3-center w3-margin">
+					<div class="container1">
+						<form name="submitFinancials" action="{{ url_for('stockPredictorResult') }}" onsubmit="return validateForm()" method="GET">
+							<h4>Basic Information:</h4>
+							<label for="stockName">Company Name</label>
+								<input type="text" id="stockName" name="stockName" placeholder="Tesla.." required minlength="2" maxlength="30" autofocus>
 
+							<label for="ticker">Stock Ticker</label>
+								<input type="text" id="ticker" name="ticker" placeholder="TSLA.." required minlength="1" maxlength="8">
+
+							<h4>Income Statement Accounts:</h4>
+							<label for="prevRevenue">Last Year's Revenue/Sales</label>
+								<input type="number" id="prevRevenue" name="prevRevenue" placeholder="$2,000,000.." required>
+								
+							<label for="currRevenue">Current Revenue/Sales</label>
+								<input type="number" id="currRevenue" name="currRevenue" placeholder="$3,000,000.." required>
+								
+							<label for="cogs">Cost of Goods Sold</label>
+								<input type="number" id="cogs" name="cogs" placeholder="$1,800,000.." required>
+								
+							<label for="ebitda">EBITDA</label>
+								<input type="number" id="ebitda" name="ebitda" placeholder="$1,200,000.." required>
+
+							<label for="ebit">EBIT</label>
+								<input type="number" id="ebit" name="ebit" placeholder="$1,000,000.." required>
+
+							<label for="interestExpense">Interest Expense</label>
+								<input type="number" id="interestExpense" name="interestExpense" placeholder="$200,000.." required>
+
+							<label for="netIncome">Net Income</label>
+								<input type="number" id="netIncome" name="netIncome" placeholder="$800,000.." required>
+
+
+							<h4>Balance Sheet Accounts:</h4>
+							<h5>Assets</h5>
+							<label for="cash">Cash & Cash Equivalents</label>
+								<input type="number" id="cash" name="cash" placeholder="$500,000.." required>
+									
+							<label for="accountsReceivable">Accounts Receivable</label>
+								<input type="number" id="accountsReceivable" name="accountsReceivable" placeholder="$300,000.." required>
+									
+							<label for="inventory">Inventory</label>
+								<input type="number" id="inventory" name="inventory" placeholder="$250,000.." required>
+
+							<label for="currAssets">Current Assets</label>
+								<input type="number" id="currAssets" name="currAssets" placeholder="$1,600,000.." required>
+
+							<label for="totalAssets">Total Assets</label>
+								<input type="number" id="totalAssets" name="totalAssets" placeholder="$4,000,000.." required>
+							
+							<h5>Liabilities</h5>
+							<label for="accountsPayable">Accounts Payable</label>
+								<input type="number" id="accountsPayable" name="accountsPayable" placeholder="$450,000.." required>
+
+							<label for="currLiabilities">Current Liabilities</label>
+								<input type="number" id="currLiabilities" name="currLiabilities" placeholder="$900,000.." required>
+							
+							<label for="totalLiabilities">Total Liabilities</label>
+								<input type="number" id="totalLiabilities" name="totalLiabilities" placeholder="$1,900,000.." required>
+
+							<h5>Shareholders' Equity</h5>
+							<label for="preferredDividends">Preferred Dividends</label>
+								<input type="number" id="preferredDividends" name="preferredDividends" placeholder="$600,000.." required>
+
+							<label for="totalEquity">Total Shareholders' Equity</label>
+								<input type="number" id="totalEquity" name="totalEquity" placeholder="$2,100,000.." required>
+							<p>*Please make sure that Total Assets = Total Liabilities + Total Shareholders' Equity at this point*</p>
+							<br>
+
+							<h4>Statement of Cash Flows Accounts:</h4>
+							<label for="capex">Capital Expenditures</label>
+								<input type="number" id="capex" name="capex" placeholder="$850,000.." required>
+							
+							
+							<h4>Other Market Information:</h4>
+							<label for="outstandingShares">Total Number of Outstanding Shares</label>
+								<input type="number" id="outstandingShares" name="outstandingShares" placeholder="2,000,000.." required>
+
+							<label for="dividendPerShare">Dividend per Share</label>
+								<input type="number" id="dividendPerShare" name="dividendPerShare" placeholder="$1.." step="0.01" required>
+							
+							<label for="currPrice">Current Market Price of One Share</label>
+								<input type="number" id="currPrice" name="currPrice" placeholder="$25.." step="0.01" required>
+							
+							<label for="sector">Sector</label>
+								<select id="sector" name="sector" required>
+									<option hidden="" value="chooseSector">Select a Sector..</option>
+									<option value="basicMaterials">Basic Materials</option>
+									<option value="communicationServices">Communication Services</option>
+									<option value="consumerCyclical">Consumer Cyclical/Consumer Durables</option>
+									<option value="consumerDefensive">Consumer Defensive/Consumer Non-Durables</option>
+									<option value="energy">Energy</option>
+									<option value="financialServices">Financial Services</option>
+									<option value="healthcare">Healthcare</option>
+									<option value="industrials">Industrials</option>
+									<option value="realEstate">Real Estate</option>
+									<option value="technology">Technology</option>
+									<option value="utilities">Utilities</option>
+								</select>
+							<input type="submit" value="Submit">
+							<input type="reset" value="Reset" style="margin-bottom: 0.5em;">
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script>
 			function validateForm() {
   				var currRevenue = parseFloat(document.forms["submitFinancials"]["currRevenue"].value);
 				var totalAssets = parseFloat(document.forms["submitFinancials"]["totalAssets"].value);
@@ -190,130 +396,68 @@
 				}
 			}
 		</script>
+		
+		<!-- The Modal -->
+		<div id="myModal" class="modal">
+			<!-- Modal content -->
+			<div id="modalBack" style="height: 100%; width: 100%; display: flex; justify-content: center; align-items: center;">
+				<div class="modal-content">
+					<span class="close">&times;</span>
+					<h3>Goal</h3>
+					<p>To build a machine learning model that can predict stock performance using a company's financial indicators, as found in its 10-K filings.</p>
 
-	<div class="w3-container w3-center">
-		<div class="algorithm">
-			<h1 class="projectTitle">Stock Return Predictor</h1>
-			<h4 class="projectTitle">--A Supervised Regression Machine Learning Project--</h4>
-			<h5 class="projectTitle">Please fill in the fields below using a company of your choice's latest financial statements</h5>
-			<p class="text">The Machine Learning algorithm will predict that stock's price percentage change in the upcoming year!
-				<br>Please note that if any of these fields are missing or incorrectly filled, the algorithm loses a great amount of accuracy.
-				<br>Preferably use audited annual financial statements, rather than quarterly.
-			</p>
+					<hr style="height:1px; color: rgba(51, 51, 51, 0.8); background-color: rgba(51, 51, 51, 0.8);">
+					
+					<h3>Instructions</h3>
+					<p>Please fill in the fields using a company of your choice's latest financial statements.
+						<br>The machine learning algorithm will predict that stock's price percentage change in the upcoming year!
+						<br>Please note that if any of these fields are missing or incorrectly filled, the algorithm loses a great amount of accuracy.
+						<br>Preferably use audited annual financial statements, rather than quarterly.
+					</p>
 
-			<div class="w3-container w3-center w3-margin">
-				<div class="container1">
-					<form name="submitFinancials" action="{{ url_for('stockPredictorResult') }}" onsubmit="return validateForm()" method="GET">
-						<h4>Basic Information:</h4>
-						<label for="stockName">Company Name</label>
-							<input type="text" id="stockName" name="stockName" placeholder="Tesla.." required minlength="2" maxlength="30" autofocus>
+					<hr style="height:1px; color: rgba(51, 51, 51, 0.8); background-color: rgba(51, 51, 51, 0.8);">
 
-						<label for="ticker">Stock Ticker</label>
-							<input type="text" id="ticker" name="ticker" placeholder="TSLA.." required minlength="1" maxlength="8">
-
-						<h4>Income Statement Accounts:</h4>
-						<label for="prevRevenue">Last Year's Revenue/Sales</label>
-							<input type="number" id="prevRevenue" name="prevRevenue" placeholder="$2,000,000.." required>
-							
-						<label for="currRevenue">Current Revenue/Sales</label>
-							<input type="number" id="currRevenue" name="currRevenue" placeholder="$3,000,000.." required>
-							
-						<label for="cogs">Cost of Goods Sold</label>
-							<input type="number" id="cogs" name="cogs" placeholder="$1,800,000.." required>
-							
-						<label for="ebitda">EBITDA</label>
-							<input type="number" id="ebitda" name="ebitda" placeholder="$1,200,000.." required>
-
-						<label for="ebit">EBIT</label>
-							<input type="number" id="ebit" name="ebit" placeholder="$1,000,000.." required>
-
-						<label for="interestExpense">Interest Expense</label>
-							<input type="number" id="interestExpense" name="interestExpense" placeholder="$200,000.." required>
-
-						<label for="netIncome">Net Income</label>
-							<input type="number" id="netIncome" name="netIncome" placeholder="$800,000.." required>
-
-
-						<h4>Balance Sheet Accounts:</h4>
-						<h5>Assets</h5>
-						<label for="cash">Cash & Cash Equivalents</label>
-							<input type="number" id="cash" name="cash" placeholder="$500,000.." required>
-								
-						<label for="accountsReceivable">Accounts Receivable</label>
-							<input type="number" id="accountsReceivable" name="accountsReceivable" placeholder="$300,000.." required>
-								
-						<label for="inventory">Inventory</label>
-							<input type="number" id="inventory" name="inventory" placeholder="$250,000.." required>
-
-						<label for="currAssets">Current Assets</label>
-							<input type="number" id="currAssets" name="currAssets" placeholder="$1,600,000.." required>
-
-						<label for="totalAssets">Total Assets</label>
-							<input type="number" id="totalAssets" name="totalAssets" placeholder="$4,000,000.." required>
-						
-						<h5>Liabilities</h5>
-						<label for="accountsPayable">Accounts Payable</label>
-							<input type="number" id="accountsPayable" name="accountsPayable" placeholder="$450,000.." required>
-
-						<label for="currLiabilities">Current Liabilities</label>
-							<input type="number" id="currLiabilities" name="currLiabilities" placeholder="$900,000.." required>
-						
-						<label for="totalLiabilities">Total Liabilities</label>
-							<input type="number" id="totalLiabilities" name="totalLiabilities" placeholder="$1,900,000.." required>
-
-						<h5>Shareholders' Equity</h5>
-						<label for="preferredDividends">Preferred Dividends</label>
-							<input type="number" id="preferredDividends" name="preferredDividends" placeholder="$600,000.." required>
-
-						<label for="totalEquity">Total Shareholders' Equity</label>
-							<input type="number" id="totalEquity" name="totalEquity" placeholder="$2,100,000.." required>
-						<p>*Please make sure that Total Assets = Total Liabilities + Total Shareholders' Equity at this point*</p>
-						<br>
-
-						<h4>Statement of Cash Flows Accounts:</h4>
-						<label for="capex">Capital Expenditures</label>
-							<input type="number" id="capex" name="capex" placeholder="$850,000.." required>
-						
-						
-						<h4>Other Market Information:</h4>
-						<label for="outstandingShares">Total Number of Outstanding Shares</label>
-							<input type="number" id="outstandingShares" name="outstandingShares" placeholder="2,000,000.." required>
-
-						<label for="dividendPerShare">Dividend per Share</label>
-							<input type="number" id="dividendPerShare" name="dividendPerShare" placeholder="$1.." step="0.01" required>
-						
-						<label for="currPrice">Current Market Price of One Share</label>
-							<input type="number" id="currPrice" name="currPrice" placeholder="$25.." step="0.01" required>
-						
-						<label for="sector">Sector</label>
-							<select id="sector" name="sector" required>
-								<option hidden="" value="chooseSector">Select a Sector..</option>
-								<option value="basicMaterials">Basic Materials</option>
-								<option value="communicationServices">Communication Services</option>
-								<option value="consumerCyclical">Consumer Cyclical/Consumer Durables</option>
-								<option value="consumerDefensive">Consumer Defensive/Consumer Non-Durables</option>
-								<option value="energy">Energy</option>
-								<option value="financialServices">Financial Services</option>
-								<option value="healthcare">Healthcare</option>
-								<option value="industrials">Industrials</option>
-								<option value="realEstate">Real Estate</option>
-								<option value="technology">Technology</option>
-								<option value="utilities">Utilities</option>
-							</select>
-						<input type="submit" value="Submit">
-						<input type="reset" value="Reset" style="margin-bottom: 0.5em;">
-					</form>
+					<h3>Technical Overview</h3>
+					<p>This project is built as a supervised learning regression algorithm using Scikit-learn's Random Forest Regressor.
+						<br>It was trained on over 5000 stock returns from the years 2014 through 2018.
+						<br>The explanatory variables are financial ratios, rather than dollar metrics, to allow for comparison between companies of different scales.
+						<br>In addition, binary dummy variables were used in the regression to account for the different sectors within the market.
+						<br>The Kaggle dataset can be accessed <a href="https://www.kaggle.com/cnic92/200-financial-indicators-of-us-stocks-20142018" target="_blank">here</a>.</p>
 				</div>
 			</div>
 		</div>
-	</div>
 
-	<div class="w3-container w3-teal w3-center w3-display-bottom" style="margin-top: 1em; width: 100%; padding-bottom: 1em; bottom: 0;">
-		<h4 class="disclaimer"><strong>Disclaimer:</strong></h4>
-		<p>This tool is <strong><u>NOT</u></strong> 100% accurate.
-		<br>No algorithm can predict stock performance with absolutely no error.
-		<br>Nevertheless, if you choose to use this tool for trading purposes, please do so at your own discretion.</p>
-	</div>
+		<script>
+			// Get the modal
+			var modal = document.getElementById("myModal");
+			var modelBack = document.getElementById("modalBack");
+			// Get the button that opens the modal
+			var btn = document.getElementById("myBtn");
+			// Get the <span> element that closes the modal
+			var span = document.getElementsByClassName("close")[0];
+			// When the user clicks on the info button, open the modal
+			btn.onclick = function() {
+				modal.style.display = "block";
+			}
+			// When the user clicks on <span> (x), close the modal
+			span.onclick = function() {
+				modal.style.display = "none";
+			}
+			// When the user clicks anywhere outside of the modal, close it
+			window.onclick = function(event) {
+				if (event.target == modalBack) {
+					modal.style.display = "none";
+				}
+			}
+		</script>
+
+		<div class="w3-container w3-text-white w3-center w3-display-bottom" style="margin-top: 1em; width: 100%; bottom: 0; background-color: rgb(23, 84, 153); font-family: 'Nanum Gothic', sans-serif;">
+			<div style="padding: 1px;">
+				<h4 style="color: #f1f1f1;"><strong>Disclaimer:</strong></h4>
+				<p>This tool is <u>NOT</u> 100% accurate.
+				<br>No algorithm can predict stock performance with absolutely no error.
+				<br>Nevertheless, if you choose to use this tool for trading purposes, please do so at your own discretion.</p>
+			</div>
+		</div>
 	</body>
-
 </html>

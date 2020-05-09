@@ -1,40 +1,76 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Omar Wagih | Projects</title>
-		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<title>Weather Guide | Omar Wagih</title>
+
 		<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-		<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+		<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@500&family=Nanum+Gothic&display=swap" rel="stylesheet">
+
 		<link rel="apple-touch-icon" sizes="180x180" href="static/favicon/apple-touch-icon.png">
 		<link rel="icon" type="image/png" sizes="32x32" href="static/favicon/favicon-32x32.png">
 		<link rel="icon" type="image/png" sizes="16x16" href="static/favicon/favicon-16x16.png">
 		<link rel="manifest" href="static/favicon/site.webmanifest">
-
-		<link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
 	</head>
 
 	<style>
-		.montserrat {
-			font-family: 'Montserrat', sans-serif;
+		body, html {
+			height: 100%;
+			font-family: 'Josefin Sans', sans-serif;
 		}
 
-		.body {
-    		display:table;
-			width:100%;
+		#navigationBar {
+			position: fixed;
+			width: 100%;
+			z-index: 1;
 		}
 
-		header {
-			display:table-row;
+		#navigationBar a#active {
+			background-color: rgb(23, 84, 153);
+			color: white;
 		}
 
-		header + section {
-    		height:100%;  
+		#navigationBar a#active:hover {
+			background-color: rgb(23, 84, 153) !important;
+			color: white !important;
+		}
+
+		#navigationBar button#active {
+			background-color: rgb(23, 84, 153);
+		}
+
+		#navigationBar button#active:hover {
+			background-color: rgb(23, 84, 153) !important;
+			color: white !important;
+		}
+
+		#navigationBarSmall a#activeSmall {
+			background-color: rgb(23, 84, 153);
+			color:white;
+		}
+
+		#navigationBarSmall a#activeSmall:hover {
+			color:white !important;
+			background-color: rgb(23, 84, 153) !important;
+		}
+
+		#navigationBarSmall button#activeSmall {
+			background-color: rgb(23, 84, 153);
+			color:white;
+		}
+
+		#navigationBarSmall button#activeSmall:hover {
+			color:white !important;
+			background-color: rgb(23, 84, 153) !important;
 		}
 
 		.degree-section {
 			display: flex;
 			align-items: center;
+			justify-content: center;
 			cursor: pointer;
 		}
 
@@ -52,6 +88,7 @@
 		.extraInfoSection1, .extraInfoSection2, .extraInfoSection3 {
 			display: flex;
 			align-items: center;
+			justify-content: center;
 			cursor: pointer;
 		}
 
@@ -70,255 +107,333 @@
 			position: absolute; 
 			width: 100%; 
 			height: 100%; 
-			background-color:#e9e9e9;
+			background-color:white;
 			background-repeat: no-repeat; 
 			background-size: 20%; 
 			background-position: 50% 50%; 
 			padding: 15px;
 		}
 
-		@keyframes myanimation {
-  			0% {background-color: #eeeeee;}
-  			14.28%{background-color:#e9e9e9;}
-  			28.56%{background-color:#dddddd;}
-  			42.84%{background-color:#cfcfcf;}
-  			57.12% {background-color: #c0c0c0;}
-			71.4%{background-color:#cfcfcf;}
-			85.6%{background-color:#dddddd;}
-			100%{background-color:#e9e9e9;}
+		/* The Modal (background) */
+		.modal {
+			display: none; /* Hidden by default */
+			position: fixed; /* Stay in place */
+			z-index: 1; /* Sit on top */
+			left: 0;
+			top: 0;
+			width: 100%; /* Full width */
+			height: 100%; /* Full height */
+			overflow: auto; /* Enable scroll if needed */
+			background-color: rgb(0,0,0); /* Fallback color */
+			background-color: rgba(0,0,0,0.5); /* Black w/ opacity */
+		}
+
+		/* Modal Content */
+		.modal-content {
+			background-color: #f1f1f1;
+			margin: auto;
+			padding: 20px;
+			border: 1px solid #888;
+			width: 90%;
+			text-align: center; 
+			font-family: 'Nanum Gothic', sans-serif;
+		}
+			
+		/* The Close Button */
+		.close {
+			color: #aaaaaa;
+			float: right;
+			font-size: 28px;
+			font-weight: bold;
+		}
+
+		.close:hover,
+		.close:focus {
+			color: #000;
+			text-decoration: none;
+			cursor: pointer;
+		}
+
+		.recommendation {
+			background-color: #f1f1f1;
+			color: black;
+			border: 1px solid rgb(167, 167, 167);
+			border-radius: 4px;
+			padding: 10px;
+			text-align: center;
+			text-decoration: none;
+			display: none;
+			font-size: 16px;
+			margin: 4px 0px;
+			transition-duration: 0.2s;
+			cursor: pointer;
+		}
+
+		.recommendation:hover {
+			border: 1px solid rgb(23, 84, 153, 0.8);
+			background-color: rgb(23, 84, 153, 0.8);
+			color: white;
+			cursor: pointer;
+		}
+
+		#changeWidth1 {
+			width: 50%;
+		}
+
+		#changeWidth2 {
+			width: 50%;
+		}
+
+		/* Medium screens */
+		@media only screen and (max-width: 1024px) and (min-width: 600px) {
+			#changeWidth1 {
+				width: 60%;
+			}
+
+			#changeWidth2 {
+				width: 40%;
+			}
+		}
+
+		/* Small screens */
+		@media only screen and (max-width: 600px) {
+			#changeWidth1 {
+				width: 60%;
+			}
+
+			#changeWidth2 {
+				width: 40%;
+			}
 		}
 	</style>
 
 	<body>
-		<section class="body">
-			<header>
-				<div class="w3-cell-row w3-padding-small w3-dark-grey w3-display-top ">
-					<div class="w3-container w3-cell" style="color: rgb(0, 223, 200);">
-						<h1 class="w3-montserrat"><strong>Omar Wagih</strong></h1>
+		<!-- Regular navbar -->
+		<div id="navigationBar">
+			<div class="w3-cell-row w3-padding-small" style="background-color: #333; height: 10%;">
+				<div class="w3-container w3-cell w3-text-white">
+					<h1 style="font-family: 'Josefin Sans', sans-serif; font-weight: bold; font-size: 22px;">Omar Wagih</h1>
+				</div>
+				<div class="w3-container w3-cell w3-cell-middle">
+					<a href="{{ url_for('contact') }}" class="w3-bar-item w3-right w3-button w3-hide-small w3-mobile w3-text-white">Contact</a>
+					<div class="w3-dropdown-hover w3-bar-item w3-right w3-hide-small w3-mobile">
+						<button id="active" class="w3-button w3-text-white">Projects <i class="fa fa-caret-down"></i></button>
+						<div class="w3-dropdown-content w3-bar-block w3-card-4">
+							<a href="{{ url_for('stockPredictor') }}" class="w3-bar-item w3-button">Stock Return Predictor</a>
+							<a href="{{ url_for('weatherGuide') }}" id="active" class="w3-bar-item w3-button">Weather Guide</a>
+						</div>
 					</div>
-					<div class="w3-container w3-cell w3-cell-middle">
-						<a href="{{ url_for('contact') }}" class="w3-bar-item w3-right w3-button w3-hide-small w3-mobile" style="font-family: 'Montserrat', sans-serif;">Contact</a>
-						<div class="w3-dropdown-hover w3-bar-item w3-right w3-hide-small w3-mobile w3-hover-dark-grey w3-hover-text-aqua w3-text-aqua">
-							<button class="w3-button">
-								<a style="font-family: 'Montserrat', sans-serif;">Projects</a>
-								<i class="arrow down" style="border: solid rgb(0, 252, 252); border-width: 0 1px 1px 0; display: inline-block; padding: 2px; transform: rotate(45deg); -webkit-transform: rotate(45deg);"></i>
-							</button>
-							<div class="w3-dropdown-content w3-bar-block w3-card-4">
-								<a href="{{ url_for('stockPredictor') }}" class="w3-bar-item w3-button" style="font-family: 'Montserrat', sans-serif;"">Stock Predictor</a>
-								<a href="{{ url_for('weatherGuide') }}" class="w3-bar-item w3-button w3-hover-dark-grey w3-hover-text-aqua w3-text-aqua" style="font-family: 'Montserrat', sans-serif;"">Weather Guide</a>
-							</div>
-						</div>
-						<a href="{{ url_for('home') }}" class="w3-bar-item w3-right w3-button w3-hide-small w3-mobile" style="font-family: 'Montserrat', sans-serif;">Home</a>
-						<a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium" onclick="myFunction2()">&#9776;</a>
+					<a href="{{ url_for('home') }}" class="w3-bar-item w3-right w3-button w3-hide-small w3-mobile w3-text-white">Home</a>
+					<button class="w3-bar-item w3-right w3-button w3-xlarge w3-hide-medium w3-hide-large w3-text-white" onclick="openRightMenu()">&#9776;</button>
+				</div>
+			</div>
+		</div>
+		<!-- Small navbar -->
+		<div id="navigationBarSmall">
+			<div class="w3-sidebar w3-bar-block w3-card w3-animate-right" style="display:none; right:0;" id="rightMenu">
+				<button onclick="closeRightMenu()" class="w3-bar-item w3-button w3-large">&times;</button>
+				<a href="{{ url_for('home') }}" class="w3-bar-item w3-button">Home</a>
+				<button onclick="showProjects('navigationBarSmallDropdown')" id="activeSmall" class="w3-bar-item w3-button">Projects <i class="fa fa-caret-down"></i></button>
+				<div id="navigationBarSmallDropdown" class="w3-container w3-hide">
+					<a href="{{ url_for('stockPredictor') }}" class="w3-bar-item w3-button">Stock Return Predictor</a>
+					<a href="{{ url_for('weatherGuide') }}" id="activeSmall" class="w3-bar-item w3-button">Weather Guide</a>
+				</div>
+				<a href="{{ url_for('contact') }}" class="w3-bar-item w3-button">Contact</a>
+			</div>
+		</div>
+		<!-- Navbar script -->
+		<script>
+			function openRightMenu() {
+				document.getElementById("rightMenu").style.display = "block";
+			}
+
+			function closeRightMenu() {
+				document.getElementById("rightMenu").style.display = "none";
+			}
+
+			function showProjects(id) {
+				var x = document.getElementById(id);
+				if (x.className.indexOf("w3-show") == -1) {
+					x.className += " w3-show";
+				} else { 
+					x.className = x.className.replace(" w3-show", "");
+				}
+			}
+		</script>
+
+		<div id="particles-js"></div>
+
+		<div style="width: 100%; height: calc(100vh - 60px); overflow: hidden; position:absolute; top: 60px; font-family: 'Nanum Gothic', sans-serif;">
+			<div class="w3-cell-row" style="position: absolute; top: 5%;">
+				<div class="w3-container w3-cell w3-cell-middle" id="changeWidth1">
+					<div class="w3-center">
+						<h1 class="location_timezone" style="font-family: 'Nanum Gothic', sans-serif; font-size: 4vmax;"> </h1>
 					</div>
 				</div>
-				<div id="demo" class="w3-bar-block w3-hide w3-hide-large w3-hide-medium">
-					<a href="{{ url_for('home') }}" class="w3-bar-item w3-button">Home</a>
-					<button onclick="myFunction1('Demo1')" class="w3-bar-item w3-button w3-hover-dark-grey w3-hover-text-aqua w3-text-aqua">Projects</button>
-						<div id="Demo1" class="w3-container w3-hide">
-							<a href="{{ url_for('stockPredictor') }}" class="w3-bar-item w3-button">Stock Predictor</a>
-							<a href="{{ url_for('weatherGuide') }}" class="w3-bar-item w3-button w3-hover-dark-grey w3-hover-text-aqua w3-text-aqua">Weather Guide</a>
-						</div>
-					<a href="{{ url_for('contact') }}" class="w3-bar-item w3-button">Contact</a>
+				<div class="w3-container w3-cell w3-cell-middle" id="changeWidth2">
+					<div class="w3-center">
+						<canvas class="icon" style="height: 50%; width: 50%; object-fit: contain;"></canvas>
+					</div>
 				</div>
-			</header>
-			
-			<script>
-				function myFunction1(id) {
-					var x = document.getElementById(id);
-					if (x.className.indexOf("w3-show") == -1) {
-						x.className += " w3-show";
-					} else { 
-						x.className = x.className.replace(" w3-show", "");
-					}
-				}
+			</div>
 
-				function myFunction2() {
-					var x = document.getElementById("demo");
-					if (x.className.indexOf("w3-show") == -1) {
-						x.className += " w3-show";
-					} else { 
-						x.className = x.className.replace(" w3-show", "");
-					}
-				}
-			</script>
-
-			<span>
-				<div class="w3-display-container w3-mobile" style="height: 100vh;">
-					<div id="particles-js"></div>
-					<div class="w3-center" style="height: 100%; margin: 0 16px 0 16px;">
-						<div class="w3-display-container w3-row" style="height:20%; margin: 0 16px 0 16px;">
-							<div class="w3-display-left" style="width:50%">
-								<h1 class="location_timezone"> </h1>
-							</div>
-							<div class="w3-display-right" style="width:50%">
-								<div>
-									<canvas class="icon" height="100%"></canvas>
-								</div>
-							</div>
-						</div>
-
-						<div class="w3-display-container w3-row" style="height:2%; margin: 0 16px 0 16px;">
-							<div class="w3-display-middle" style="width:100%;">
-								<hr style="border-top: 1px solid rgb(194, 194, 194);">
-							</div>
-						</div>
-
-						<div class="w3-display-container w3-row" style="height:3%; margin: 0 16px 0 16px;">
-							<div class="w3-display-middle" style="width:100%;">
-								<h4 class="currDate"> </h4>
-							</div>
-						</div>
-
-						<div class="w3-display-container w3-row" style="height:2%; margin: 0 16px 0 16px;">
-							<div class="w3-display-middle" style="width:100%;">
-								<hr style="border-top: 1px solid rgb(194, 194, 194);">
-							</div>
-						</div>
-
-						<div class="w3-display-container w3-row" style="height:15%; margin: 0 16px 0 16px;">
-							<div class="w3-display-middle">
-								<div class="degree-section">
-									<h2 class="temperature-degree"> </h2>
-									<span> </span>
-								</div>
-								<i>
-									<div class="temperature-description" style="margin-bottom: 16px;"> </div>
-								</i>
-							</div>
-						</div>
-
-						<div class="w3-display-container w3-row" style="height:2%; margin: 0 16px 0 16px;">
-							<div class="w3-display-middle" style="width:100%;">
-								<hr style="border-top: 1px solid rgb(194, 194, 194); margin: 0;">
-							</div>
-						</div>
-
-						<div class="w3-display-container w3-row" style="height:5%; margin: 0 16px 0 16px;">
-							<div class="w3-display-left" style="width:33.3%;">
-								<p class="todayLowHeadline"> </p>
-							</div>
-							<div class="w3-display-middle" style="width:33.3%;">
-								<p class="currFeelsLikeHeadline"> </p>
-							</div>
-							<div class="w3-display-right" style="width:33.3%;">
-								<p class="todayHighHeadline"> </p>
-							</div>
-						</div>
-
-						<div class="w3-display-container w3-row" style="height:5%; margin: 0 16px 0 16px;">
-							<div class="w3-display-left" style="width:33.33%">
-								<div class="w3-display-container" style="height:4vh;">
-									<div class="w3-display-middle">
-										<div class="extraInfoSection1">
-											<h2 class="lowestTemp"> </h2>
-											<span style="font-size: 20px;"> </span>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="w3-display-middle" style="width:33.33%">
-								<div class="w3-display-container" style="height:4vh;">
-									<div class="w3-display-middle">
-										<div class="extraInfoSection2">
-											<h2 class="currentFeelsLike"> </h2>
-											<span style="font-size: 20px;"> </span>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="w3-display-right" style="width:33.33%">
-								<div class="w3-display-container" style="height:4vh;">
-									<div class="w3-display-middle">
-										<div class="extraInfoSection3">
-											<h2 class="highestTemp"> </h2>
-											<span style="font-size: 20px;"> </span>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-
-						<div class="w3-display-container w3-row" style="height:2%; margin: 0 16px 0 16px;">
-							<div class="w3-display-middle" style="width:100%;">
-								<hr style="border-top: 1px solid rgb(194, 194, 194);">
-							</div>
-						</div>
-
-						<div class="w3-display-container w3-row" style="height:2%; margin: 0 16px 0 16px;">
-						</div>
-
-						<div class="w3-display-container w3-row" style="height:5%; margin: 0 16px 0 16px;">
-							<div class="w3-display-middle" style="width:100%;">
-								<h4 class="recommendation"> </h4>
-							</div>
-						</div>
-
-						<div class="w3-display-container w3-row" style="height:3%; margin: 0 16px 0 16px;">
-							<div class="w3-display-middle" style="width:100%;">
-								<p class="recommendationDescription"> </p>
-							</div>
-						</div>
-
-						<div class="w3-display-container w3-row" style="height:2%; margin: 0 16px 0 16px;">
-						</div>
-
-						<div class="w3-display-container w3-row" style="height:8%; margin: 0 16px 0 16px;">
-							<div class="w3-display-left" style="width:33.3%; height: 100%; border-top: 1px solid rgb(194, 194, 194); border-left: 1px solid rgb(194, 194, 194); border-right: 1px solid rgb(194, 194, 194);">
-								<div class="w3-display-middle">
-									<p class="accessoriesDescription"> </p>
-								</div>
-							</div>
-							<div class="w3-display-middle" style="width:33.3%; height: 100%; border-top: 1px solid rgb(194, 194, 194); border-left: 1px solid rgb(194, 194, 194); border-right: 1px solid rgb(194, 194, 194);">
-								<div class="w3-display-middle">
-									<p class="clothingDescription"> </p>
-								</div>
-							</div>
-							<div class="w3-display-right" style="width:33.3%; height: 100%; border-top: 1px solid rgb(194, 194, 194); border-left: 1px solid rgb(194, 194, 194); border-right: 1px solid rgb(194, 194, 194);">
-								<div class="w3-display-middle">
-									<p class="shoesDescription"> </p>
-								</div>
-							</div>
-						</div>
-
-						<div class="w3-display-container w3-row" style="height:18%; margin: 0 16px 0 16px;">
-							<div class="w3-display-left" style="width:33.3%; height: 18vh; border-bottom: 1px solid rgb(194, 194, 194); border-left: 1px solid rgb(194, 194, 194); border-right: 1px solid rgb(194, 194, 194);">
-								<div class="w3-display-middle" style="width: 100%;">
-									<div id="accessoriesSection">
-										
-									</div>
-								</div>
-							</div>
-							<div class="w3-display-middle" style="width:33.3%; height: 18vh; border-bottom: 1px solid rgb(194, 194, 194); border-left: 1px solid rgb(194, 194, 194); border-right: 1px solid rgb(194, 194, 194);">
-								<div class="w3-display-middle" style="width: 100%;">
-									<div id="clothingSection">
-										
-									</div>
-								</div>
-							</div>
-							<div class="w3-display-right" style="width:33.3%; height: 18vh; border-bottom: 1px solid rgb(194, 194, 194); border-left: 1px solid rgb(194, 194, 194); border-right: 1px solid rgb(194, 194, 194);">
-								<div class="w3-display-middle" style="width: 100%;">
-									<div id="shoesSection">
-									
-									</div>
-								</div>
-							</div>
-						</div>
-
-						<div class="w3-display-container w3-row" style="height:2%; margin: 0 16px 0 16px;">
-						</div>
-
-						<div class="w3-display-container w3-row" style="height:4vh; margin: 0 16px;">
-							<div style="width:100%; height:100%;">
-								<div class="w3-display-middle">
-									<p style="margin:0; padding:0;"><a href="https://www.omarwagih.com/projects/weatherGuideForm" class="update"> </a></p>
-								</div>
-							</div>
-						</div>
-					</div> 
+			<div class="w3-cell-row" style="position: absolute; bottom: 66.5%;">
+				<div class="w3-container w3-cell w3-cell-middle">
+					<div class="w3-center">
+						<h4 class="currDate" style="font-family: 'Nanum Gothic', sans-serif; font-size: 3vh;"> </h4>
+					</div>
 				</div>
-			</span>
-		</section>
+			</div>
+
+			<div class="w3-cell-row" style="position: absolute; bottom: 51.5%;">
+				<div class="w3-container w3-cell w3-cell-middle">
+					<div class="w3-center">
+						<div class="degree-section">
+							<h2 class="temperature-degree" style="font-family: 'Nanum Gothic', sans-serif;"> </h2>
+							<span> </span>
+						</div>
+						<i>
+							<div class="temperature-description"> </div>
+						</i>
+					</div>
+				</div>
+			</div>
+
+			<div class="w3-cell-row" style="position: absolute; bottom: 35%;">
+				<div class="w3-container w3-cell w3-cell-middle" style="width: 33.33%;">
+					<div class="w3-center">
+						<p class="todayLowHeadline"> </p>
+					</div>
+				</div>
+				<div class="w3-container w3-cell w3-cell-middle" style="width: 33.33%;">
+					<div class="w3-center">
+						<p class="currFeelsLikeHeadline"> </p>
+					</div>
+				</div>
+				<div class="w3-container w3-cell w3-cell-middle" style="width: 33.33%;">
+					<div class="w3-center">
+						<p class="todayHighHeadline"> </p>
+					</div>
+				</div>
+			</div>
+
+			<div class="w3-cell-row" style="position: absolute; bottom: 30%;">
+				<div class="w3-container w3-cell w3-cell-middle" style="width: 33.33%;">
+					<div class="extraInfoSection1">
+						<h2 class="lowestTemp" style="font-family: 'Nanum Gothic', sans-serif;"> </h2>
+						<span> </span>
+					</div>
+				</div>
+				<div class="w3-container w3-cell w3-cell-middle" style="width: 33.33%;">
+					<div class="extraInfoSection2">
+						<h2 class="currentFeelsLike" style="font-family: 'Nanum Gothic', sans-serif;"> </h2>
+						<span> </span>
+					</div>
+				</div>
+				<div class="w3-container w3-cell w3-cell-middle" style="width: 33.33%;">
+					<div class="extraInfoSection3">
+						<h2 class="highestTemp" style="font-family: 'Nanum Gothic', sans-serif;"> </h2>
+						<span> </span>
+					</div>
+				</div>
+			</div>
+
+			<div class="w3-cell-row" style="position: absolute; bottom: 12.5%;">
+				<div class="w3-container w3-cell w3-cell-middle" style="text-align: center;">
+					<div class="w3-center" style="min-width: 40%; display: inline-block;">
+						<button class="recommendation" id="myBtn"></button>
+					</div>
+				</div>
+			</div>
+
+			<div class="w3-cell-row w3-text-white" style="position: absolute; bottom: 0%; padding: 5px; background-color: rgb(23, 84, 153);">
+				<div class="w3-container w3-cell w3-cell-middle">
+					<div class="w3-center">
+						<p style="margin:0; padding:0;"><a href="/projects/weatherGuideForm" class="update"> </a></p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- The Modal -->
+		<div id="myModal" class="modal">
+			<!-- Modal content -->
+			<div id="modalBack" style="height: 100%; width: 100%; display: flex; justify-content: center; align-items: center; font-family: 'Nanum Gothic', sans-serif;">
+				<div class="modal-content">
+					<span class="close">&times;</span>
+
+					<div class="w3-cell-row">
+						<div class="w3-container w3-cell w3-cell-middle">
+							<div class="w3-center">
+								<h4 class="recommendationDescription" style="margin: 0; font-family: 'Nanum Gothic', sans-serif; font-weight: bold;"> </h4>
+							</div>
+						</div>
+					</div>
+		
+					<hr style="height:1px; color: rgba(51, 51, 51, 0.8); background-color: rgba(51, 51, 51, 0.8);">
+		
+					<div class="w3-cell-row">
+						<div class="w3-container w3-cell w3-cell-middle" style="width: 33.33%;">
+							<div class="w3-center">
+								<p class="accessoriesDescription"> </p>
+							</div>
+						</div>
+						<div class="w3-container w3-cell w3-cell-middle" style="width: 33.33%;">
+							<div class="w3-center">
+								<p class="clothingDescription"> </p>
+							</div>
+						</div>
+						<div class="w3-container w3-cell w3-cell-middle" style="width: 33.33%;">
+							<div class="w3-center">
+								<p class="shoesDescription"> </p>
+							</div>
+						</div>
+					</div>
+		
+					<div class="w3-cell-row">
+						<div class="w3-container w3-cell w3-cell-middle" style="width: 33.33%;">
+							<div id="accessoriesSection">
+		
+							</div>
+						</div>
+						<div class="w3-container w3-cell w3-cell-middle" style="width: 33.33%;">
+							<div id="clothingSection">
+		
+							</div>
+						</div>
+						<div class="w3-container w3-cell w3-cell-middle" style="width: 33.33%;">
+							<div id="shoesSection">
+								
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script>
+			// Get the modal
+			var modal = document.getElementById("myModal");
+			var modelBack = document.getElementById("modalBack");
+			// Get the button that opens the modal
+			var btn = document.getElementById("myBtn");
+			// Get the <span> element that closes the modal
+			var span = document.getElementsByClassName("close")[0];
+			// When the user clicks on the info button, open the modal
+			btn.onclick = function() {
+				modal.style.display = "block";
+			}
+			// When the user clicks on <span> (x), close the modal
+			span.onclick = function() {
+				modal.style.display = "none";
+			}
+			// When the user clicks anywhere outside of the modal, close it
+			window.onclick = function(event) {
+				if (event.target == modalBack) {
+					modal.style.display = "none";
+				}
+			}
+		</script>
 
 		<!-- particles.js lib - https://github.com/VincentGarreau/particles.js --> 
 		<script src="http://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script> 
@@ -332,7 +447,7 @@
 							"enable":true,"value_area":800
 						}
 					},"color":{
-						"value":"#ffffff"
+						"value":"#a8c9ed"
 					},"shape":{
 						"type":"circle","stroke":{
 							"width":0,"color":"#000000"
@@ -385,7 +500,7 @@
 		<script>
 			window.addEventListener('load', () => {
 				if (localStorage.getItem("state") === null) {
-					window.location.replace("https://www.omarwagih.com/projects/weatherGuideForm");
+					window.location.replace("/projects/weatherGuideForm");
 				} else {
 					let long;
 					let lat;
@@ -414,12 +529,12 @@
 					const feelsLikeHeadline = document.querySelector(".currFeelsLikeHeadline");
 					const highTempHeadline = document.querySelector(".todayHighHeadline");
 
-					const accessoriesDescription = document.querySelector(".accessoriesDescription");
-					const clothingDescription = document.querySelector(".clothingDescription");
-					const shoesDescription = document.querySelector(".shoesDescription");
+					const accessoriesDescription = document.querySelector(".modal .accessoriesDescription");
+					const clothingDescription = document.querySelector(".modal .clothingDescription");
+					const shoesDescription = document.querySelector(".modal .shoesDescription");
 
 					const recommendation= document.querySelector(".recommendation");
-					const recommendationDescription = document.querySelector(".recommendationDescription");
+					const recommendationDescription = document.querySelector(".modal .recommendationDescription");
 					const update = document.querySelector(".update");
 					const currDate = document.querySelector(".currDate");
 
@@ -473,17 +588,21 @@
 
 											temperatureDescription.textContent = description;
 											if (locationCity == null || locationCountry == null) {
-												locationTimezone.textContent = timezone;
+												let delimitedTimezone = timezone.split("/");
+												console.log(delimitedTimezone);
+												locationTimezone.textContent = delimitedTimezone[1];
 											} else {
-												locationTimezone.textContent = capitalizeFLetter(locationCity) + ", " + capitalizeFLetter(locationCountry);
+												locationTimezone.textContent = capitalizeFLetter(locationCity);
 											}
 
 											lowTempHeadline.textContent = "Today's Low";
 											feelsLikeHeadline.textContent = "Current Feels Like";
 											highTempHeadline.textContent = "Today's High";
 
-											recommendation.textContent = "Recommended Clothing";
-											recommendationDescription.textContent = "-Based on your cold tolerance and the weather forecast for the next 12 hours-";
+											recommendation.textContent = "Clothing Recommendations";
+											var button = document.getElementById("myBtn");
+											button.style.display = "inline-block";
+											recommendationDescription.textContent = "Based on your cold tolerance and the weather forecast for the next 12 hours";
 											update.textContent = "Update Cold Tolerance Form";
 											currDate.textContent = getTime(dt);
 
@@ -793,8 +912,8 @@
 						x.setAttribute("src", src);
 						x.setAttribute("alt", imageID);
 						x.setAttribute("id", imageID);
-						x.setAttribute("width", "23%;");
-						x.setAttribute("height", "23%;");
+						x.setAttribute("width", "30%;");
+						x.setAttribute("height", "30%;");
 						x.setAttribute("style", "margin:1em 10px;");
 						document.getElementById(addToID).appendChild(x);
 					}
@@ -805,14 +924,13 @@
 							var x = document.createElement("P");
 							x.innerText = "No need for any accessories today!";
 							document.getElementById("accessoriesSection").appendChild(x);
-							accessoriesDescription.textContent = "Accessories";
 						} else {
 							for (let a = 0; a < accessoriesToday.length; a++) {
 								let accessoriesImagePath = "../static/images/" + accessoriesToday[a] + ".png";
 								createIMG(accessoriesImagePath, accessoriesToday[a], "accessoriesSection");
 							}
-							accessoriesDescription.textContent = "Accessories";
 						}
+						accessoriesDescription.textContent = "Accessories";
 					}
 
 					function setClothing(attireToday) {

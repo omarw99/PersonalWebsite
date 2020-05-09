@@ -1,58 +1,117 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Omar Wagih | Contact</title>
-		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<title>Contact | Omar Wagih</title>
+
 		<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-		<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+		<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@500&family=Nanum+Gothic&display=swap" rel="stylesheet">
+
 		<link rel="apple-touch-icon" sizes="180x180" href="static/favicon/apple-touch-icon.png">
 		<link rel="icon" type="image/png" sizes="32x32" href="static/favicon/favicon-32x32.png">
 		<link rel="icon" type="image/png" sizes="16x16" href="static/favicon/favicon-16x16.png">
 		<link rel="manifest" href="static/favicon/site.webmanifest">
 
-		<link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+		<style>
+			body, html {
+				height: 100%;
+				font-family: 'Josefin Sans', sans-serif;
+			}
+			
+			#navigationBar {
+				position: fixed;
+				width: 100%;
+				z-index: 1;
+			}
+
+			#navigationBar a#active {
+				background-color: rgb(23, 84, 153);
+				color: white;
+			}
+
+			#navigationBar a#active:hover {
+				background-color: rgb(23, 84, 153) !important;
+				color: white !important;
+			}
+
+			#navigationBar button#active {
+				background-color: rgb(23, 84, 153);
+			}
+
+			#navigationBar button#active:hover {
+				background-color: rgb(23, 84, 153) !important;
+				color: white !important;
+			}
+
+			#navigationBarSmall a#activeSmall {
+				background-color: rgb(23, 84, 153);
+				color:white;
+			}
+
+			#navigationBarSmall a#activeSmall:hover {
+				color:white !important;
+				background-color: rgb(23, 84, 153) !important;
+			}
+
+			#navigationBarSmall button#activeSmall {
+				background-color: rgb(23, 84, 153);
+				color:white;
+			}
+
+			#navigationBarSmall button#activeSmall:hover {
+				color:white !important;
+				background-color: rgb(23, 84, 153) !important;
+			}
+		</style>
 	</head>
-
-	<style>
-		.montserrat {
-			font-family: 'Montserrat', sans-serif;
-		}
-	</style>
-
 	<body>
-		<div class="w3-cell-row w3-padding-small w3-dark-grey w3-display-top ">
-			<div class="w3-container w3-cell" style="color: rgb(0, 223, 200);">
-				<h1 class="w3-montserrat"><strong>Omar Wagih</strong></h1>
-			</div>
-			<div class="w3-container w3-cell w3-cell-middle">
-				<a href="{{ url_for('contact') }}" class="w3-bar-item w3-right w3-button w3-hide-small w3-mobile w3-hover-dark-grey w3-hover-text-aqua w3-text-aqua" style="font-family: 'Montserrat', sans-serif;">Contact</a>
-				<div class="w3-dropdown-hover w3-bar-item w3-right w3-hide-small w3-mobile">
-					<button class="w3-button">
-						<a style="font-family: 'Montserrat', sans-serif;">Projects</a>
-						<i class="arrow down" style="border: solid rgb(255, 255, 255); border-width: 0 1px 1px 0; display: inline-block; padding: 2px; transform: rotate(45deg); -webkit-transform: rotate(45deg);"></i>
-					</button>
-					<div class="w3-dropdown-content w3-bar-block w3-card-4">
-						<a href="{{ url_for('stockPredictor') }}" class="w3-bar-item w3-button" style="font-family: 'Montserrat', sans-serif;"">Stock Predictor</a>
-						<a href="{{ url_for('weatherGuide') }}" class="w3-bar-item w3-button" style="font-family: 'Montserrat', sans-serif;"">Weather Guide</a>
-					</div>
+		<!-- Regular navbar -->
+		<div id="navigationBar">
+			<div class="w3-cell-row w3-padding-small" style="background-color: #333; height: 10%;">
+				<div class="w3-container w3-cell w3-text-white">
+					<h1 style="font-family: 'Josefin Sans', sans-serif; font-weight: bold; font-size: 22px;">Omar Wagih</h1>
 				</div>
-				<a href="{{ url_for('home') }}" class="w3-bar-item w3-right w3-button w3-hide-small w3-mobile" style="font-family: 'Montserrat', sans-serif;">Home</a>
-				<a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium" onclick="myFunction2()">&#9776;</a>
+				<div class="w3-container w3-cell w3-cell-middle">
+					<a href="{{ url_for('contact') }}" class="w3-bar-item w3-right w3-button w3-hide-small w3-mobile w3-text-white" id="active">Contact</a>
+					<div class="w3-dropdown-hover w3-bar-item w3-right w3-hide-small w3-mobile">
+						<button class="w3-button w3-text-white">Projects <i class="fa fa-caret-down"></i></button>
+						<div class="w3-dropdown-content w3-bar-block w3-card-4">
+							<a href="{{ url_for('stockPredictor') }}" class="w3-bar-item w3-button">Stock Return Predictor</a>
+							<a href="{{ url_for('weatherGuide') }}" class="w3-bar-item w3-button">Weather Guide</a>
+						</div>
+					</div>
+					<a href="{{ url_for('home') }}" class="w3-bar-item w3-right w3-button w3-hide-small w3-mobile w3-text-white">Home</a>
+					<button class="w3-bar-item w3-right w3-button w3-xlarge w3-hide-medium w3-hide-large w3-text-white" onclick="openRightMenu()">&#9776;</button>
+				</div>
 			</div>
 		</div>
-		<div id="demo" class="w3-bar-block w3-hide w3-hide-large w3-hide-medium">
-			<a href="{{ url_for('home') }}" class="w3-bar-item w3-button">Home</a>
-			<button onclick="myFunction1('Demo1')" class="w3-bar-item w3-button">Projects</button>
-				<div id="Demo1" class="w3-container w3-hide">
-					<a href="{{ url_for('stockPredictor') }}" class="w3-bar-item w3-button">Stock Predictor</a>
+		<!-- Small navbar -->
+		<div id="navigationBarSmall">
+			<div class="w3-sidebar w3-bar-block w3-card w3-animate-right" style="display:none; right:0;" id="rightMenu">
+				<button onclick="closeRightMenu()" class="w3-bar-item w3-button w3-large">&times;</button>
+				<a href="{{ url_for('home') }}" class="w3-bar-item w3-button">Home</a>
+				<button onclick="showProjects('navigationBarSmallDropdown')" class="w3-bar-item w3-button">Projects <i class="fa fa-caret-down"></i></button>
+				<div id="navigationBarSmallDropdown" class="w3-container w3-hide">
+					<a href="{{ url_for('stockPredictor') }}" class="w3-bar-item w3-button">Stock Return Predictor</a>
 					<a href="{{ url_for('weatherGuide') }}" class="w3-bar-item w3-button">Weather Guide</a>
 				</div>
-			<a href="{{ url_for('contact') }}" class="w3-bar-item w3-button w3-hover-dark-grey w3-hover-text-aqua w3-text-aqua">Contact</a>
+				<a href="{{ url_for('contact') }}" class="w3-bar-item w3-button" id="activeSmall">Contact</a>
+			</div>
 		</div>
-		  
+		<!-- Navbar script -->
 		<script>
-			function myFunction1(id) {
+			function openRightMenu() {
+				document.getElementById("rightMenu").style.display = "block";
+			}
+
+			function closeRightMenu() {
+				document.getElementById("rightMenu").style.display = "none";
+			}
+
+			function showProjects(id) {
   				var x = document.getElementById(id);
   				if (x.className.indexOf("w3-show") == -1) {
 					x.className += " w3-show";
@@ -60,27 +119,19 @@
     				x.className = x.className.replace(" w3-show", "");
   				}
 			}
-
-		  	function myFunction2() {
-				var x = document.getElementById("demo");
-				if (x.className.indexOf("w3-show") == -1) {
-					x.className += " w3-show";
-				} else { 
-		  			x.className = x.className.replace(" w3-show", "");
-				}
-		  	}
 		</script>
 
-		<div class="w3-container w3-center w3-display-middle w3-mobile" style="width: 100%;">
-			<p>Click <a href="mailto:omar.wagih@mail.mcgill.ca?Subject=Hello!" target="_top">here</a> to send me an email.</p>
+		<div style="height: 100%;">
+			<div class="w3-container w3-center w3-display-middle w3-mobile" style="width: 100%;">
+				<p style="font-family: 'Nanum Gothic', sans-serif;">Click <a href="mailto:omar.wagih@mail.mcgill.ca?Subject=Hello!" target="_top">here</a> to send me an email.</p>
+			</div>
 		</div>
 
-		<div class="w3-container w3-teal w3-center" style="margin-top: 1em; width: 100%; padding-bottom: 1em; position: absolute; bottom: 0;">
-			<p>Find me on social media</p>
-			<a href="https://www.facebook.com/omarw99" target="_blank"><i class="fa fa-facebook-official w3-hover-opacity"></i></a>
-			<a href="https://www.instagram.com/omarwagih99/" target="_blank"><i class="fa fa-instagram w3-hover-opacity"></i></a>
-			<a href="https://www.linkedin.com/in/omar-wagih/" target="_blank"><i class="fa fa-linkedin w3-hover-opacity"></i></a>
+		<div class="w3-container w3-center" style="margin-top: 1em; width: 100%; padding-bottom: 1em; position: absolute; bottom: 0; font-family: 'Nanum Gothic', sans-serif; background-color: rgb(23, 84, 153);">
+			<p class="w3-text-white">Find me on social media</p>
+			<a class="w3-text-white" href="https://www.facebook.com/omarw99" target="_blank"><i class="fa fa-facebook-official w3-hover-opacity"></i></a>
+			<a class="w3-text-white" href="https://www.instagram.com/omarwagih99/" target="_blank"><i class="fa fa-instagram w3-hover-opacity"></i></a>
+			<a class="w3-text-white" href="https://www.linkedin.com/in/omar-wagih/" target="_blank"><i class="fa fa-linkedin w3-hover-opacity"></i></a>
 		</div>
 	</body>
-
 </html>
