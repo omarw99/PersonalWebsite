@@ -552,13 +552,14 @@
 						degreeSectionSpan.textContent = "There has been an error in detecting your location. Please enable your location. If you are on iPhone, go to Settings, Privacy, Location Services, and turn Location on for the browser/app you are using.";
 					}
 
-					$.ajax('http://ip-api.com/json/')
+					//$.ajax('http://ip-api.com/json/')
+					$.ajax('https://ipapi.co/json/')
 					.then(
 						function success(response) {
-							long = response.lon;
-							lat = response.lat;
+							long = response.longitude;
+							lat = response.latitude;
 							locationCity = response.city;
-							locationCountry = response.country;
+							locationCountry = response.country_name;
 
 							const api = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${long}&units=metric&appid=364875e8ec0ca13f711c0b82306920ca`;
 							
@@ -757,7 +758,6 @@
 												return response.json();
 											})
 											.then(locationData => {
-												console.log(locationData);
 												locationCity = locationData.address.city;
 												locationCountry = locationData.address.country;
 											
