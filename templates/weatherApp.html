@@ -502,6 +502,8 @@
 			});
 		</script>
 
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
 		<script>
 			window.addEventListener('load', () => {
 				if (localStorage.getItem("state") === null) {
@@ -509,6 +511,9 @@
 				} else {
 					let long;
 					let lat;
+
+					let locationCity;
+					let locationCountry;
 
 					const temperatureDescription = document.querySelector(".temperature-description");
 					const temperatureDegree = document.querySelector(".temperature-degree");
@@ -547,204 +552,587 @@
 						degreeSectionSpan.textContent = "There has been an error in detecting your location. Please enable your location. If you are on iPhone, go to Settings, Privacy, Location Services, and turn Location on for the browser/app you are using.";
 					}
 
-					if (navigator.geolocation) {
-						navigator.geolocation.getCurrentPosition(position => {
-							long = position.coords.longitude;
-							lat = position.coords.latitude;
+					$.ajax('http://ip-api.com/json/')
+					.then(
+						function success(response) {
+							long = response.lon;
+							lat = response.lat;
+							locationCity = response.city;
+							locationCountry = response.country;
 
 							const api = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${long}&units=metric&appid=364875e8ec0ca13f711c0b82306920ca`;
-							const locationAPI = `https://geocode.xyz/${lat},${long}?json=1`;
+							
+							fetch(api)
+							.then(response => {
+								return response.json();
+							})
+							.then(data => {
+								const temp = data.current.temp;
+								const description = data.current.weather[0].description;
+								const timezone = data.timezone;
+								const iconID = data.current.weather[0].id;
+								const icon = data.current.weather[0].icon;
+								const dt = data.current.dt;
 
-							let locationCity;
-							let locationCountry;
-							fetch(locationAPI)
-								.then(response => {
-									return response.json();
-								})
-								.then(locationData => {
-									locationCity = locationData.city;
-									locationCountry = locationData.country;
-									fetch(api)
-										.then(response => {
-											return response.json();
-										})
-										.then(data => {
-											const temp = data.current.temp;
-											const description = data.current.weather[0].description;
-											const timezone = data.timezone;
-											const iconID = data.current.weather[0].id;
-											const icon = data.current.weather[0].icon;
-											const dt = data.current.dt;
+								const min = data.daily[0].temp.min;
+								const feels_like = data.current.feels_like;
+								const max = data.daily[0].temp.max;
 
-											const min = data.daily[0].temp.min;
-											const feels_like = data.current.feels_like;
-											const max = data.daily[0].temp.max;
+								//Set DOM Elements from API
+								temperatureDegree.textContent = Number(Math.round(parseFloat(temp + 'e' + 1)) + 'e-' + 1) + "°";
+								lowTemp.textContent = Number(Math.round(parseFloat(min + 'e' + 1)) + 'e-' + 1) + "°";
+								feelsLike.textContent = Number(Math.round(parseFloat(feels_like + 'e' + 1)) + 'e-' + 1) + "°";
+								highTemp.textContent = Number(Math.round(parseFloat(max + 'e' + 1)) + 'e-' + 1) + "°";
 
-											//Set DOM Elements from API
-											temperatureDegree.textContent = Number(Math.round(parseFloat(temp + 'e' + 1)) + 'e-' + 1) + "°";
-											lowTemp.textContent = Number(Math.round(parseFloat(min + 'e' + 1)) + 'e-' + 1) + "°";
-											feelsLike.textContent = Number(Math.round(parseFloat(feels_like + 'e' + 1)) + 'e-' + 1) + "°";
-											highTemp.textContent = Number(Math.round(parseFloat(max + 'e' + 1)) + 'e-' + 1) + "°";
+								degreeSectionSpan.textContent = "C";
+								extraInfoSection1Span.textContent = "C";
+								extraInfoSection2Span.textContent = "C";
+								extraInfoSection3Span.textContent = "C";
 
-											degreeSectionSpan.textContent = "C";
-											extraInfoSection1Span.textContent = "C";
-											extraInfoSection2Span.textContent = "C";
-											extraInfoSection3Span.textContent = "C";
+								temperatureDescription.textContent = description;
+								if (locationCity == null || locationCountry == null) {
+									let delimitedTimezone = timezone.split("/");
+									console.log(delimitedTimezone);
+									locationTimezone.textContent = delimitedTimezone[1];
+								} else {
+									//locationTimezone.textContent = capitalizeFLetter(locationCity);
+									locationTimezone.textContent = locationCity;
+								}
 
-											temperatureDescription.textContent = description;
-											if (locationCity == null || locationCountry == null) {
-												let delimitedTimezone = timezone.split("/");
-												console.log(delimitedTimezone);
-												locationTimezone.textContent = delimitedTimezone[1];
-											} else {
-												locationTimezone.textContent = capitalizeFLetter(locationCity);
-											}
+								lowTempHeadline.textContent = "Today's Low";
+								feelsLikeHeadline.textContent = "Current Feels Like";
+								highTempHeadline.textContent = "Today's High";
 
-											lowTempHeadline.textContent = "Today's Low";
-											feelsLikeHeadline.textContent = "Current Feels Like";
-											highTempHeadline.textContent = "Today's High";
+								recommendation.textContent = "Clothing Recommendations";
+								var button = document.getElementById("myBtn");
+								button.style.display = "inline-block";
+								recommendationDescription.textContent = "Based on your cold tolerance and the weather forecast for the next 12 hours";
+								update.textContent = "Update Cold Tolerance Form";
+								currDate.textContent = getTime(dt);
 
-											recommendation.textContent = "Clothing Recommendations";
-											var button = document.getElementById("myBtn");
-											button.style.display = "inline-block";
-											recommendationDescription.textContent = "Based on your cold tolerance and the weather forecast for the next 12 hours";
-											update.textContent = "Update Cold Tolerance Form";
-											currDate.textContent = getTime(dt);
+								const skyconIconName = mapIDToSkycon(iconID, icon);
+								setIcons(skyconIconName, document.querySelector(".icon"));
 
-											const skyconIconName = mapIDToSkycon(iconID, icon);
-											setIcons(skyconIconName, document.querySelector(".icon"));
+								degreeSection.addEventListener('click', () => {
+									if (degreeSectionSpan.textContent === "C") {
+										degreeSectionSpan.textContent = "F";
+										extraInfoSection1Span.textContent = "F";
+										extraInfoSection2Span.textContent = "F";
+										extraInfoSection3Span.textContent = "F";
 
-											degreeSection.addEventListener('click', () => {
-												if (degreeSectionSpan.textContent === "C") {
-													degreeSectionSpan.textContent = "F";
-													extraInfoSection1Span.textContent = "F";
-													extraInfoSection2Span.textContent = "F";
-													extraInfoSection3Span.textContent = "F";
+										temperatureDegree.textContent = Number(Math.round(parseFloat((temp * (9/5) + 32) + 'e' + 1)) + 'e-' + 1) + "°";
+										lowTemp.textContent = Number(Math.round(parseFloat((min * (9/5) + 32) + 'e' + 1)) + 'e-' + 1) + "°";
+										feelsLike.textContent = Number(Math.round(parseFloat((feels_like * (9/5) + 32) + 'e' + 1)) + 'e-' + 1) + "°";
+										highTemp.textContent = Number(Math.round(parseFloat((max * (9/5) + 32) + 'e' + 1)) + 'e-' + 1) + "°";
+									} else {
+										degreeSectionSpan.textContent = "C";
+										extraInfoSection1Span.textContent = "C";
+										extraInfoSection2Span.textContent = "C";
+										extraInfoSection3Span.textContent = "C";
 
-													temperatureDegree.textContent = Number(Math.round(parseFloat((temp * (9/5) + 32) + 'e' + 1)) + 'e-' + 1) + "°";
-													lowTemp.textContent = Number(Math.round(parseFloat((min * (9/5) + 32) + 'e' + 1)) + 'e-' + 1) + "°";
-													feelsLike.textContent = Number(Math.round(parseFloat((feels_like * (9/5) + 32) + 'e' + 1)) + 'e-' + 1) + "°";
-													highTemp.textContent = Number(Math.round(parseFloat((max * (9/5) + 32) + 'e' + 1)) + 'e-' + 1) + "°";
-												} else {
-													degreeSectionSpan.textContent = "C";
-													extraInfoSection1Span.textContent = "C";
-													extraInfoSection2Span.textContent = "C";
-													extraInfoSection3Span.textContent = "C";
-
-													temperatureDegree.textContent = Number(Math.round(parseFloat(temp + 'e' + 1)) + 'e-' + 1) + "°";
-													lowTemp.textContent = Number(Math.round(parseFloat(min + 'e' + 1)) + 'e-' + 1) + "°";
-													feelsLike.textContent = Number(Math.round(parseFloat(feels_like + 'e' + 1)) + 'e-' + 1) + "°";
-													highTemp.textContent = Number(Math.round(parseFloat(max + 'e' + 1)) + 'e-' + 1) + "°";
-												}
-											});
-
-											extraInfoSection1.addEventListener('click', () => {
-												if (degreeSectionSpan.textContent === "C") {
-													degreeSectionSpan.textContent = "F";
-													extraInfoSection1Span.textContent = "F";
-													extraInfoSection2Span.textContent = "F";
-													extraInfoSection3Span.textContent = "F";
-
-													temperatureDegree.textContent = Number(Math.round(parseFloat((temp * (9/5) + 32) + 'e' + 1)) + 'e-' + 1) + "°";
-													lowTemp.textContent = Number(Math.round(parseFloat((min * (9/5) + 32) + 'e' + 1)) + 'e-' + 1) + "°";
-													feelsLike.textContent = Number(Math.round(parseFloat((feels_like * (9/5) + 32) + 'e' + 1)) + 'e-' + 1) + "°";
-													highTemp.textContent = Number(Math.round(parseFloat((max * (9/5) + 32) + 'e' + 1)) + 'e-' + 1) + "°";
-												} else {
-													degreeSectionSpan.textContent = "C";
-													extraInfoSection1Span.textContent = "C";
-													extraInfoSection2Span.textContent = "C";
-													extraInfoSection3Span.textContent = "C";
-
-													temperatureDegree.textContent = Number(Math.round(parseFloat(temp + 'e' + 1)) + 'e-' + 1) + "°";
-													lowTemp.textContent = Number(Math.round(parseFloat(min + 'e' + 1)) + 'e-' + 1) + "°";
-													feelsLike.textContent = Number(Math.round(parseFloat(feels_like + 'e' + 1)) + 'e-' + 1) + "°";
-													highTemp.textContent = Number(Math.round(parseFloat(max + 'e' + 1)) + 'e-' + 1) + "°";
-												}
-											});
-
-											extraInfoSection2.addEventListener('click', () => {
-												if (degreeSectionSpan.textContent === "C") {
-													degreeSectionSpan.textContent = "F";
-													extraInfoSection1Span.textContent = "F";
-													extraInfoSection2Span.textContent = "F";
-													extraInfoSection3Span.textContent = "F";
-
-													temperatureDegree.textContent = Number(Math.round(parseFloat((temp * (9/5) + 32) + 'e' + 1)) + 'e-' + 1) + "°";
-													lowTemp.textContent = Number(Math.round(parseFloat((min * (9/5) + 32) + 'e' + 1)) + 'e-' + 1) + "°";
-													feelsLike.textContent = Number(Math.round(parseFloat((feels_like * (9/5) + 32) + 'e' + 1)) + 'e-' + 1) + "°";
-													highTemp.textContent = Number(Math.round(parseFloat((max * (9/5) + 32) + 'e' + 1)) + 'e-' + 1) + "°";
-												} else {
-													degreeSectionSpan.textContent = "C";
-													extraInfoSection1Span.textContent = "C";
-													extraInfoSection2Span.textContent = "C";
-													extraInfoSection3Span.textContent = "C";
-
-													temperatureDegree.textContent = Number(Math.round(parseFloat(temp + 'e' + 1)) + 'e-' + 1) + "°";
-													lowTemp.textContent = Number(Math.round(parseFloat(min + 'e' + 1)) + 'e-' + 1) + "°";
-													feelsLike.textContent = Number(Math.round(parseFloat(feels_like + 'e' + 1)) + 'e-' + 1) + "°";
-													highTemp.textContent = Number(Math.round(parseFloat(max + 'e' + 1)) + 'e-' + 1) + "°";
-												}
-											});
-
-											extraInfoSection3.addEventListener('click', () => {
-												if (degreeSectionSpan.textContent === "C") {
-													degreeSectionSpan.textContent = "F";
-													extraInfoSection1Span.textContent = "F";
-													extraInfoSection2Span.textContent = "F";
-													extraInfoSection3Span.textContent = "F";
-
-													temperatureDegree.textContent = Number(Math.round(parseFloat((temp * (9/5) + 32) + 'e' + 1)) + 'e-' + 1) + "°";
-													lowTemp.textContent = Number(Math.round(parseFloat((min * (9/5) + 32) + 'e' + 1)) + 'e-' + 1) + "°";
-													feelsLike.textContent = Number(Math.round(parseFloat((feels_like * (9/5) + 32) + 'e' + 1)) + 'e-' + 1) + "°";
-													highTemp.textContent = Number(Math.round(parseFloat((max * (9/5) + 32) + 'e' + 1)) + 'e-' + 1) + "°";
-												} else {
-													degreeSectionSpan.textContent = "C";
-													extraInfoSection1Span.textContent = "C";
-													extraInfoSection2Span.textContent = "C";
-													extraInfoSection3Span.textContent = "C";
-
-													temperatureDegree.textContent = Number(Math.round(parseFloat(temp + 'e' + 1)) + 'e-' + 1) + "°";
-													lowTemp.textContent = Number(Math.round(parseFloat(min + 'e' + 1)) + 'e-' + 1) + "°";
-													feelsLike.textContent = Number(Math.round(parseFloat(feels_like + 'e' + 1)) + 'e-' + 1) + "°";
-													highTemp.textContent = Number(Math.round(parseFloat(max + 'e' + 1)) + 'e-' + 1) + "°";
-												}
-											});
-
-											let weatherForecastDescription = {};
-
-											//Current weather description
-											weatherForecastDescription[0] = mapIDToSkycon(iconID, icon);
-											//Min weather for today
-											let minForecast = getAverage(temp, feels_like)
-
-											//Populate the rest of the forecast objects
-											for (let i = 1; i < 13; i++) {
-												weatherForecastDescription[i] = mapIDToSkycon(data.hourly[i].weather[0].id, data.hourly[i].weather[0].icon);
-												if (getAverage(data.hourly[i].temp, data.hourly[i].feels_like) < minForecast) {
-													minForecast = getAverage(data.hourly[i].temp, data.hourly[i].feels_like);
-												}
-											}
-
-											// Retrieve localStorage object
-											let retrievedState = JSON.parse(localStorage.getItem("state"));
-											//Parse localStorage object values as numbers
-											const retrievedStateKeys = Object.keys(retrievedState);
-											retrievedStateKeys.splice(0, 1);
-											for (const key of retrievedStateKeys) {
-												retrievedState[key] = Number(retrievedState[key]);
-											}
-
-											let attireToday = analyzeForecast(retrievedState, weatherForecastDescription, minForecast);
-
-											setAccessories(attireToday);
-											setClothing(attireToday);
-											setShoes(attireToday);
-										});
+										temperatureDegree.textContent = Number(Math.round(parseFloat(temp + 'e' + 1)) + 'e-' + 1) + "°";
+										lowTemp.textContent = Number(Math.round(parseFloat(min + 'e' + 1)) + 'e-' + 1) + "°";
+										feelsLike.textContent = Number(Math.round(parseFloat(feels_like + 'e' + 1)) + 'e-' + 1) + "°";
+										highTemp.textContent = Number(Math.round(parseFloat(max + 'e' + 1)) + 'e-' + 1) + "°";
+									}
 								});
 
-							
-						}, error);
-					}
+								extraInfoSection1.addEventListener('click', () => {
+									if (degreeSectionSpan.textContent === "C") {
+										degreeSectionSpan.textContent = "F";
+										extraInfoSection1Span.textContent = "F";
+										extraInfoSection2Span.textContent = "F";
+										extraInfoSection3Span.textContent = "F";
+
+										temperatureDegree.textContent = Number(Math.round(parseFloat((temp * (9/5) + 32) + 'e' + 1)) + 'e-' + 1) + "°";
+										lowTemp.textContent = Number(Math.round(parseFloat((min * (9/5) + 32) + 'e' + 1)) + 'e-' + 1) + "°";
+										feelsLike.textContent = Number(Math.round(parseFloat((feels_like * (9/5) + 32) + 'e' + 1)) + 'e-' + 1) + "°";
+										highTemp.textContent = Number(Math.round(parseFloat((max * (9/5) + 32) + 'e' + 1)) + 'e-' + 1) + "°";
+									} else {
+										degreeSectionSpan.textContent = "C";
+										extraInfoSection1Span.textContent = "C";
+										extraInfoSection2Span.textContent = "C";
+										extraInfoSection3Span.textContent = "C";
+
+										temperatureDegree.textContent = Number(Math.round(parseFloat(temp + 'e' + 1)) + 'e-' + 1) + "°";
+										lowTemp.textContent = Number(Math.round(parseFloat(min + 'e' + 1)) + 'e-' + 1) + "°";
+										feelsLike.textContent = Number(Math.round(parseFloat(feels_like + 'e' + 1)) + 'e-' + 1) + "°";
+										highTemp.textContent = Number(Math.round(parseFloat(max + 'e' + 1)) + 'e-' + 1) + "°";
+									}
+								});
+
+								extraInfoSection2.addEventListener('click', () => {
+									if (degreeSectionSpan.textContent === "C") {
+										degreeSectionSpan.textContent = "F";
+										extraInfoSection1Span.textContent = "F";
+										extraInfoSection2Span.textContent = "F";
+										extraInfoSection3Span.textContent = "F";
+
+										temperatureDegree.textContent = Number(Math.round(parseFloat((temp * (9/5) + 32) + 'e' + 1)) + 'e-' + 1) + "°";
+										lowTemp.textContent = Number(Math.round(parseFloat((min * (9/5) + 32) + 'e' + 1)) + 'e-' + 1) + "°";
+										feelsLike.textContent = Number(Math.round(parseFloat((feels_like * (9/5) + 32) + 'e' + 1)) + 'e-' + 1) + "°";
+										highTemp.textContent = Number(Math.round(parseFloat((max * (9/5) + 32) + 'e' + 1)) + 'e-' + 1) + "°";
+									} else {
+										degreeSectionSpan.textContent = "C";
+										extraInfoSection1Span.textContent = "C";
+										extraInfoSection2Span.textContent = "C";
+										extraInfoSection3Span.textContent = "C";
+
+										temperatureDegree.textContent = Number(Math.round(parseFloat(temp + 'e' + 1)) + 'e-' + 1) + "°";
+										lowTemp.textContent = Number(Math.round(parseFloat(min + 'e' + 1)) + 'e-' + 1) + "°";
+										feelsLike.textContent = Number(Math.round(parseFloat(feels_like + 'e' + 1)) + 'e-' + 1) + "°";
+										highTemp.textContent = Number(Math.round(parseFloat(max + 'e' + 1)) + 'e-' + 1) + "°";
+									}
+								});
+
+								extraInfoSection3.addEventListener('click', () => {
+									if (degreeSectionSpan.textContent === "C") {
+										degreeSectionSpan.textContent = "F";
+										extraInfoSection1Span.textContent = "F";
+										extraInfoSection2Span.textContent = "F";
+										extraInfoSection3Span.textContent = "F";
+
+										temperatureDegree.textContent = Number(Math.round(parseFloat((temp * (9/5) + 32) + 'e' + 1)) + 'e-' + 1) + "°";
+										lowTemp.textContent = Number(Math.round(parseFloat((min * (9/5) + 32) + 'e' + 1)) + 'e-' + 1) + "°";
+										feelsLike.textContent = Number(Math.round(parseFloat((feels_like * (9/5) + 32) + 'e' + 1)) + 'e-' + 1) + "°";
+										highTemp.textContent = Number(Math.round(parseFloat((max * (9/5) + 32) + 'e' + 1)) + 'e-' + 1) + "°";
+									} else {
+										degreeSectionSpan.textContent = "C";
+										extraInfoSection1Span.textContent = "C";
+										extraInfoSection2Span.textContent = "C";
+										extraInfoSection3Span.textContent = "C";
+
+										temperatureDegree.textContent = Number(Math.round(parseFloat(temp + 'e' + 1)) + 'e-' + 1) + "°";
+										lowTemp.textContent = Number(Math.round(parseFloat(min + 'e' + 1)) + 'e-' + 1) + "°";
+										feelsLike.textContent = Number(Math.round(parseFloat(feels_like + 'e' + 1)) + 'e-' + 1) + "°";
+										highTemp.textContent = Number(Math.round(parseFloat(max + 'e' + 1)) + 'e-' + 1) + "°";
+									}
+								});
+
+								let weatherForecastDescription = {};
+
+								//Current weather description
+								weatherForecastDescription[0] = mapIDToSkycon(iconID, icon);
+								//Min weather for today
+								let minForecast = getAverage(temp, feels_like)
+
+								//Populate the rest of the forecast objects
+								for (let i = 1; i < 13; i++) {
+									weatherForecastDescription[i] = mapIDToSkycon(data.hourly[i].weather[0].id, data.hourly[i].weather[0].icon);
+									if (getAverage(data.hourly[i].temp, data.hourly[i].feels_like) < minForecast) {
+										minForecast = getAverage(data.hourly[i].temp, data.hourly[i].feels_like);
+									}
+								}
+
+								// Retrieve localStorage object
+								let retrievedState = JSON.parse(localStorage.getItem("state"));
+								//Parse localStorage object values as numbers
+								const retrievedStateKeys = Object.keys(retrievedState);
+								retrievedStateKeys.splice(0, 1);
+								for (const key of retrievedStateKeys) {
+									retrievedState[key] = Number(retrievedState[key]);
+								}
+
+								let attireToday = analyzeForecast(retrievedState, weatherForecastDescription, minForecast);
+
+								setAccessories(attireToday);
+								setClothing(attireToday);
+								setShoes(attireToday);
+							});
+						},
+						function fail(data, status) {
+							console.error('IP Request failed.');
+							if ("geolocation" in navigator) {
+								// check if geolocation is supported/enabled on current browser
+								navigator.geolocation.getCurrentPosition(
+									function success(position) {
+										// for when getting location is a success
+										long = position.coords.longitude;
+										lat = position.coords.latitude;
+
+										//const locationAPI = `https://geocode.xyz/${lat},${long}?json=1`;
+										const locationAPI = `https://us1.locationiq.com/v1/reverse.php?key=75982130c6dacd&lat=${lat}&lon=${long}&format=json`;
+										fetch(locationAPI)
+											.then(response => {
+												return response.json();
+											})
+											.then(locationData => {
+												console.log(locationData);
+												locationCity = locationData.address.city;
+												locationCountry = locationData.address.country;
+											
+												const api = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${long}&units=metric&appid=364875e8ec0ca13f711c0b82306920ca`;
+												fetch(api)
+												.then(response => {
+													return response.json();
+												})
+												.then(data => {
+													const temp = data.current.temp;
+													const description = data.current.weather[0].description;
+													const timezone = data.timezone;
+													const iconID = data.current.weather[0].id;
+													const icon = data.current.weather[0].icon;
+													const dt = data.current.dt;
+
+													const min = data.daily[0].temp.min;
+													const feels_like = data.current.feels_like;
+													const max = data.daily[0].temp.max;
+
+													//Set DOM Elements from API
+													temperatureDegree.textContent = Number(Math.round(parseFloat(temp + 'e' + 1)) + 'e-' + 1) + "°";
+													lowTemp.textContent = Number(Math.round(parseFloat(min + 'e' + 1)) + 'e-' + 1) + "°";
+													feelsLike.textContent = Number(Math.round(parseFloat(feels_like + 'e' + 1)) + 'e-' + 1) + "°";
+													highTemp.textContent = Number(Math.round(parseFloat(max + 'e' + 1)) + 'e-' + 1) + "°";
+
+													degreeSectionSpan.textContent = "C";
+													extraInfoSection1Span.textContent = "C";
+													extraInfoSection2Span.textContent = "C";
+													extraInfoSection3Span.textContent = "C";
+
+													temperatureDescription.textContent = description;
+													if (locationCity == null || locationCountry == null) {
+														let delimitedTimezone = timezone.split("/");
+														console.log(delimitedTimezone);
+														locationTimezone.textContent = delimitedTimezone[1];
+													} else {
+														//locationTimezone.textContent = capitalizeFLetter(locationCity);
+														locationTimezone.textContent = locationCity;
+													}
+
+													lowTempHeadline.textContent = "Today's Low";
+													feelsLikeHeadline.textContent = "Current Feels Like";
+													highTempHeadline.textContent = "Today's High";
+
+													recommendation.textContent = "Clothing Recommendations";
+													var button = document.getElementById("myBtn");
+													button.style.display = "inline-block";
+													recommendationDescription.textContent = "Based on your cold tolerance and the weather forecast for the next 12 hours";
+													update.textContent = "Update Cold Tolerance Form";
+													currDate.textContent = getTime(dt);
+
+													const skyconIconName = mapIDToSkycon(iconID, icon);
+													setIcons(skyconIconName, document.querySelector(".icon"));
+
+													degreeSection.addEventListener('click', () => {
+														if (degreeSectionSpan.textContent === "C") {
+															degreeSectionSpan.textContent = "F";
+															extraInfoSection1Span.textContent = "F";
+															extraInfoSection2Span.textContent = "F";
+															extraInfoSection3Span.textContent = "F";
+
+															temperatureDegree.textContent = Number(Math.round(parseFloat((temp * (9/5) + 32) + 'e' + 1)) + 'e-' + 1) + "°";
+															lowTemp.textContent = Number(Math.round(parseFloat((min * (9/5) + 32) + 'e' + 1)) + 'e-' + 1) + "°";
+															feelsLike.textContent = Number(Math.round(parseFloat((feels_like * (9/5) + 32) + 'e' + 1)) + 'e-' + 1) + "°";
+															highTemp.textContent = Number(Math.round(parseFloat((max * (9/5) + 32) + 'e' + 1)) + 'e-' + 1) + "°";
+														} else {
+															degreeSectionSpan.textContent = "C";
+															extraInfoSection1Span.textContent = "C";
+															extraInfoSection2Span.textContent = "C";
+															extraInfoSection3Span.textContent = "C";
+
+															temperatureDegree.textContent = Number(Math.round(parseFloat(temp + 'e' + 1)) + 'e-' + 1) + "°";
+															lowTemp.textContent = Number(Math.round(parseFloat(min + 'e' + 1)) + 'e-' + 1) + "°";
+															feelsLike.textContent = Number(Math.round(parseFloat(feels_like + 'e' + 1)) + 'e-' + 1) + "°";
+															highTemp.textContent = Number(Math.round(parseFloat(max + 'e' + 1)) + 'e-' + 1) + "°";
+														}
+													});
+
+													extraInfoSection1.addEventListener('click', () => {
+														if (degreeSectionSpan.textContent === "C") {
+															degreeSectionSpan.textContent = "F";
+															extraInfoSection1Span.textContent = "F";
+															extraInfoSection2Span.textContent = "F";
+															extraInfoSection3Span.textContent = "F";
+
+															temperatureDegree.textContent = Number(Math.round(parseFloat((temp * (9/5) + 32) + 'e' + 1)) + 'e-' + 1) + "°";
+															lowTemp.textContent = Number(Math.round(parseFloat((min * (9/5) + 32) + 'e' + 1)) + 'e-' + 1) + "°";
+															feelsLike.textContent = Number(Math.round(parseFloat((feels_like * (9/5) + 32) + 'e' + 1)) + 'e-' + 1) + "°";
+															highTemp.textContent = Number(Math.round(parseFloat((max * (9/5) + 32) + 'e' + 1)) + 'e-' + 1) + "°";
+														} else {
+															degreeSectionSpan.textContent = "C";
+															extraInfoSection1Span.textContent = "C";
+															extraInfoSection2Span.textContent = "C";
+															extraInfoSection3Span.textContent = "C";
+
+															temperatureDegree.textContent = Number(Math.round(parseFloat(temp + 'e' + 1)) + 'e-' + 1) + "°";
+															lowTemp.textContent = Number(Math.round(parseFloat(min + 'e' + 1)) + 'e-' + 1) + "°";
+															feelsLike.textContent = Number(Math.round(parseFloat(feels_like + 'e' + 1)) + 'e-' + 1) + "°";
+															highTemp.textContent = Number(Math.round(parseFloat(max + 'e' + 1)) + 'e-' + 1) + "°";
+														}
+													});
+
+													extraInfoSection2.addEventListener('click', () => {
+														if (degreeSectionSpan.textContent === "C") {
+															degreeSectionSpan.textContent = "F";
+															extraInfoSection1Span.textContent = "F";
+															extraInfoSection2Span.textContent = "F";
+															extraInfoSection3Span.textContent = "F";
+
+															temperatureDegree.textContent = Number(Math.round(parseFloat((temp * (9/5) + 32) + 'e' + 1)) + 'e-' + 1) + "°";
+															lowTemp.textContent = Number(Math.round(parseFloat((min * (9/5) + 32) + 'e' + 1)) + 'e-' + 1) + "°";
+															feelsLike.textContent = Number(Math.round(parseFloat((feels_like * (9/5) + 32) + 'e' + 1)) + 'e-' + 1) + "°";
+															highTemp.textContent = Number(Math.round(parseFloat((max * (9/5) + 32) + 'e' + 1)) + 'e-' + 1) + "°";
+														} else {
+															degreeSectionSpan.textContent = "C";
+															extraInfoSection1Span.textContent = "C";
+															extraInfoSection2Span.textContent = "C";
+															extraInfoSection3Span.textContent = "C";
+
+															temperatureDegree.textContent = Number(Math.round(parseFloat(temp + 'e' + 1)) + 'e-' + 1) + "°";
+															lowTemp.textContent = Number(Math.round(parseFloat(min + 'e' + 1)) + 'e-' + 1) + "°";
+															feelsLike.textContent = Number(Math.round(parseFloat(feels_like + 'e' + 1)) + 'e-' + 1) + "°";
+															highTemp.textContent = Number(Math.round(parseFloat(max + 'e' + 1)) + 'e-' + 1) + "°";
+														}
+													});
+
+													extraInfoSection3.addEventListener('click', () => {
+														if (degreeSectionSpan.textContent === "C") {
+															degreeSectionSpan.textContent = "F";
+															extraInfoSection1Span.textContent = "F";
+															extraInfoSection2Span.textContent = "F";
+															extraInfoSection3Span.textContent = "F";
+
+															temperatureDegree.textContent = Number(Math.round(parseFloat((temp * (9/5) + 32) + 'e' + 1)) + 'e-' + 1) + "°";
+															lowTemp.textContent = Number(Math.round(parseFloat((min * (9/5) + 32) + 'e' + 1)) + 'e-' + 1) + "°";
+															feelsLike.textContent = Number(Math.round(parseFloat((feels_like * (9/5) + 32) + 'e' + 1)) + 'e-' + 1) + "°";
+															highTemp.textContent = Number(Math.round(parseFloat((max * (9/5) + 32) + 'e' + 1)) + 'e-' + 1) + "°";
+														} else {
+															degreeSectionSpan.textContent = "C";
+															extraInfoSection1Span.textContent = "C";
+															extraInfoSection2Span.textContent = "C";
+															extraInfoSection3Span.textContent = "C";
+
+															temperatureDegree.textContent = Number(Math.round(parseFloat(temp + 'e' + 1)) + 'e-' + 1) + "°";
+															lowTemp.textContent = Number(Math.round(parseFloat(min + 'e' + 1)) + 'e-' + 1) + "°";
+															feelsLike.textContent = Number(Math.round(parseFloat(feels_like + 'e' + 1)) + 'e-' + 1) + "°";
+															highTemp.textContent = Number(Math.round(parseFloat(max + 'e' + 1)) + 'e-' + 1) + "°";
+														}
+													});
+
+													let weatherForecastDescription = {};
+
+													//Current weather description
+													weatherForecastDescription[0] = mapIDToSkycon(iconID, icon);
+													//Min weather for today
+													let minForecast = getAverage(temp, feels_like)
+
+													//Populate the rest of the forecast objects
+													for (let i = 1; i < 13; i++) {
+														weatherForecastDescription[i] = mapIDToSkycon(data.hourly[i].weather[0].id, data.hourly[i].weather[0].icon);
+														if (getAverage(data.hourly[i].temp, data.hourly[i].feels_like) < minForecast) {
+															minForecast = getAverage(data.hourly[i].temp, data.hourly[i].feels_like);
+														}
+													}
+
+													// Retrieve localStorage object
+													let retrievedState = JSON.parse(localStorage.getItem("state"));
+													//Parse localStorage object values as numbers
+													const retrievedStateKeys = Object.keys(retrievedState);
+													retrievedStateKeys.splice(0, 1);
+													for (const key of retrievedStateKeys) {
+														retrievedState[key] = Number(retrievedState[key]);
+													}
+
+													let attireToday = analyzeForecast(retrievedState, weatherForecastDescription, minForecast);
+
+													setAccessories(attireToday);
+													setClothing(attireToday);
+													setShoes(attireToday);
+												});
+											});
+									},
+									function error(error_message) {
+										// for when getting location results in an error
+										console.error('An error has occured while retrieving location', error_message);
+										degreeSectionSpan.textContent = "There has been an error in detecting your location. Please enable your location. If you are on iPhone, go to Settings, Privacy, Location Services, and turn Location on for the browser/app you are using.";
+									}
+								);
+							} else {
+								// geolocation is not supported
+								// get your location some other way
+								console.log('geolocation is not enabled on this browser');
+								degreeSectionSpan.textContent = "There has been an error in detecting your location. Please enable your location. If you are on iPhone, go to Settings, Privacy, Location Services, and turn Location on for the browser/app you are using.";
+							}
+						}
+					);
+					
+					// const api = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${long}&units=metric&appid=364875e8ec0ca13f711c0b82306920ca`;
+					// fetch(api)
+					// .then(response => {
+					// 	return response.json();
+					// })
+					// .then(data => {
+					// 	const temp = data.current.temp;
+					// 	const description = data.current.weather[0].description;
+					// 	const timezone = data.timezone;
+					// 	const iconID = data.current.weather[0].id;
+					// 	const icon = data.current.weather[0].icon;
+					// 	const dt = data.current.dt;
+
+					// 	const min = data.daily[0].temp.min;
+					// 	const feels_like = data.current.feels_like;
+					// 	const max = data.daily[0].temp.max;
+
+					// 	//Set DOM Elements from API
+					// 	temperatureDegree.textContent = Number(Math.round(parseFloat(temp + 'e' + 1)) + 'e-' + 1) + "°";
+					// 	lowTemp.textContent = Number(Math.round(parseFloat(min + 'e' + 1)) + 'e-' + 1) + "°";
+					// 	feelsLike.textContent = Number(Math.round(parseFloat(feels_like + 'e' + 1)) + 'e-' + 1) + "°";
+					// 	highTemp.textContent = Number(Math.round(parseFloat(max + 'e' + 1)) + 'e-' + 1) + "°";
+
+					// 	degreeSectionSpan.textContent = "C";
+					// 	extraInfoSection1Span.textContent = "C";
+					// 	extraInfoSection2Span.textContent = "C";
+					// 	extraInfoSection3Span.textContent = "C";
+
+					// 	temperatureDescription.textContent = description;
+					// 	if (locationCity == null || locationCountry == null) {
+					// 		let delimitedTimezone = timezone.split("/");
+					// 		console.log(delimitedTimezone);
+					// 		locationTimezone.textContent = delimitedTimezone[1];
+					// 	} else {
+					// 		locationTimezone.textContent = capitalizeFLetter(locationCity);
+					// 	}
+
+					// 	lowTempHeadline.textContent = "Today's Low";
+					// 	feelsLikeHeadline.textContent = "Current Feels Like";
+					// 	highTempHeadline.textContent = "Today's High";
+
+					// 	recommendation.textContent = "Clothing Recommendations";
+					// 	var button = document.getElementById("myBtn");
+					// 	button.style.display = "inline-block";
+					// 	recommendationDescription.textContent = "Based on your cold tolerance and the weather forecast for the next 12 hours";
+					// 	update.textContent = "Update Cold Tolerance Form";
+					// 	currDate.textContent = getTime(dt);
+
+					// 	const skyconIconName = mapIDToSkycon(iconID, icon);
+					// 	setIcons(skyconIconName, document.querySelector(".icon"));
+
+					// 	degreeSection.addEventListener('click', () => {
+					// 		if (degreeSectionSpan.textContent === "C") {
+					// 			degreeSectionSpan.textContent = "F";
+					// 			extraInfoSection1Span.textContent = "F";
+					// 			extraInfoSection2Span.textContent = "F";
+					// 			extraInfoSection3Span.textContent = "F";
+
+					// 			temperatureDegree.textContent = Number(Math.round(parseFloat((temp * (9/5) + 32) + 'e' + 1)) + 'e-' + 1) + "°";
+					// 			lowTemp.textContent = Number(Math.round(parseFloat((min * (9/5) + 32) + 'e' + 1)) + 'e-' + 1) + "°";
+					// 			feelsLike.textContent = Number(Math.round(parseFloat((feels_like * (9/5) + 32) + 'e' + 1)) + 'e-' + 1) + "°";
+					// 			highTemp.textContent = Number(Math.round(parseFloat((max * (9/5) + 32) + 'e' + 1)) + 'e-' + 1) + "°";
+					// 		} else {
+					// 			degreeSectionSpan.textContent = "C";
+					// 			extraInfoSection1Span.textContent = "C";
+					// 			extraInfoSection2Span.textContent = "C";
+					// 			extraInfoSection3Span.textContent = "C";
+
+					// 			temperatureDegree.textContent = Number(Math.round(parseFloat(temp + 'e' + 1)) + 'e-' + 1) + "°";
+					// 			lowTemp.textContent = Number(Math.round(parseFloat(min + 'e' + 1)) + 'e-' + 1) + "°";
+					// 			feelsLike.textContent = Number(Math.round(parseFloat(feels_like + 'e' + 1)) + 'e-' + 1) + "°";
+					// 			highTemp.textContent = Number(Math.round(parseFloat(max + 'e' + 1)) + 'e-' + 1) + "°";
+					// 		}
+					// 	});
+
+					// 	extraInfoSection1.addEventListener('click', () => {
+					// 		if (degreeSectionSpan.textContent === "C") {
+					// 			degreeSectionSpan.textContent = "F";
+					// 			extraInfoSection1Span.textContent = "F";
+					// 			extraInfoSection2Span.textContent = "F";
+					// 			extraInfoSection3Span.textContent = "F";
+
+					// 			temperatureDegree.textContent = Number(Math.round(parseFloat((temp * (9/5) + 32) + 'e' + 1)) + 'e-' + 1) + "°";
+					// 			lowTemp.textContent = Number(Math.round(parseFloat((min * (9/5) + 32) + 'e' + 1)) + 'e-' + 1) + "°";
+					// 			feelsLike.textContent = Number(Math.round(parseFloat((feels_like * (9/5) + 32) + 'e' + 1)) + 'e-' + 1) + "°";
+					// 			highTemp.textContent = Number(Math.round(parseFloat((max * (9/5) + 32) + 'e' + 1)) + 'e-' + 1) + "°";
+					// 		} else {
+					// 			degreeSectionSpan.textContent = "C";
+					// 			extraInfoSection1Span.textContent = "C";
+					// 			extraInfoSection2Span.textContent = "C";
+					// 			extraInfoSection3Span.textContent = "C";
+
+					// 			temperatureDegree.textContent = Number(Math.round(parseFloat(temp + 'e' + 1)) + 'e-' + 1) + "°";
+					// 			lowTemp.textContent = Number(Math.round(parseFloat(min + 'e' + 1)) + 'e-' + 1) + "°";
+					// 			feelsLike.textContent = Number(Math.round(parseFloat(feels_like + 'e' + 1)) + 'e-' + 1) + "°";
+					// 			highTemp.textContent = Number(Math.round(parseFloat(max + 'e' + 1)) + 'e-' + 1) + "°";
+					// 		}
+					// 	});
+
+					// 	extraInfoSection2.addEventListener('click', () => {
+					// 		if (degreeSectionSpan.textContent === "C") {
+					// 			degreeSectionSpan.textContent = "F";
+					// 			extraInfoSection1Span.textContent = "F";
+					// 			extraInfoSection2Span.textContent = "F";
+					// 			extraInfoSection3Span.textContent = "F";
+
+					// 			temperatureDegree.textContent = Number(Math.round(parseFloat((temp * (9/5) + 32) + 'e' + 1)) + 'e-' + 1) + "°";
+					// 			lowTemp.textContent = Number(Math.round(parseFloat((min * (9/5) + 32) + 'e' + 1)) + 'e-' + 1) + "°";
+					// 			feelsLike.textContent = Number(Math.round(parseFloat((feels_like * (9/5) + 32) + 'e' + 1)) + 'e-' + 1) + "°";
+					// 			highTemp.textContent = Number(Math.round(parseFloat((max * (9/5) + 32) + 'e' + 1)) + 'e-' + 1) + "°";
+					// 		} else {
+					// 			degreeSectionSpan.textContent = "C";
+					// 			extraInfoSection1Span.textContent = "C";
+					// 			extraInfoSection2Span.textContent = "C";
+					// 			extraInfoSection3Span.textContent = "C";
+
+					// 			temperatureDegree.textContent = Number(Math.round(parseFloat(temp + 'e' + 1)) + 'e-' + 1) + "°";
+					// 			lowTemp.textContent = Number(Math.round(parseFloat(min + 'e' + 1)) + 'e-' + 1) + "°";
+					// 			feelsLike.textContent = Number(Math.round(parseFloat(feels_like + 'e' + 1)) + 'e-' + 1) + "°";
+					// 			highTemp.textContent = Number(Math.round(parseFloat(max + 'e' + 1)) + 'e-' + 1) + "°";
+					// 		}
+					// 	});
+
+					// 	extraInfoSection3.addEventListener('click', () => {
+					// 		if (degreeSectionSpan.textContent === "C") {
+					// 			degreeSectionSpan.textContent = "F";
+					// 			extraInfoSection1Span.textContent = "F";
+					// 			extraInfoSection2Span.textContent = "F";
+					// 			extraInfoSection3Span.textContent = "F";
+
+					// 			temperatureDegree.textContent = Number(Math.round(parseFloat((temp * (9/5) + 32) + 'e' + 1)) + 'e-' + 1) + "°";
+					// 			lowTemp.textContent = Number(Math.round(parseFloat((min * (9/5) + 32) + 'e' + 1)) + 'e-' + 1) + "°";
+					// 			feelsLike.textContent = Number(Math.round(parseFloat((feels_like * (9/5) + 32) + 'e' + 1)) + 'e-' + 1) + "°";
+					// 			highTemp.textContent = Number(Math.round(parseFloat((max * (9/5) + 32) + 'e' + 1)) + 'e-' + 1) + "°";
+					// 		} else {
+					// 			degreeSectionSpan.textContent = "C";
+					// 			extraInfoSection1Span.textContent = "C";
+					// 			extraInfoSection2Span.textContent = "C";
+					// 			extraInfoSection3Span.textContent = "C";
+
+					// 			temperatureDegree.textContent = Number(Math.round(parseFloat(temp + 'e' + 1)) + 'e-' + 1) + "°";
+					// 			lowTemp.textContent = Number(Math.round(parseFloat(min + 'e' + 1)) + 'e-' + 1) + "°";
+					// 			feelsLike.textContent = Number(Math.round(parseFloat(feels_like + 'e' + 1)) + 'e-' + 1) + "°";
+					// 			highTemp.textContent = Number(Math.round(parseFloat(max + 'e' + 1)) + 'e-' + 1) + "°";
+					// 		}
+					// 	});
+
+					// 	let weatherForecastDescription = {};
+
+					// 	//Current weather description
+					// 	weatherForecastDescription[0] = mapIDToSkycon(iconID, icon);
+					// 	//Min weather for today
+					// 	let minForecast = getAverage(temp, feels_like)
+
+					// 	//Populate the rest of the forecast objects
+					// 	for (let i = 1; i < 13; i++) {
+					// 		weatherForecastDescription[i] = mapIDToSkycon(data.hourly[i].weather[0].id, data.hourly[i].weather[0].icon);
+					// 		if (getAverage(data.hourly[i].temp, data.hourly[i].feels_like) < minForecast) {
+					// 			minForecast = getAverage(data.hourly[i].temp, data.hourly[i].feels_like);
+					// 		}
+					// 	}
+
+					// 	// Retrieve localStorage object
+					// 	let retrievedState = JSON.parse(localStorage.getItem("state"));
+					// 	//Parse localStorage object values as numbers
+					// 	const retrievedStateKeys = Object.keys(retrievedState);
+					// 	retrievedStateKeys.splice(0, 1);
+					// 	for (const key of retrievedStateKeys) {
+					// 		retrievedState[key] = Number(retrievedState[key]);
+					// 	}
+
+					// 	let attireToday = analyzeForecast(retrievedState, weatherForecastDescription, minForecast);
+
+					// 	setAccessories(attireToday);
+					// 	setClothing(attireToday);
+					// 	setShoes(attireToday);
+					// });
 
 					function analyzeForecast(retrievedState, weatherForecastDescription, minForecast) {
 						let recommendedAttire = {};
@@ -863,10 +1251,10 @@
 						return false;
 					}
 
-					function capitalizeFLetter(word) {
-						var string = word.toLowerCase();
-						return (string[0].toUpperCase() + string.slice(1)); 
-					} 
+					// function capitalizeFLetter(word) {
+					// 	var string = word.toLowerCase();
+					// 	return (string[0].toUpperCase() + string.slice(1)); 
+					// } 
 
 					function getAverage(number1, number2) {
 						return Number(parseFloat((number1 + number2) / 2).toFixed(2));
