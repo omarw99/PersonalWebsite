@@ -31,6 +31,6 @@ scipy==1.10.0
 six==1.14.0
 urllib3==1.26.18
 virtualenv==20.0.4
-Werkzeug==2.2.3
+Werkzeug==3.0.1
 wrapt==1.11.2
 xlrd==1.2.0
